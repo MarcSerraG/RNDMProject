@@ -16,8 +16,15 @@ public class userDAO {
     private JdbcTemplate jdbctemplate;
 
     private final String FIND_ALL = "select * from users";
-    private final String FIND_USERNAME = FIND_ALL + "where username = ?";
-    private final String INSERT = "";
+    private final String FIND_USERNAME = FIND_ALL + " where username = ?";
+    //private final String INSERT_THREAT = "insert into Threads (id_thread, title, content, is_private) values (?,?,?,?)";
+    private final String INSERT_USER = "insert into user (username, password, email, date_start, is private) values (?,?,?,?,?)";
+    private final String CHANGE_PASSWORD = "update user set password = ? where username = ?";
+    private final String GET_PASSWORD = "select password from user where username = ?";
+    private final String GET_EMAIL = "select email from user where username = ?";
+    private final String GET_DATE = "select date_start from user where username = ?";
+   //private final String NUM_THREADS = "select count(*) from thread where username = ?";
+
 
     //TODO ROWMAPPER
     private User userMapper(ResultSet resultSet) throws SQLException{
