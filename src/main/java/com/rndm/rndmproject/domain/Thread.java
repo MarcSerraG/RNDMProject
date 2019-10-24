@@ -7,6 +7,7 @@ import java.util.List;
 
 public class Thread {
 
+    //Variable definition & validation constraints
     private String id;
     private String title;
     private Date date;
@@ -18,20 +19,43 @@ public class Thread {
     private String username;
     private List<Tag> tags;
     private Category category;
-    //SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category){
+    //Constructor
+    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
 
-        this.id = id;
         this.title = title;
         this.text = text;
         this.media = media;
         this.username = username;
         this.tags = tags;
         this.category = category;
+        id = generateID();
         upvotes = 0;
         downvotes = 0;
         comments = new ArrayList<Comment>();
         date = new Date(System.currentTimeMillis());
     }
+
+    //Methods
+    public String getID(){return id;}
+    public String getDate(){return formatter.format(date);}
+    private String generateID(){return "generateIDThread not defined yet";}
+    public void addUpvote(User user){
+
+        if (user.hasVoteFromThread(this) && !user.getVoteFromThread(this)){
+            upvotes++;
+            downvotes --;
+            user.setVoteFromThread(this, true);
+        }
+    }
+    public void addDownvote(User user){
+
+        if (user.hasVoteFromThread(this) && user.getVoteFromThread(this)){
+            upvotes --;
+            downvotes ++;
+            user.setVoteFromThread(this, false);
+        }
+    }
+
 }
