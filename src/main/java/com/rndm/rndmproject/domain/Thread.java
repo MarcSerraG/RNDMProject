@@ -37,6 +37,22 @@ public class Thread {
         date = new Date(System.currentTimeMillis());
     }
 
+    //Constructor 2
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, int upvotes, int downvotes){
+
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.media = media;
+        this.username = username;
+        this.tags = tags;
+        this.category = category;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        comments = new ArrayList<Comment>();
+        date = new Date(System.currentTimeMillis());
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
