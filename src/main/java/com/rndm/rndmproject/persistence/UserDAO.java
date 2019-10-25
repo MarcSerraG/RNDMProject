@@ -46,21 +46,20 @@ public class UserDAO {
         return jdbctemplate.queryForObject(FIND_USERNAME, mapper, username);
     }
 
-    //TODO
-    public List<String> getAllUsers(){
-        List<String> users = new ArrayList<String>();
-        return users;
+
+    public List<User> getAllUsers(){
+        return jdbctemplate.query(FIND_ALL, mapper);
     }
 
-    //TODO
+
     public boolean isPrivate(String username){
-        return false;
+        User user = this.getProfile(username);
+        return false; // user.isPremium();
     }
 
-    //TODO
+    // TO DO
     public int insertUser(User user){
-        jdbctemplate.update(INSERT_USER );
-        return 0;
+        return jdbctemplate.update(INSERT_USER);
     }
 
 
