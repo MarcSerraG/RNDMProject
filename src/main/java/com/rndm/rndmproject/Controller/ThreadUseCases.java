@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("ThreadController")
+@Service("Controller")
 public class ThreadUseCases {
 
     private final ThreadDAO threadDAO;

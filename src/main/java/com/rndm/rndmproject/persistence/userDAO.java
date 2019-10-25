@@ -62,7 +62,7 @@ public class userDAO {
 
     //TODO
     public int insertUser(User user){
-        jdbctemplate.update(INSERT_USER )
+        return 1;
     }
 
 
