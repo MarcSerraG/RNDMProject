@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class userDAO {
+public class UserDAO {
 
     private JdbcTemplate jdbctemplate;
 
@@ -39,7 +39,7 @@ public class userDAO {
         return userMapper(resultSet);
     };
 
-    public userDAO(JdbcTemplate jdbctemplate){
+    public UserDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
     }
 
