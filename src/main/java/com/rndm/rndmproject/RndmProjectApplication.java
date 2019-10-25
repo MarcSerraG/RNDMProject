@@ -40,7 +40,14 @@ public class RndmProjectApplication implements CommandLineRunner {
         System.out.println("Testing ID");
 
         System.out.println("Adding comment");
-        Comment comment = new Comment();
+        Comment comment = new Comment("megaZambrano", "That's nice", null);
+        thread.addComment(comment);
+        System.out.println("Testing added comment");
+        for (Comment cmt : thread.getComments()) System.out.println(cmt.getContent());
+        System.out.println("Removing comment");
+        thread.removeComment(comment);
+        System.out.println("Testing removed comments");
+        for (Comment cmt : thread.getComments()) System.out.print(cmt.getContent());
 
 
     }

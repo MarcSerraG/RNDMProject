@@ -47,6 +47,8 @@ public class Thread {
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
     private String generateID(){return "generateIDThread not defined yet";}
+    public void addComment(Comment comment){comments.add(comment);}
+    public void removeComment(Comment comment){comments.remove(comment);}
 
     public void addUpvote(User user){
 

@@ -51,11 +51,16 @@ public class User {
     }
 
     //Methods
-    private void addThread(Thread thd){threads.add(thd);}
-    private void removeThread(Thread thd){threads.remove(thd);}
-    private void addComment(Comment cmnt){comments.add(cmnt);}
-    private void removeComment(Comment cmnt){comments.remove(cmnt);}
+    public String getUsername(){return username;}
+    public String getEmail(){return email;}
     public String getDate(){return formatter.format(date);}
+    public boolean getPremium(){return premium;}
+    public boolean getModerator(){return moderator;}
+    public void addThread(Thread thd){threads.add(thd);}
+    public void removeThread(Thread thd){threads.remove(thd);}
+    public List<Thread> getThreads(){return threads;}
+    public void addComment(Comment cmnt){comments.add(cmnt);}
+    public void removeComment(Comment cmnt){comments.remove(cmnt);}
     public boolean isThread(Thread thread){return threads.contains(thread);}
     public boolean hasVoteFromThread (Thread thread){return pairingThreadVotes.containsKey(thread);}
     public boolean getVoteFromThread(Thread thread){
