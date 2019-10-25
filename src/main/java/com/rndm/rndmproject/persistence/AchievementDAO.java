@@ -39,7 +39,7 @@ public class AchievementDAO {
     // TO DO
     public int setAchievement(Achievement achievement, String username) {
         Date date = new Date();
-        return jdbctemplate.update(achievement.getName(), date.getDate());
+        return  0; // jdbctemplate.update(achievement.getName(), date.getDate());
     }
 
 

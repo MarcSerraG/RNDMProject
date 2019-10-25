@@ -43,10 +43,8 @@ public class userDAO {
         this.jdbctemplate = jdbctemplate;
     }
 
-    //TODO
     public User getProfile(String username){
-
-        return null;
+        return jdbctemplate.queryForObject(FIND_USERNAME, mapper, username);
     }
 
     //TODO
@@ -62,7 +60,8 @@ public class userDAO {
 
     //TODO
     public int insertUser(User user){
-        jdbctemplate.update(INSERT_USER )
+        jdbctemplate.update(INSERT_USER );
+        return 0;
     }
 
 
