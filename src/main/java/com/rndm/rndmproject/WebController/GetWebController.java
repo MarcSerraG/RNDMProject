@@ -16,7 +16,7 @@ public class GetWebController {
 
     @GetMapping("home")
     public String firstThreads (Model model){
-        //model.addAttribute("FirstThreads", threadUseCases.findFirstTen());
+        model.addAttribute("FirstThreads", threadUseCases.findFirstTen());
         return "login";
     }
 
