@@ -14,7 +14,7 @@ public class ThreadDAO {
 
     private final String INSERT_THREAT = "insert into Threads (id_thread, title, content, is_private) values (?,?,?,?)";
     private final String NUM_THREADS = "select count(*) from thread where username = ?";
-    private final String FIRST_THREADS = "select * from thread limit 10"; //linia per h2
+    private final String FIRST_THREADS = "select * from thread where is_private = false limit 10 "; //linia per h2
 
 
     public ThreadDAO (JdbcTemplate jdbcTemplate){

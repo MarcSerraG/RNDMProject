@@ -14,9 +14,10 @@ public class ThreadUseCases {
     public ThreadUseCases (ThreadDAO threadDAO){
         this.threadDAO = threadDAO;
     }
-
-
-    public List<Thread>
+    
+    public List<Thread>  findFirstTen (){
+        return this.threadDAO.findFirstTen();
+    }
 
 
 }
