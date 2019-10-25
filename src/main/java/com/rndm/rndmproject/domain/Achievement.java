@@ -4,7 +4,7 @@ public class Achievement {
 
     //Variable definition & validation constraints
     private String name;
-    private Boolean unlocked;
+    private boolean unlocked;
 
     //Constructor
     public Achievement(String name){
@@ -15,4 +15,5 @@ public class Achievement {
 
     //Methods
     public String getName(){return name;}
+    public boolean getUnlocked(){return unlocked;}
 }

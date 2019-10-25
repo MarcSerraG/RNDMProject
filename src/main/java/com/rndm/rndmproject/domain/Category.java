@@ -17,6 +17,11 @@ public class Category {
 
     //Methods
     public String getName(){return name;}
+
     private List<Thread> getThreads(){return threads;}
+
     public void removeThread(Thread thd){threads.remove(thd);}
+    public boolean addThreadtoCategory(Thread thd){return threads.add(thd);}
+
+
 }

@@ -33,6 +33,47 @@ public class Payment {
         this.paymentPlatform = paymentPlatform;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public String getIssue() {
+        return issue;
+    }
+
+    public void setIssue(String issue) {
+        this.issue = issue;
+    }
+
+    public User getUserPayment() {
+        return user;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public Date getInitialDate() {
+        return initialDate;
+    }
+
+    public Date getFinalDate() {
+        return finalDate;
+    }
+
+    public void setFinalDate(Date date)  {
+        this.finalDate = date;
+    }
+
+    public boolean isPeriodic() {
+        return periodic;
+    }
+
+    public String getPaymentPlatform() {
+        return paymentPlatform;
+    }
+
     //Methods
+
 
 }

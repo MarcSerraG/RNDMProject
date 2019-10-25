@@ -41,6 +41,7 @@ public class Thread {
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
     private String generateID(){return "generateIDThread not defined yet";}
+
     public void addUpvote(User user){
 
         if (user.hasVoteFromThread(this) && !user.getVoteFromThread(this)){
