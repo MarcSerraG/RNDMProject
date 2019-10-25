@@ -24,7 +24,6 @@ public class UserDAO {
     private final String GET_DATE = "select date_start from user where username = ?";
 
 
-
     //TODO ROWMAPPER
     private User userMapper(ResultSet resultSet) throws SQLException{
 
