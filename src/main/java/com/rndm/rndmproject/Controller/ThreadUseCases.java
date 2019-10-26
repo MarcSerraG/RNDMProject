@@ -19,6 +19,8 @@ public class ThreadUseCases {
         return this.threadDAO.findFirstTen();
     }
 
+    public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
+
     public int insert(Thread newthread){
         return this.threadDAO.insert(newthread);
     }

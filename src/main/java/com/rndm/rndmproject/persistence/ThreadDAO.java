@@ -60,7 +60,7 @@ public class ThreadDAO {
     }
 
     public List<Thread> findXThreads(int page){
-        return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
+        return jdbctemplate.query(FINDX_THREADS, mapper, (page * 10) - 10);
     }
 
     public Thread getThread(String id){

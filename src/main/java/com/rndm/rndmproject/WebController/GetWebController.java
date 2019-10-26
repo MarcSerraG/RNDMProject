@@ -4,6 +4,7 @@ import com.rndm.rndmproject.Controller.ThreadUseCases;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class GetWebController {
@@ -17,6 +18,12 @@ public class GetWebController {
     @GetMapping("/")
     public String firstThreads (Model model){
         model.addAttribute("FirstThreads", threadUseCases.findFirstTen());
+        return "index";
+    }
+
+    @GetMapping("/{page}")
+    public String firstThreads (Model model, @PathVariable int page){
+        model.addAttribute("FirstThreads", threadUseCases.findXThreads(page));
         return "index";
     }
 
