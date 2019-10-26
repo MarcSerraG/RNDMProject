@@ -1,6 +1,8 @@
 package com.rndm.rndmproject.WebController;
 
 import com.rndm.rndmproject.Controller.ThreadUseCases;
+import com.rndm.rndmproject.Controller.UsuerUseCases;
+import com.rndm.rndmproject.domain.Thread;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class GetWebController {
 
-    private final ThreadUseCases threadUseCases;
+    private ThreadUseCases threadUseCases;
 
     public GetWebController(ThreadUseCases threadUseCases){
         this.threadUseCases = threadUseCases;

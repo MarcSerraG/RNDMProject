@@ -6,24 +6,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("Controller")
+@Service
 public class ThreadUseCases {
 
-    private final ThreadDAO threadDAO;
+        private ThreadDAO threadDAO;
 
-    public ThreadUseCases (ThreadDAO threadDAO){
-        this.threadDAO = threadDAO;
-    }
-    
-    public List<Thread>  findFirstTen (){
-        return this.threadDAO.findFirstTen();
-    }
+        public ThreadUseCases (ThreadDAO threadDAO){
+            this.threadDAO = threadDAO;
+        }
 
-    public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
+        public List<Thread> findFirstTen (){
+            return this.threadDAO.findFirstTen();
+        }
 
-    public int insert(Thread newthread){
-        return this.threadDAO.insert(newthread);
-    }
+        public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
 
-
+        public int insert(Thread newthread){
+            return this.threadDAO.insert(newthread);
+        }
 }
