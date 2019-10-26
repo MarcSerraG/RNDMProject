@@ -22,6 +22,8 @@ public class ThreadDAO {
     private final String NUM_THREADS = "select count(*) from thread where users_username = ?";
     private final String GET_AUTHOR = "select users_username from thread where id_thread = ?";
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
+    private final String GET_PRIVATE = "select is_private from thread where id_thread = ?";
+
 
     //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
@@ -55,6 +57,16 @@ public class ThreadDAO {
     public String getAuthor(String id) {
         return this.jdbctemplate.queryForObject(GET_AUTHOR, String.class, id);
     }
+
+    public boolean isPrivate(String id) {
+        Character c = this.jdbctemplate.queryForObject(GET_PRIVATE, Character.class, id);
+        if (c == '1')
+            return true;
+        else
+            return false;
+    }
+
+
 
 
 

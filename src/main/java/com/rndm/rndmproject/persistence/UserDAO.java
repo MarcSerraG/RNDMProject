@@ -22,6 +22,8 @@ public class UserDAO {
     private final String GET_PASSWORD = "select password from user where username = ?";
     private final String GET_EMAIL = "select email from user where username = ?";
     private final String GET_DATE = "select date_start from user where username = ?";
+    private final String GET_PRIVATE = "select is_private from user where username = ?";
+
 
 
     //TODO ROWMAPPER
@@ -52,9 +54,12 @@ public class UserDAO {
     }
 
 
-    public boolean isPrivate(String username){
-        User user = this.getProfile(username);
-        return false; // user.isPremium();
+    public boolean isPrivate(String name) {
+        Character c = this.jdbctemplate.queryForObject(GET_PRIVATE, Character.class, name);
+        if (c == '1')
+            return true;
+        else
+            return false;
     }
 
     // TO DO
