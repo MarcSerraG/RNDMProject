@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class userDAO {
+public class UserDAO {
 
     private JdbcTemplate jdbctemplate;
 
@@ -22,6 +22,7 @@ public class userDAO {
     private final String GET_PASSWORD = "select password from user where username = ?";
     private final String GET_EMAIL = "select email from user where username = ?";
     private final String GET_DATE = "select date_start from user where username = ?";
+    private final String GET_PRIVATE = "select is_private from user where username = ?";
 
 
 
@@ -39,30 +40,31 @@ public class userDAO {
         return userMapper(resultSet);
     };
 
-    public userDAO(JdbcTemplate jdbctemplate){
+    public UserDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
     }
 
-    //TODO
     public User getProfile(String username){
-
-        return null;
+        return jdbctemplate.queryForObject(FIND_USERNAME, mapper, username);
     }
 
-    //TODO
-    public List<String> getAllUsers(){
-        List<String> users = new ArrayList<String>();
-        return users;
+
+    public List<User> getAllUsers(){
+        return jdbctemplate.query(FIND_ALL, mapper);
     }
 
-    //TODO
-    public boolean isPrivate(String username){
-        return false;
+
+    public boolean isPrivate(String name) {
+        Character c = this.jdbctemplate.queryForObject(GET_PRIVATE, Character.class, name);
+        if (c == '1')
+            return true;
+        else
+            return false;
     }
 
-    //TODO
+    // TO DO
     public int insertUser(User user){
-        return 1;
+        return jdbctemplate.update(INSERT_USER);
     }
 
 
