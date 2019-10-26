@@ -26,6 +26,10 @@ public class GetWebController {
         return "index";
     }
 
+    @GetMapping("/New_Thread")
+    public String NewThreadPage (){
+        return "new_thread";
+    }
     @GetMapping("/{page}")
     public String firstThreads (Model model, @PathVariable int page){
         model.addAttribute("FirstThreads", threadUseCases.findXThreads(page));
