@@ -20,4 +20,9 @@ public class GetWebController {
         return "index";
     }
 
+    @GetMapping("/New_Thread")
+    public String NewThreadPage (){
+        return "new_thread";
+    }
+
 }

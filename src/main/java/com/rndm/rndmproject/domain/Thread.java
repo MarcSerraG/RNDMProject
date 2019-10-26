@@ -53,6 +53,20 @@ public class Thread {
         date = new Date(System.currentTimeMillis());
     }
 
+    //Constructor 3
+    public Thread (String title){
+
+        this.id = "150";
+        this.title = title;
+        this.text = "liygfdsbdshbvldshbvhsdbvlhbsdlvhbdsljhvbljshbvljhsvdjlhdbs";
+        this.media = "http//";
+        this.username = "Ricard";
+        this.category = null;
+        this.upvotes = 20;
+        this.downvotes = 20;
+        date = new Date(System.currentTimeMillis());
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}

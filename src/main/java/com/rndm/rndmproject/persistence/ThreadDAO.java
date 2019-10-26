@@ -1,13 +1,9 @@
-    private final String FIRST_THREADS = "select * from thread"; //linia per h2
-    public List<Thread> findFirstTen(){
-        return jdbctemplate.query(FIRST_THREADS, new BeanPropertyRowMapper<>(Thread.class));
-    }
+
 package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.Category;
 import com.rndm.rndmproject.domain.Thread;
-import com.rndm.rndmproject.domain.User;
-import com.rndm.rndmproject.persistence.UserDAO;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -29,21 +25,21 @@ public class ThreadDAO {
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
     private final String GET_PRIVATE = "select is_private from thread where id_thread = ?";
     private final String FIND_USER_THREADS = "select * from thread where users_username = ?";
-
+    private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit ?" ; //linia per h2
+    private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
 
     //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
-        Thread thread = new Thread(resultSet.getString("id"),
+        Thread thread = new Thread(resultSet.getString("id_thread"),
                 resultSet.getString("title"),
                 resultSet.getString("content"),
-                resultSet.getString("image_url"),
-                resultSet.getString("users_username"),
-                null,
+               resultSet.getString("image_url"),
+               resultSet.getString("users_username"),
+               null,
                 new Category(resultSet.getString("category_name")),
                 0,
                 0);
-
         return thread;
     };
 
@@ -53,6 +49,18 @@ public class ThreadDAO {
 
     public ThreadDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
+    }
+
+    public int insert(Thread thread){
+        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), "http//", '0', thread.getUsername(), thread.getCategory());
+    }
+
+    public List<Thread> findFirstTen(){
+        return jdbctemplate.query(FIRST_THREADS, mapper, 10);
+    }
+
+    public List<Thread> findXThreads(int page){
+        return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
     }
 
     public Thread getThread(String id){
