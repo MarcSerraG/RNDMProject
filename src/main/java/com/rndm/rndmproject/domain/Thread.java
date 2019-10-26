@@ -37,6 +37,12 @@ public class Thread {
         date = new Date(System.currentTimeMillis());
     }
 
+    public Thread(String title, String text){
+        this.text = text;
+        this.title = title;
+        date = new Date(System.currentTimeMillis());
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
@@ -49,6 +55,7 @@ public class Thread {
     private String generateID(){return "generateIDThread not defined yet";}
     public void addComment(Comment comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
+    public String getText(){return text;}
 
     public void addUpvote(User user){
 
