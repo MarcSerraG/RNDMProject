@@ -14,10 +14,10 @@ public class GetWebController {
         this.threadUseCases = threadUseCases;
     }
 
-    @GetMapping("home")
+    @GetMapping("/")
     public String firstThreads (Model model){
         model.addAttribute("FirstThreads", threadUseCases.findFirstTen());
-        return "login";
+        return "index";
     }
 
 }
