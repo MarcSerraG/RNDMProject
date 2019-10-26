@@ -33,4 +33,5 @@ public class Comment {
     public void addChild (Comment cmnt){childComments.add(cmnt);}
     public void removeChild (Comment cmnt){childComments.remove(cmnt);}
     public String getDate(){return formatter.format(date);}
+    public String getContent(){return content;}
 }

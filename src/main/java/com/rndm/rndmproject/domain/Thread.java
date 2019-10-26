@@ -40,8 +40,15 @@ public class Thread {
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
+    public String getTitle(){return title;}
+    public List<Comment> getComments(){return comments;}
+    public String getUsername() {return username;}
+    public Category getCategory(){return category;}
+    public int getUpvotes(){return upvotes;}
+    public int getDownvotes(){return downvotes;}
     private String generateID(){return "generateIDThread not defined yet";}
-    
+    public void addComment(Comment comment){comments.add(comment);}
+    public void removeComment(Comment comment){comments.remove(comment);}
 
     public void addUpvote(User user){
 
