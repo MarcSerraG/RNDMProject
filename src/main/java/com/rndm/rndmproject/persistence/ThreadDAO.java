@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
 public class ThreadDAO {
@@ -23,6 +24,7 @@ public class ThreadDAO {
     private final String GET_AUTHOR = "select users_username from thread where id_thread = ?";
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
     private final String GET_PRIVATE = "select is_private from thread where id_thread = ?";
+    private final String FIND_USER_THREADS = "select * from thread where users_username = ?";
 
 
     //TODO
@@ -64,6 +66,16 @@ public class ThreadDAO {
             return true;
         else
             return false;
+    }
+
+    // Returns all the threads an User has
+    public List<Thread> getUserThreads(String username) {
+        return this.jdbctemplate.query(FIND_USER_THREADS, mapper, username);
+    }
+
+    // Returns the count of an User's threads
+    public int countUserThreads(String username) {
+        return this.jdbctemplate.queryForObject(NUM_THREADS, Integer.class, username);
     }
 
 
