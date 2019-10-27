@@ -51,7 +51,16 @@ public class User {
     }
 
     // Constructor 2 - LoginController
-    public User () {};
+    public User () {
+        this.username = "somethingWrong";
+        this.email = "somethingWrong";
+        this.password = "somethingWrong";
+        threads = new ArrayList();
+        comments = new ArrayList();
+        date = new Date(System.currentTimeMillis());
+        premium = false;
+        moderator = false;
+    };
 
     //Methods
 
