@@ -14,15 +14,15 @@
       <div class="PageContainer">
         <div class="LoginContainer">
           <span class="Login-Title">SING IN!</span>
-          <form class="FormLogin" action="" method="post">
+          <form class="FormLogin" action="" method="POST" th:object="${userlogin}">
 
             <div class="LoginValidation" data-validate ="User is required">
-              <input class="LoginInput" type="text" name="Username" placeholder="User">
+              <input class="LoginInput" type="text" name="Username" placeholder="User" th:field="*{username}">
               <span class="IconsLogin" data-placeholder="&#xe82a;"></span>
             </div>
 
             <div class="LoginValidation" data-validate ="Password is required">
-              <input class="LoginInput" type="password" name="Password" placeholder="Password">
+              <input class="LoginInput" type="password" name="Password" placeholder="Password" th:field="*{password}">
               <span class="InconsLogin" data-placeholder="&#xe80f;"></span>
             </div>
 
