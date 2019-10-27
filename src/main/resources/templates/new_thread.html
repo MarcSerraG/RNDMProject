@@ -7,10 +7,10 @@
         <title>RNDM :: New Thread<</title>
 
         <!-- Bootstrap -->
-        <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 
         <!-- Custom -->
-        <link th:href="@{css/custom.css}"rel="stylesheet">
+        <link th:href="@{/css/custom.css}"rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -52,15 +52,13 @@
             <div class="headernav">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="index.html"><img src="../static/images/logo.jpg" alt=""  /></a></div>
+                        <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="/"><img th:src="@{images/logo.jpg}" alt=""  /></a></div>
                         <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
                             <div class="dropdown">
-                                <a data-toggle="dropdown" href="#">Borderlands 2</a> <b class="caret"></b>
+                                <a data-toggle="dropdown" href="#">Select Category</a> <b class="caret"></b>
                                 <ul class="dropdown-menu" role="menu" >
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Borderlands 1</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-2" href="#">Borderlands 2</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-3" href="#">Borderlands 3</a></li>
-
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/">All Categories</a></li>
+                                    <li role="presentation" th:each="categoryName : ${Categories}"th:value="${categoryName.getName()}"><a role="menuitem" tabindex="-1" th:href="${'/Category/' + categoryName.getName()}"><span th:text="${categoryName.getName()}"></span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -103,7 +101,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 breadcrumbf">
-                            <a href="#">Borderlands 2</a> <span class="diviver">&gt;</span> <a href="#">General Discussion</a> <span class="diviver">&gt;</span> <a href="#">New Topic</a>
+                            <a href="/">Home</a> <span class="diviver">&gt;</span> <a href="/NewThread">New Thread</a>
                         </div>
                     </div>
                 </div>
@@ -265,7 +263,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-1 col-xs-3 col-sm-2 logo "><a href="#"><img src="../static/images/logo.jpg" alt=""  /></a></div>
-                        <div class="col-lg-8 col-xs-9 col-sm-5 ">Copyrights 2014, websitename.com</div>
+                        <div class="col-lg-8 col-xs-9 col-sm-5 ">TecnoCampus Copyrights 2019, RNDM PROJECT - Just another random place ;)</div>
                         <div class="col-lg-3 col-xs-12 col-sm-5 sociconcent">
                             <ul class="socialicons">
                                 <li><a href="#"><i class="fa fa-facebook-square"></i></a></li>

@@ -26,5 +26,7 @@ public class ThreadUseCases {
             return this.threadDAO.insert(newthread);
         }
 
+        public List<Thread> findThreadByCategory (String Category){ return this.threadDAO.findThreadByCategory(Category); }
+
 
 }

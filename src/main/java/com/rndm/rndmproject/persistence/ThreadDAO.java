@@ -27,6 +27,7 @@ public class ThreadDAO {
     private final String FIND_USER_THREADS = "select * from thread where users_username = ?";
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit ?" ; //linia per h2
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
+    private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' and category_name = ? limit 10" ;
 
 
     //TODO
@@ -62,6 +63,10 @@ public class ThreadDAO {
 
     public List<Thread> findXThreads(int page){
         return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
+    }
+
+    public List<Thread> findThreadByCategory(String Category){
+        return jdbctemplate.query(FIND_THREAD_CATEGORY, mapper, Category);
     }
 
 

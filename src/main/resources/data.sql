@@ -1,6 +1,6 @@
-INSERT INTO thread VALUES ('100','My First Thread', 'Instagram offered a first glimpse at what its ads will look like in a blog post Thursday. The sample ad, which you can see below.', 'http//', '0', 'Ricard', 'Comedia');
-INSERT INTO thread VALUES ('101','My Second Thread', 'OMG! Im going to kill someone', 'http//', '0', 'Ricard', 'Comedia');
-INSERT INTO thread VALUES ('102','This Fucking Program is awesome', 'PATATAAAAAAA!', 'http//', '0', 'Ricard', 'Comedia');
+INSERT INTO thread VALUES ('100','My First Thread', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Coding', 'http//', '0', 'Ricard', 'Coding');
+INSERT INTO thread VALUES ('101','My Second Thread', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Gaming', 'http//', '0', 'Ricard', 'Gaming');
+INSERT INTO thread VALUES ('102','This Is Working', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Comedia', 'http//', '0', 'Ricard', 'Comedia');
 INSERT INTO category VALUES ( 'Comedia' );
 INSERT INTO category VALUES ( 'Gaming' );
 INSERT INTO category VALUES ( 'Coding' );
