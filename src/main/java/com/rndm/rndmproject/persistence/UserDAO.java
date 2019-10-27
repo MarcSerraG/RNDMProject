@@ -17,7 +17,7 @@ public class UserDAO {
 
     private final String FIND_ALL = "select * from users";
     private final String FIND_USERNAME = FIND_ALL + " where username = ?";
-    private final String INSERT_USER = "insert into user (username, password, email, date_start, is private) values (?,?,?,?,?)";
+    private final String INSERT_USER = "insert into user (username, password, email, date_start, is_private) values (?,?,?,?,?)";
     private final String CHANGE_PASSWORD = "update user set password = ? where username = ?";
     private final String GET_PASSWORD = "select password from user where username = ?";
     private final String GET_EMAIL = "select email from user where username = ?";
