@@ -71,6 +71,22 @@ public class Thread {
 
     public Thread(){}
 
+    //ConstructorDAO
+    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, String id, int upvotes, int downvotes, List<Comment> comments, Date date) {
+
+        this.title = title;
+        this.text = text;
+        this.media = media;
+        this.username = username;
+        this.tags = tags;
+        this.category = category;
+        this.id = id;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        this.comments = comments;
+        this.date = date;
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
@@ -100,6 +116,28 @@ public class Thread {
             downvotes ++;
             user.setVoteFromThread(this, false);
         }
+    }
+
+    public String timeSinceCreation() {
+
+        Long today = System.currentTimeMillis();
+        Long milliDate = date.getTime();
+        Long diff = today - milliDate;
+        Long year = 31556952000L;
+        Long month = 2592000000L;
+        int week = 604800000;
+        int day = 86400000;
+        int hour = 3600000;
+        int minute = 60000;
+        int second = 1000;
+
+        if (diff > year) return diff / year + " years";
+        else if (diff > month) return diff / month + " months";
+        else if (diff > week) return diff / week + " weeks";
+        else if (diff > day) return diff / day + " days";
+        else if (diff > hour) return diff / hour + " hours";
+        else if (diff > minute) return diff / minute + " minutes";
+        else return diff / second + " seconds";
     }
 
 }

@@ -35,6 +35,7 @@ public class User {
     private boolean premium;
     private boolean moderator;
     private final Date date;
+    private boolean isConnected;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
     //Constructor
@@ -56,6 +57,7 @@ public class User {
     public String getDate(){return formatter.format(date);}
     public boolean getPremium(){return premium;}
     public boolean getModerator(){return moderator;}
+    public boolean getIsConnected(){return isConnected;}
     public void addThread(Thread thd){threads.add(thd);}
     public void removeThread(Thread thd){threads.remove(thd);}
     public List<Thread> getThreads(){return threads;}
