@@ -28,6 +28,7 @@ public class ThreadDAO {
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit ?" ; //linia per h2
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
 
+
     //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
@@ -52,7 +53,7 @@ public class ThreadDAO {
     }
 
     public int insert(Thread thread){
-        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), "http//", '0', thread.getUsername(), thread.getCategory());
+        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getCategory(), '0', thread.getUsername(), thread.getCategory());
     }
 
     public List<Thread> findFirstTen(){
@@ -62,6 +63,8 @@ public class ThreadDAO {
     public List<Thread> findXThreads(int page){
         return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
     }
+
+
 
     public Thread getThread(String id){
         return jdbctemplate.queryForObject(FIND_THREAD, mapper, id);

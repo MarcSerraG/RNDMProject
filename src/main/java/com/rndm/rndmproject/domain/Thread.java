@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class Thread {
 
     //Variable definition & validation constraints
@@ -54,18 +55,21 @@ public class Thread {
     }
 
     //Constructor 3
-    public Thread (String title){
-
+    public Thread (String title, String text){
         this.id = "150";
         this.title = title;
-        this.text = "liygfdsbdshbvldshbvhsdbvlhbsdlvhbdsljhvbljshbvljhsvdjlhdbs";
+        this.text = text;
         this.media = "http//";
         this.username = "Ricard";
-        this.category = null;
+        this.category = new Category("Cinema");
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
     }
+
+    //Contructor 4
+
+    public Thread(){}
 
     //Methods
     public String getID(){return id;}

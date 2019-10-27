@@ -1,5 +1,6 @@
 package com.rndm.rndmproject.Controller;
 
+import com.rndm.rndmproject.domain.Category;
 import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.persistence.ThreadDAO;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,6 @@ public class ThreadUseCases {
         public int insert(Thread newthread){
             return this.threadDAO.insert(newthread);
         }
+
+
 }
