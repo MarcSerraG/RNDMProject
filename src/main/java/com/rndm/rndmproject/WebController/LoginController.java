@@ -22,14 +22,14 @@ public class LoginController {
         this.userUseCases = userUseCases;
     }
 
-    @GetMapping("login")
-    public String login(Model model) {
+    @GetMapping("register")
+    public String registerUser(Model model) {
         model.addAttribute(new User());
-        return "login";
+        return "register";
     }
 
-    @PostMapping("login")
-    public String login(@Valid User user, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    @PostMapping("register")
+    public String registerUser(@Valid User user, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             // Do nothing for now
             // return "login";
