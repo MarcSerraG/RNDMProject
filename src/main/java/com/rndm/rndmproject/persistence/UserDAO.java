@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Repository
 public class UserDAO {
@@ -64,7 +65,15 @@ public class UserDAO {
 
     // TO DO
     public int insertUser(User user){
-        return jdbctemplate.update(INSERT_USER);
+
+        Date date = new Date();
+        char premium;
+        if (user.getPremium())
+            premium = '1';
+        else
+            premium = '0';
+
+        return jdbctemplate.update(INSERT_USER, mapper, user.getUsername(), "testingpassword", user.getEmail(), date.getDate(), premium);
     }
 
 
