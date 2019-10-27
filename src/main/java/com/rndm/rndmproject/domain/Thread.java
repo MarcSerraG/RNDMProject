@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class Thread {
 
     //Variable definition & validation constraints
@@ -37,6 +38,39 @@ public class Thread {
         date = new Date(System.currentTimeMillis());
     }
 
+    //Constructor 2
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, int upvotes, int downvotes){
+
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.media = media;
+        this.username = username;
+        this.tags = tags;
+        this.category = category;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        comments = new ArrayList<Comment>();
+        date = new Date(System.currentTimeMillis());
+    }
+
+    //Constructor 3
+    public Thread (String title, String text){
+        this.id = "150";
+        this.title = title;
+        this.text = text;
+        this.media = "http//";
+        this.username = "Ricard";
+        this.category = new Category("Cinema");
+        this.upvotes = 20;
+        this.downvotes = 20;
+        date = new Date(System.currentTimeMillis());
+    }
+
+    //Contructor 4
+
+    public Thread(){}
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
@@ -49,6 +83,7 @@ public class Thread {
     private String generateID(){return "generateIDThread not defined yet";}
     public void addComment(Comment comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
+    public String getText(){return text;}
 
     public void addUpvote(User user){
 
