@@ -24,19 +24,21 @@ public class LoginController {
 
     @GetMapping("register")
     public String registerUser(Model model) {
-        model.addAttribute(new User());
+        model.addAttribute("usernew", new User());
         return "register";
     }
 
     @PostMapping("register")
-    public String registerUser(@Valid User user, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    public String registerUser(@Valid User usernew, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             // Do nothing for now
             // return "login";
         }
 
-        model.addAttribute("username", user.getUsername());
-        this.userUseCases.insertUser(user);
+        model.addAttribute("username", usernew.getUsername());
+        model.addAttribute("password", usernew.getPassword());
+        model.addAttribute("email", usernew.getEmail());
+        this.userUseCases.insertUser(usernew);
         return "redirect:/";
     }
 
