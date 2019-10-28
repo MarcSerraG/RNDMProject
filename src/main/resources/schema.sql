@@ -45,7 +45,7 @@ CREATE TABLE thread (
 
 ALTER TABLE thread ADD CONSTRAINT threads_pk PRIMARY KEY ( id_thread );
 
-CREATE TABLE "user" (
+CREATE TABLE user (
     username         VARCHAR2(30 CHAR) NOT NULL,
     password         VARCHAR2(60) NOT NULL,
     email            VARCHAR2(100) NOT NULL,
@@ -54,7 +54,7 @@ CREATE TABLE "user" (
     date_sus_start   DATE
 );
 
-ALTER TABLE "user" ADD CONSTRAINT users_pk PRIMARY KEY ( username );
+ALTER TABLE user ADD CONSTRAINT users_pk PRIMARY KEY ( username );
 
 CREATE TABLE vote (
     positive            CHAR(1) NOT NULL,
@@ -68,7 +68,7 @@ ALTER TABLE vote ADD CONSTRAINT votes_pk PRIMARY KEY ( users_username,
 
 ALTER TABLE achievement
     ADD CONSTRAINT achievements_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );
 
 ALTER TABLE comments
     ADD CONSTRAINT comments_comments_fk FOREIGN KEY ( comments_id_comment,
@@ -82,11 +82,11 @@ ALTER TABLE comments
 
 ALTER TABLE comments
     ADD CONSTRAINT comments_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );
 
 ALTER TABLE purchase
     ADD CONSTRAINT purchases_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username )
+        REFERENCES user ( username )
             ON DELETE CASCADE;
 
 ALTER TABLE thread
@@ -95,7 +95,7 @@ ALTER TABLE thread
 
 ALTER TABLE thread
     ADD CONSTRAINT threads_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username )
+        REFERENCES user ( username )
             ON DELETE CASCADE;
 
 ALTER TABLE vote
@@ -104,4 +104,4 @@ ALTER TABLE vote
 
 ALTER TABLE vote
     ADD CONSTRAINT votes_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );
