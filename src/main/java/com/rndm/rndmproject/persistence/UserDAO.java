@@ -17,12 +17,13 @@ public class UserDAO {
 
     private final String FIND_ALL = "select * from users";
     private final String FIND_USERNAME = FIND_ALL + " where username = ?";
-    private final String INSERT_USER = "insert into user (username, password, email, date_start, is private) values (?,?,?,?,?)";
+    private final String INSERT_USER = "insert into user (username, password, email, date_start, is_private) values (?,?,?,?,?)";
     private final String CHANGE_PASSWORD = "update user set password = ? where username = ?";
     private final String GET_PASSWORD = "select password from user where username = ?";
     private final String GET_EMAIL = "select email from user where username = ?";
     private final String GET_DATE = "select date_start from user where username = ?";
     private final String GET_PRIVATE = "select is_private from user where username = ?";
+    private final String GET_ISCONNECTED = "select is_connected from user where username = ?";
 
 
 
@@ -51,6 +52,13 @@ public class UserDAO {
 
     public List<User> getAllUsers(){
         return jdbctemplate.query(FIND_ALL, mapper);
+    }
+
+    //To be revised
+    public boolean getIsConnected(String username) {
+        List<User> li = jdbctemplate.query(FIND_USERNAME, mapper, username);
+        User u = li.get(0);
+        return u.getIsConnected();
     }
 
 

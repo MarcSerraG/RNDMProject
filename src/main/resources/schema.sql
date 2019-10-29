@@ -38,9 +38,10 @@ CREATE TABLE thread (
     title            VARCHAR2(50) NOT NULL,
     content          VARCHAR2(5000 CHAR) NOT NULL,
     image_url        VARCHAR2(50),
-    is_private       CHAR(1) NOT NULL,
-    users_username   VARCHAR2(30 CHAR) NOT NULL,
-    category_name    VARCHAR2(20) NOT NULL
+    is_private       CHAR(1) ,
+    users_username   VARCHAR2(30 CHAR),
+    category_name    VARCHAR2(20)
+    --date_creation    DATE
 );
 
 ALTER TABLE thread ADD CONSTRAINT threads_pk PRIMARY KEY ( id_thread );
@@ -89,13 +90,13 @@ ALTER TABLE purchase
         REFERENCES user ( username )
             ON DELETE CASCADE;
 
-ALTER TABLE thread
-    ADD CONSTRAINT threads_category_fk FOREIGN KEY ( category_name )
-        REFERENCES category ( name );
+--ALTER TABLE thread
+    --ADD CONSTRAINT threads_category_fk FOREIGN KEY ( category_name )
+       -- REFERENCES category ( name );
 
 ALTER TABLE thread
     ADD CONSTRAINT threads_users_fk FOREIGN KEY ( users_username )
-        REFERENCES user ( username )
+        REFERENCES "user" ( username )
             ON DELETE CASCADE;
 
 ALTER TABLE vote
