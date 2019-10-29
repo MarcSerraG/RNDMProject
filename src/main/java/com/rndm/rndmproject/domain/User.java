@@ -52,9 +52,9 @@ public class User {
 
     // Constructor 2 - LoginController
     public User () {
-        this.username = "somethingWrong";
-        this.email = "somethingWrong";
-        this.password = "somethingWrong";
+        this.username = "";
+        this.email = "";
+        this.password = "";
         threads = new ArrayList();
         comments = new ArrayList();
         date = new Date(System.currentTimeMillis());

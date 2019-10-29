@@ -6,9 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -25,7 +23,7 @@ public class LoginController {
     @GetMapping("register")
     public String registerUser(Model model) {
         model.addAttribute("usernew", new User());
-        return "register";
+        return "register-copia";
     }
 
     @PostMapping("register")
@@ -34,11 +32,13 @@ public class LoginController {
             // Do nothing for now
             // return "login";
         }
-
+        /*
         model.addAttribute("username", usernew.getUsername());
         model.addAttribute("password", usernew.getPassword());
-        model.addAttribute("email", usernew.getEmail());
+        model.addAttribute("email", usernew.getEmail());*/
+
         this.userUseCases.insertUser(usernew);
+
         return "redirect:/";
     }
 
