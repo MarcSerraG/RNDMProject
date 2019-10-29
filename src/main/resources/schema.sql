@@ -17,12 +17,10 @@ CREATE TABLE comments (
     content                   VARCHAR2(100) NOT NULL,
     comments_id_comment       VARCHAR2(15),
     users_username            VARCHAR2(30 CHAR) NOT NULL,
-    threads_id_thread         VARCHAR2(15) NOT NULL,
-    comments_users_username   VARCHAR2(30 CHAR)
+    threads_id_thread         VARCHAR2(15) NOT NULL
 );
 
-ALTER TABLE comments ADD CONSTRAINT comments_pk PRIMARY KEY ( id_comment,
-                                                              users_username );
+ALTER TABLE comments ADD CONSTRAINT comments_pk PRIMARY KEY ( id_comment);
 
 CREATE TABLE purchase (
     id               VARCHAR2(15) NOT NULL,
@@ -72,10 +70,8 @@ ALTER TABLE achievement
         REFERENCES user ( username );
 
 ALTER TABLE comments
-    ADD CONSTRAINT comments_comments_fk FOREIGN KEY ( comments_id_comment,
-                                                      comments_users_username )
-        REFERENCES comments ( id_comment,
-                              users_username );
+    ADD CONSTRAINT comments_comments_fk FOREIGN KEY (comments_id_comment)
+        REFERENCES comments (id_comment);
 
 ALTER TABLE comments
     ADD CONSTRAINT comments_threads_fk FOREIGN KEY ( threads_id_thread )

@@ -42,6 +42,9 @@ public class Comment {
     public int getID() {return id;}
     public String getDate(){return formatter.format(date);}
     public String getContent(){return content;}
+    public int getFatherComment(){return fatherComment.getID();}
+    public String getUsername(){return username;}
+    public int getThread(){return thread.getID();}
     public void deleteComment(){
         if(fatherComment == null) thread.removeComment(this);
         else fatherComment.removeChild(this);
