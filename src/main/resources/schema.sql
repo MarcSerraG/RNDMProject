@@ -92,7 +92,7 @@ ALTER TABLE purchase
 
 ALTER TABLE thread
     ADD CONSTRAINT threads_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username )
+        REFERENCES user ( username )
             ON DELETE CASCADE;
 
 ALTER TABLE vote

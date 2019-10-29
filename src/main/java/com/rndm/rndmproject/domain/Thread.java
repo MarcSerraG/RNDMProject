@@ -39,7 +39,7 @@ public class Thread {
     }
 
     //Constructor 2
-    public Thread (int id, String title, String text, Object media, String username, List<Tag> tags, Category category, int upvotes, int downvotes){
+    public Thread (int id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
 
         this.id = id;
         this.title = title;
@@ -65,7 +65,7 @@ public class Thread {
         this.text = text;
         this.media = "http//";
         this.username = "Ricard";
-        this.category = new Category(category);
+        this.category = new Category("category");
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
