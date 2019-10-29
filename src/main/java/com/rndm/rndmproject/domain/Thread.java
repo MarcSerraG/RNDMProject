@@ -20,7 +20,7 @@ public class Thread {
     private String username;
     private List<Tag> tags;
     private Category category;
-    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     //Constructor
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
@@ -51,7 +51,11 @@ public class Thread {
         this.upvotes = upvotes;
         this.downvotes = downvotes;
         comments = new ArrayList<Comment>();
-        date = new Date(System.currentTimeMillis());
+        try {
+            date = formatter.parse(data);
+        }catch (Exception e){
+
+        }
     }
 
     //Constructor 3
@@ -61,7 +65,7 @@ public class Thread {
         this.text = text;
         this.media = "http//";
         this.username = "Ricard";
-        this.category = new Category("Cinema");
+        this.category = new Category(category);
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());

@@ -38,8 +38,8 @@ CREATE TABLE thread (
     image_url        VARCHAR2(50),
     is_private       CHAR(1) ,
     users_username   VARCHAR2(30 CHAR),
-    category_name    VARCHAR2(20)
-    --date_creation    DATE
+    category_name    VARCHAR2(20),
+    date_creation    VARCHAR2(25)
 );
 
 ALTER TABLE thread ADD CONSTRAINT threads_pk PRIMARY KEY ( id_thread );
