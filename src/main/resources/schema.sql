@@ -13,16 +13,14 @@ CREATE TABLE category (
 ALTER TABLE category ADD CONSTRAINT category_pk PRIMARY KEY ( name );
 
 CREATE TABLE comments (
-    id_comment                VARCHAR2(15) NOT NULL,
+    id_comment                NUMBER(15) NOT NULL,
     content                   VARCHAR2(100) NOT NULL,
     comments_id_comment       VARCHAR2(15),
     users_username            VARCHAR2(30 CHAR) NOT NULL,
-    threads_id_thread         VARCHAR2(15) NOT NULL,
-    comments_users_username   VARCHAR2(30 CHAR)
+    threads_id_thread         VARCHAR2(15) NOT NULL
 );
 
-ALTER TABLE comments ADD CONSTRAINT comments_pk PRIMARY KEY ( id_comment,
-                                                              users_username );
+ALTER TABLE comments ADD CONSTRAINT comments_pk PRIMARY KEY ( id_comment);
 
 CREATE TABLE purchase (
     id               VARCHAR2(15) NOT NULL,
@@ -46,7 +44,7 @@ CREATE TABLE thread (
 
 ALTER TABLE thread ADD CONSTRAINT threads_pk PRIMARY KEY ( id_thread );
 
-CREATE TABLE "user" (
+CREATE TABLE user (
     username         VARCHAR2(30 CHAR) NOT NULL,
     password         VARCHAR2(60) NOT NULL,
     email            VARCHAR2(100) NOT NULL,
@@ -55,7 +53,7 @@ CREATE TABLE "user" (
     date_sus_start   DATE
 );
 
-ALTER TABLE "user" ADD CONSTRAINT users_pk PRIMARY KEY ( username );
+ALTER TABLE user ADD CONSTRAINT users_pk PRIMARY KEY ( username );
 
 CREATE TABLE vote (
     positive            CHAR(1) NOT NULL,
@@ -69,13 +67,11 @@ ALTER TABLE vote ADD CONSTRAINT votes_pk PRIMARY KEY ( users_username,
 
 ALTER TABLE achievement
     ADD CONSTRAINT achievements_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );
 
 ALTER TABLE comments
-    ADD CONSTRAINT comments_comments_fk FOREIGN KEY ( comments_id_comment,
-                                                      comments_users_username )
-        REFERENCES comments ( id_comment,
-                              users_username );
+    ADD CONSTRAINT comments_comments_fk FOREIGN KEY (comments_id_comment)
+        REFERENCES comments (id_comment);
 
 ALTER TABLE comments
     ADD CONSTRAINT comments_threads_fk FOREIGN KEY ( threads_id_thread )
@@ -83,21 +79,21 @@ ALTER TABLE comments
 
 ALTER TABLE comments
     ADD CONSTRAINT comments_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );
 
 ALTER TABLE purchase
     ADD CONSTRAINT purchases_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username )
+        REFERENCES user ( username )
             ON DELETE CASCADE;
 
 --ALTER TABLE thread
     --ADD CONSTRAINT threads_category_fk FOREIGN KEY ( category_name )
        -- REFERENCES category ( name );
 
---ALTER TABLE thread
-    --ADD CONSTRAINT threads_users_fk FOREIGN KEY ( users_username )
-       -- REFERENCES "user" ( username )
-           -- ON DELETE CASCADE;
+ALTER TABLE thread
+    ADD CONSTRAINT threads_users_fk FOREIGN KEY ( users_username )
+        REFERENCES "user" ( username )
+            ON DELETE CASCADE;
 
 ALTER TABLE vote
     ADD CONSTRAINT votes_threads_fk FOREIGN KEY ( threads_id_thread )
@@ -105,4 +101,4 @@ ALTER TABLE vote
 
 ALTER TABLE vote
     ADD CONSTRAINT votes_users_fk FOREIGN KEY ( users_username )
-        REFERENCES "user" ( username );
+        REFERENCES user ( username );

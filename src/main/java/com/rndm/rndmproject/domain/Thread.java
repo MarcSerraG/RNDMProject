@@ -9,7 +9,7 @@ import java.util.List;
 public class Thread {
 
     //Variable definition & validation constraints
-    private String id;
+    private int id;
     private String title;
     private Date date;
     private int upvotes;
@@ -39,7 +39,7 @@ public class Thread {
     }
 
     //Constructor 2
-    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
+    public Thread (int id, String title, String text, Object media, String username, List<Tag> tags, Category category, int upvotes, int downvotes){
 
         this.id = id;
         this.title = title;
@@ -59,8 +59,8 @@ public class Thread {
     }
 
     //Constructor 3
-    public Thread (String title, String text, String category){
-        this.id = "150";
+    public Thread (String title, String text){
+        this.id = 150;
         this.title = title;
         this.text = text;
         this.media = "http//";
@@ -76,7 +76,7 @@ public class Thread {
     public Thread(){}
 
     //ConstructorDAO
-    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, String id, int upvotes, int downvotes, List<Comment> comments, Date date) {
+    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, int id, int upvotes, int downvotes, List<Comment> comments, Date date) {
 
         this.title = title;
         this.text = text;
@@ -92,7 +92,7 @@ public class Thread {
     }
 
     //Methods
-    public String getID(){return id;}
+    public int getID(){return id;}
     public String getDate(){return formatter.format(date);}
     public String getTitle(){return title;}
     public List<Comment> getComments(){return comments;}
@@ -100,7 +100,7 @@ public class Thread {
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
-    private String generateID(){return "generateIDThread not defined yet";}
+    private int generateID(){return username.hashCode();}
     public void addComment(Comment comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
