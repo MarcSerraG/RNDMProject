@@ -13,7 +13,7 @@ CREATE TABLE category (
 ALTER TABLE category ADD CONSTRAINT category_pk PRIMARY KEY ( name );
 
 CREATE TABLE comments (
-    id_comment                VARCHAR2(15) NOT NULL,
+    id_comment                NUMBER(15) NOT NULL,
     content                   VARCHAR2(100) NOT NULL,
     comments_id_comment       VARCHAR2(15),
     users_username            VARCHAR2(30 CHAR) NOT NULL,
