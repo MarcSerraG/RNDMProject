@@ -1,5 +1,7 @@
 package com.rndm.rndmproject.domain;
 
+import org.jsoup.Jsoup;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +23,18 @@ public class Thread {
     private List<Tag> tags;
     private Category category;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setCategory(String category) {
+        this.category = new Category(category);
+    }
 
     //Constructor
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
@@ -73,7 +87,16 @@ public class Thread {
 
     //Contructor 4
 
-    public Thread(){}
+    public Thread(){
+        this.id = "150";
+        this.media = "http//";
+        this.username = "Ricard";
+        this.upvotes = 20;
+        this.downvotes = 20;
+        date = new Date(System.currentTimeMillis());
+    }
+
+
 
     //ConstructorDAO
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, String id, int upvotes, int downvotes, List<Comment> comments, Date date) {
@@ -96,6 +119,7 @@ public class Thread {
     public String getDate(){return formatter.format(date);}
     public String getTitle(){return title;}
     public List<Comment> getComments(){return comments;}
+    public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
@@ -104,6 +128,7 @@ public class Thread {
     public void addComment(Comment comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
+
 
     public void addUpvote(User user){
 
@@ -142,6 +167,11 @@ public class Thread {
         else if (diff > hour) return diff / hour + " hours";
         else if (diff > minute) return diff / minute + " minutes";
         else return diff / second + " seconds";
+    }
+
+    //Convert html to text. index.html use it
+    public static String html2text(String html) {
+        return Jsoup.parse(html).text();
     }
 
 }

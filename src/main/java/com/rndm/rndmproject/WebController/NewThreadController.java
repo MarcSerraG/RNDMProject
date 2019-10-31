@@ -34,6 +34,8 @@ public class NewThreadController {
         if(errors.hasErrors()){
             return "new_thread";
         }
+        System.out.println(NewThread.getTitle());
+
         try {
             if(NewThread.getTitle() == null){
                 System.err.println("Object is null");
@@ -41,7 +43,7 @@ public class NewThreadController {
 
             model.addAttribute("title", NewThread.getTitle());
             this.threadUseCases.insert(NewThread);
-            return "index";
+            return "redirect:index";
 
         }catch (Exception e){
             System.err.println("Error al crear un thread: " + e);

@@ -18,8 +18,8 @@ public class ThreadDAO {
     private JdbcTemplate jdbctemplate;
 
     private final String INSERT_THREAD = "insert into thread " +
-            "(id_thread, title, content, image_url, is_private, users_username, category_name) " +
-            "values (?,?,?,?,?,?,?)";
+            "(id_thread, title, content, image_url, is_private, users_username, category_name, date_creation) " +
+            "values (?,?,?,?,?,?,?,?)";
     private final String NUM_THREADS = "select count(*) from thread where users_username = ?";
     private final String GET_AUTHOR = "select users_username from thread where id_thread = ?";
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
@@ -55,7 +55,7 @@ public class ThreadDAO {
     }
 
     public int insert(Thread thread){
-        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getCategory(), '0', thread.getUsername(), thread.getCategory());
+        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), '0', thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
     }
 
     public List<Thread> findFirstTen(){
