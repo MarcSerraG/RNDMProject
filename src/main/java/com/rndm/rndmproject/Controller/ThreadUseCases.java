@@ -22,11 +22,13 @@ public class ThreadUseCases {
 
         public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
 
-        public int insert(Thread newthread){
+        public int insert( Thread newthread ){
             return this.threadDAO.insert(newthread);
         }
 
-        public List<Thread> findThreadByCategory (String Category){ return this.threadDAO.findThreadByCategory(Category); }
+        public List<Thread> findThreadByCategory ( String Category ){ return this.threadDAO.findThreadByCategory(Category); }
+
+        public Thread getThread ( String id ){ return this.threadDAO.getThread(id);}
 
 
 }

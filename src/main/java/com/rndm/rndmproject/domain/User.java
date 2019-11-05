@@ -35,6 +35,8 @@ public class User {
     private boolean premium;
     private boolean moderator;
     private Date date;
+    private boolean isConnected;
+  
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
     //Constructor 1
@@ -71,7 +73,6 @@ public class User {
     public boolean getPremium(){return premium;}
     public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
-
     // Setters
     public void setUsername(String name){this.username = name;}
     public void setEmail(String email){this.email = email;}
@@ -79,7 +80,8 @@ public class User {
     public void setPassword(String password){this.password = password;}
     public void setPremium(boolean premium){this.premium = premium;}
     public void setModerator(boolean moderator){this.moderator = moderator;}
-
+    public boolean getIsConnected(){return isConnected;}
+  
     public void addThread(Thread thd){threads.add(thd);}
     public void removeThread(Thread thd){threads.remove(thd);}
     public List<Thread> getThreads(){return threads;}

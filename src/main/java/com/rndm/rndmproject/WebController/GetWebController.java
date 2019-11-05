@@ -44,5 +44,12 @@ public class GetWebController {
         return"index";
     }
 
+    @GetMapping("/Thread/{id}")
+    public String LoadThread (Model model, @PathVariable String id){
+        model.addAttribute("threadByID", threadUseCases.getThread(id));
+        model.addAttribute("Categories", categoryUseCases.findCategories());
+        return "thread";
+    }
+
 
 }

@@ -14,30 +14,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 
 @Controller
-
+@RequestMapping("NewThread")
 public class NewThreadController {
 
     private ThreadUseCases threadUseCases;
     private CategoryUseCases categoryUseCases;
     public NewThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases){this.threadUseCases = useCases; this.categoryUseCases = categoryUseCases;}
 
-    @GetMapping("/NewThread")
+    @GetMapping
     public String NewThread(Model model){
-        model.addAttribute("NewThread", new Thread());
+        model.addAttribute("NewThread",new Thread());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         return "new_thread";
     }
 
 
-    @PostMapping("/NewThread")
-    public String NewThread(Thread thread, Errors errors, Model model){
+    @PostMapping
+    public String NewThread(Thread NewThread, Errors errors, Model model){
         if(errors.hasErrors()){
             return "new_thread";
         }
+        System.out.println(NewThread.getTitle());
+
         try {
-            model.addAttribute("title", thread.getTitle());
-            this.threadUseCases.insert(thread);
-            return "index";
+            if(NewThread.getTitle() == null){
+                System.err.println("Object is null");
+            }
+
+            model.addAttribute("title", NewThread.getTitle());
+            this.threadUseCases.insert(NewThread);
+            return "redirect:index";
 
         }catch (Exception e){
             System.err.println("Error al crear un thread: " + e);
