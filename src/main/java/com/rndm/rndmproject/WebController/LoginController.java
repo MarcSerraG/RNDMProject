@@ -23,7 +23,7 @@ public class LoginController {
     @GetMapping("register")
     public String registerUser(Model model) {
         model.addAttribute("usernew", new User());
-        return "register-copia";
+        return "register";
     }
 
     @PostMapping("register")
@@ -38,6 +38,7 @@ public class LoginController {
         model.addAttribute("email", usernew.getEmail());*/
 
         this.userUseCases.insertUser(usernew);
+        System.out.println(usernew.getUsername() + "   " + usernew.getEmail() + "    " + usernew.getPassword());
 
         return "redirect:/";
     }
