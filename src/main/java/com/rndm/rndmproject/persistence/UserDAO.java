@@ -7,8 +7,11 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 @Repository
 public class UserDAO {
@@ -72,7 +75,19 @@ public class UserDAO {
 
     // TO DO
     public int insertUser(User user){
-        return jdbctemplate.update(INSERT_USER);
+
+        Date date = new Date();
+        char premium;
+        if (user.getPremium())
+            premium = '1';
+        else
+            premium = '0';
+
+        //TODO date string format de ricard
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(date);
+
+        return jdbctemplate.update(INSERT_USER, user.getUsername(), user.getPassword(), user.getEmail(), strDate, premium);
     }
 
 

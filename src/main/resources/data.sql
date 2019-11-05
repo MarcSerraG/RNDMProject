@@ -5,3 +5,8 @@ INSERT INTO thread VALUES ('100','My First Thread', 'Perfect, it seems that this
 INSERT INTO category VALUES ( 'Comedia' );
 INSERT INTO category VALUES ( 'Gaming' );
 INSERT INTO category VALUES ( 'Coding' );
+insert into user (username, password, email, date_start, is_private) values ('MarcSerra','12345678','marcserra@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('RicardZambrano','12345678','rircardzambrano@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('NarcisGomez','12345678','narcisgomez@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('DavidPina','12345678','davidpina@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('JosepRoure','12345678','jroure@tecnocampus.cat','','1');

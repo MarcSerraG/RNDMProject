@@ -45,12 +45,12 @@ CREATE TABLE thread (
 ALTER TABLE thread ADD CONSTRAINT threads_pk PRIMARY KEY ( id_thread );
 
 CREATE TABLE user (
-    username         VARCHAR2(30 CHAR) NOT NULL,
+    username         VARCHAR2(30) NOT NULL,
     password         VARCHAR2(60) NOT NULL,
     email            VARCHAR2(100) NOT NULL,
-    date_start       DATE NOT NULL,
+    date_start       VARCHAR2(30) NOT NULL,
     is_private       CHAR(1) NOT NULL,
-    date_sus_start   DATE
+    date_sus_start   VARCHAR2(30)
 );
 
 ALTER TABLE user ADD CONSTRAINT users_pk PRIMARY KEY ( username );
