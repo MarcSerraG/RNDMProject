@@ -88,7 +88,7 @@ public class Thread {
     //Contructor 4
 
     public Thread(){
-        this.id = "150";
+        this.id = 150;
         this.media = "http//";
         this.username = "Ricard";
         this.upvotes = 20;
