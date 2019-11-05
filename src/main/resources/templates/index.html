@@ -131,8 +131,6 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
 
-
-
                             <!-- POST -->
                             <div class="post" th:each="post : ${IndexThread}">
                                 <div class="wrap-ut pull-left">
@@ -149,7 +147,7 @@
 
                                     <div class="posttext pull-left">
                                         <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
-                                        <p th:text="${#strings.abbreviate(post.getText(),143)}"></p>
+                                        <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
                                     </div>
 
                                     <div class="clearfix"></div>

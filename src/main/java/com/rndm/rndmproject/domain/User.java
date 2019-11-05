@@ -14,7 +14,7 @@ public class User {
     @Size(min = 8, max = 24, message = "username must be between 8 and 24 characters long")
     @Pattern(regexp = "^(?=.*[a-z])", message = "username must have at least one lowercase")
     @Pattern(regexp = "^(?=.*[A-Z])", message = "username must have at least one uppercase")
-    private final String username;
+    private String username;
 
     @NotEmpty(message = "email cannot be null nor empty")
     @Size(min = 12, max = 32, message = "email must be between 12 an 32 characters long")
@@ -34,11 +34,12 @@ public class User {
     private List<Achievement> achievements;
     private boolean premium;
     private boolean moderator;
-    private final Date date;
+    private Date date;
     private boolean isConnected;
+  
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
 
-    //Constructor
+    //Constructor 1
     public User (String username, String email, String password){
 
         this.username = username;
@@ -51,13 +52,36 @@ public class User {
         moderator = false;
     }
 
+    // Constructor 2 - LoginController
+    public User () {
+        this.username = "";
+        this.email = "";
+        this.password = "";
+        threads = new ArrayList();
+        comments = new ArrayList();
+        date = new Date(System.currentTimeMillis());
+        premium = false;
+        moderator = false;
+    };
+
     //Methods
+
+    // Getters
     public String getUsername(){return username;}
     public String getEmail(){return email;}
     public String getDate(){return formatter.format(date);}
     public boolean getPremium(){return premium;}
+    public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
+    // Setters
+    public void setUsername(String name){this.username = name;}
+    public void setEmail(String email){this.email = email;}
+    public void setDate(Date date){this.date = date;}
+    public void setPassword(String password){this.password = password;}
+    public void setPremium(boolean premium){this.premium = premium;}
+    public void setModerator(boolean moderator){this.moderator = moderator;}
     public boolean getIsConnected(){return isConnected;}
+  
     public void addThread(Thread thd){threads.add(thd);}
     public void removeThread(Thread thd){threads.remove(thd);}
     public List<Thread> getThreads(){return threads;}

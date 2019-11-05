@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="posttext pull-left">
                                         <h2 th:text="${threadByID.getTitle()}"></h2>
-                                        <p th:text="${threadByID.getText()}"></p>
+                                        <div class="content"th:utext="${threadByID.getText()}"/>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>                              

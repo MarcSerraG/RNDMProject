@@ -1,5 +1,7 @@
 package com.rndm.rndmproject.domain;
 
+import org.jsoup.Jsoup;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.List;
 public class Thread {
 
     //Variable definition & validation constraints
-    private String id;
+    private int id;
     private String title;
     private Date date;
     private int upvotes;
@@ -21,6 +23,18 @@ public class Thread {
     private List<Tag> tags;
     private Category category;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setCategory(String category) {
+        this.category = new Category(category);
+    }
 
     //Constructor
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
@@ -39,7 +53,7 @@ public class Thread {
     }
 
     //Constructor 2
-    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
+    public Thread (int id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
 
         this.id = id;
         this.title = title;
@@ -59,13 +73,13 @@ public class Thread {
     }
 
     //Constructor 3
-    public Thread (String title, String text, String category){
-        this.id = "150";
+    public Thread (String title, String text){
+        this.id = 150;
         this.title = title;
         this.text = text;
         this.media = "http//";
         this.username = "Ricard";
-        this.category = new Category(category);
+        this.category = new Category("category");
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
@@ -73,10 +87,19 @@ public class Thread {
 
     //Contructor 4
 
-    public Thread(){}
+    public Thread(){
+        this.id = 150;
+        this.media = "http//";
+        this.username = "Ricard";
+        this.upvotes = 20;
+        this.downvotes = 20;
+        date = new Date(System.currentTimeMillis());
+    }
+
+
 
     //ConstructorDAO
-    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, String id, int upvotes, int downvotes, List<Comment> comments, Date date) {
+    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, int id, int upvotes, int downvotes, List<Comment> comments, Date date) {
 
         this.title = title;
         this.text = text;
@@ -92,18 +115,20 @@ public class Thread {
     }
 
     //Methods
-    public String getID(){return id;}
+    public int getID(){return id;}
     public String getDate(){return formatter.format(date);}
     public String getTitle(){return title;}
     public List<Comment> getComments(){return comments;}
+    public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
-    private String generateID(){return "generateIDThread not defined yet";}
+    private int generateID(){return username.hashCode();}
     public void addComment(Comment comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
+
 
     public void addUpvote(User user){
 
@@ -142,6 +167,11 @@ public class Thread {
         else if (diff > hour) return diff / hour + " hours";
         else if (diff > minute) return diff / minute + " minutes";
         else return diff / second + " seconds";
+    }
+
+    //Convert html to text. index.html use it
+    public static String html2text(String html) {
+        return Jsoup.parse(html).text();
     }
 
 }
