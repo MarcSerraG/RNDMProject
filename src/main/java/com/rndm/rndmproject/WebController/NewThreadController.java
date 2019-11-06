@@ -47,7 +47,7 @@ public class NewThreadController {
 
         }catch (Exception e){
             System.err.println("Error al crear un thread: " + e);
-            return "index";
+            return "/";
         }
     }
 }
