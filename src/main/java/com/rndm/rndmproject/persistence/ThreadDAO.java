@@ -33,7 +33,7 @@ public class ThreadDAO {
     //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
-        Thread thread = new Thread(resultSet.getInt("id_thread"),
+        Thread thread = new Thread(resultSet.getString("id_thread"),
                 resultSet.getString("title"),
                 resultSet.getString("content"),
                resultSet.getString("image_url"),
