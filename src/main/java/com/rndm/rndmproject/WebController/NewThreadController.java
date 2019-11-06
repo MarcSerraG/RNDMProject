@@ -43,7 +43,7 @@ public class NewThreadController {
 
             model.addAttribute("title", NewThread.getTitle());
             this.threadUseCases.insert(NewThread);
-            return "redirect:index";
+            return "redirect:/";
 
         }catch (Exception e){
             System.err.println("Error al crear un thread: " + e);
