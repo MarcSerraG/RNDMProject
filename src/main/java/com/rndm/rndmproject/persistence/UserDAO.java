@@ -1,9 +1,14 @@
 package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
+
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -28,6 +33,10 @@ public class UserDAO {
     private final String GET_PRIVATE = "select is_private from user where username = ?";
     private final String GET_ISCONNECTED = "select is_connected from user where username = ?";
 
+    @Bean
+    private PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 
     //TODO ROWMAPPER
@@ -87,7 +96,7 @@ public class UserDAO {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
-        return jdbctemplate.update(INSERT_USER, user.getUsername(), user.getPassword(), user.getEmail(), strDate, premium);
+        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, premium);
     }
 
 

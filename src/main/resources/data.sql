@@ -1,12 +1,12 @@
-    INSERT INTO user VALUES ('Ricard','12345', 'ricard@ricard.com', '1990-10-29', '0','1980-10-29'  );
+    INSERT INTO user VALUES ('Ricard','12345', 'ricard@ricard.com', '1990-10-29', '0','1980-10-29', '1' );
 INSERT INTO thread VALUES ('102','This Is Working', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Comedia', 'http//', '0', 'Ricard', 'Comedia' , '2019-10-29 at 12:45:00 ');
 INSERT INTO thread VALUES ('101','My Second Thread', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Gaming', 'http//', '0', 'Ricard', 'Gaming', '2019-10-29 at 12:00:00 ');
 INSERT INTO thread VALUES ('100','My First Thread', 'Perfect, it seems that this is working correctly. This is my first post, it''s just a test, but it''s a breakthrough. Category: Coding', 'http//', '0', 'Ricard', 'Coding', '2019-10-28 at 12:32:00 ');
 INSERT INTO category VALUES ( 'Comedia' );
 INSERT INTO category VALUES ( 'Gaming' );
 INSERT INTO category VALUES ( 'Coding' );
-insert into user (username, password, email, date_start, is_private) values ('MarcSerra','12345678','marcserra@gmail.com','','1');
-insert into user (username, password, email, date_start, is_private) values ('RicardZambrano','12345678','rircardzambrano@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('MarcSerra','{bcrypt}$2a$10$0VGzG8lfiDXBnFTE98lfiOLtP4uh62wnE6iWs5.2AMrJ3G9k7XZqu','marcserra@gmail.com','','1');
+insert into user (username, password, email, date_start, is_private) values ('RicardZambrano','{bcrypt}$2a$10$0VGzG8lfiDXBnFTE98lfiOLtP4uh62wnE6iWs5.2AMrJ3G9k7XZqu','rircardzambrano@gmail.com','','1');
 insert into user (username, password, email, date_start, is_private) values ('NarcisGomez','12345678','narcisgomez@gmail.com','','1');
 insert into user (username, password, email, date_start, is_private) values ('DavidPina','12345678','davidpina@gmail.com','','1');
 insert into user (username, password, email, date_start, is_private) values ('JosepRoure','12345678','jroure@tecnocampus.cat','','1');

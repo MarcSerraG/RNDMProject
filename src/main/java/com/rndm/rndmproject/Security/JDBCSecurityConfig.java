@@ -1,7 +1,10 @@
 package com.rndm.rndmproject.Security;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -10,9 +13,9 @@ import javax.sql.DataSource;
 public class JDBCSecurityConfig extends BaseSecurityConfig {
     private DataSource dataSource;
 
-    private static final String USERS_QUERY = "select username, password from user where username = ?";
+    private static final String USERS_QUERY = "select username, password, enabled from user where username = ?";
 
-    private static final String AUTHORITIES_QUERY = "select username, is_private from user where username = ?";
+    private static final String AUTHORITIES_QUERY = "select username, is_private, enabled from user where username = ?";
 
     public JDBCSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;
