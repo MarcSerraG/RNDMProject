@@ -72,28 +72,16 @@ public class Thread {
         }
     }
 
-    //Constructor 3
-    public Thread (String title, String text){
-        this.id = "150";
-        this.title = title;
-        this.text = text;
-        this.media = "http//";
-        this.username = "Ricard";
-        this.category = new Category("category");
-        this.upvotes = 20;
-        this.downvotes = 20;
-        date = new Date(System.currentTimeMillis());
-    }
-
     //Contructor 4
 
     public Thread(){
-        this.id = "150";
         this.media = "http//";
         this.username = "Ricard";
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
+        this.id = generateID();
+        System.out.println("Identificador: " +id);
     }
 
 
@@ -124,7 +112,7 @@ public class Thread {
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
-    private String generateID(){return username + date;}//Need a modification, alphanumeric encrypt
+    private String generateID(){return Integer.toString(username.hashCode() + date.hashCode());}//Need a modification, alphanumeric encrypt
     public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}

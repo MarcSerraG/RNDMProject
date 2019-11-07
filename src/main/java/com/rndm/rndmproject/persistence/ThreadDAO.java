@@ -28,6 +28,7 @@ public class ThreadDAO {
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
+    private final String FIND_THREADS_BYNAME = "select * from thread where ";
 
 
     //TODO
@@ -55,7 +56,7 @@ public class ThreadDAO {
     }
 
     public int insert(Thread thread){
-        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), '0', thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
+        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), 0, thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
     }
 
     public List<Thread> findFirstTen(){
