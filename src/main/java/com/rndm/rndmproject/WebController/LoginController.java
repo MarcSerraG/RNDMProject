@@ -43,5 +43,21 @@ public class LoginController {
         return "redirect:/";
     }
 
+    @GetMapping("login")
+    public String loginUser(Model model) {
+        model.addAttribute("userlogin", new User());
+        return "login";
+    }
+
+    @PostMapping("login")
+    public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+        if (errors.hasErrors()) {
+            // Do nothing for now
+            // return "login";
+        }
+
+        return "redirect:/";
+    }
+
 
 }

@@ -26,6 +26,9 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/", true)
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(2419200)
@@ -33,7 +36,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //needed only when csrf is enabled (as by default is post)
-                .logoutSuccessUrl("/login"); //where to go when logout is successful
+                .logoutSuccessUrl("/"); //where to go when logout is successful
         //.logoutUrl("logoutpage"); // default is "/logout""
 
         http
