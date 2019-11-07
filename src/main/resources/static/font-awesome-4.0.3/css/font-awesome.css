@@ -799,7 +799,9 @@
   content: "\f0de";
 }
 .fa-envelope:before {
-  content: "\f0e0";
+  /*content: "\f0e0";*/
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .fa-linkedin:before {
   content: "\f0e1";
