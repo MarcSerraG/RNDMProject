@@ -28,7 +28,7 @@ public class ThreadDAO {
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
-    private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like '%?%' ";
+    private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
 
 
     //TODO
@@ -72,7 +72,7 @@ public class ThreadDAO {
     }
 
     public List<Thread> findThreadByName(String title){
-        return jdbctemplate.query(FIND_THREADS_BYNAME,mapper, title);
+        return jdbctemplate.query(FIND_THREADS_BYNAME.replace("?", title),mapper);
     }
 
     public Thread getThread(String id){
