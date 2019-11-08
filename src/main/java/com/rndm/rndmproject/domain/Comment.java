@@ -1,6 +1,8 @@
 package com.rndm.rndmproject.domain;
 
+import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
+import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -16,9 +18,11 @@ public class Comment {
     private String content;
     private String thread;
     private String fatherComment;
+    private Comment father;
     private String id;
     private Date date;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
+    private CommentDAO commentDAO;
     //Constructor
     //We need to implement the comment addition yet
     public Comment(String username, String content, String fatherComment, String thread){
