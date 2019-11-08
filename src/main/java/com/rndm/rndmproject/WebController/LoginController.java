@@ -29,8 +29,7 @@ public class LoginController {
     @PostMapping("register")
     public String registerUser(@Valid User usernew, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            // Do nothing for now
-            // return "login";
+            return "register";
         }
         /*
         model.addAttribute("username", usernew.getUsername());

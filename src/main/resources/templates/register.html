@@ -148,15 +148,18 @@
                                                 <input type="text" placeholder="Last Name" class="form-control" />
                                             </div>
                                         </div-->
-                                        <div data-validate ="An Username is required">
-                                            <input type="text" placeholder="User Name" class="form-control" th:field="*{username}"/>
+                                        <div data-validate ="An Username is required" >
+                                            <input type="text" placeholder="User Name" class="form-control" th:field="*{username}"
+                                                   th:class="${#fields.hasErrors('username')}? 'error'" />
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-6 col-md-6">
-                                                <input type="password" placeholder="Password" class="form-control" id="pass" name="pass" th:field="*{password}"/>
+                                                <input type="password" placeholder="Password" class="form-control" id="pass" name="pass" th:field="*{password}"
+                                                       th:class="${#fields.hasErrors('password')}? 'error'"/>
                                             </div>
                                             <div class="col-lg-6 col-md-6">
-                                                <input type="text" placeholder="Email" class="form-control" id="email" name="email" th:field="*{email}"/>
+                                                <input type="text" placeholder="Email" class="form-control" id="email" name="email" th:field="*{email}"
+                                                       th:class="${#fields.hasErrors('email')}? 'error'"/>
                                             </div>
                                         </div>
 
