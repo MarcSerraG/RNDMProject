@@ -3,6 +3,7 @@ package com.rndm.rndmproject.WebController;
 import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
 import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.persistence.CommentDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -17,10 +18,12 @@ public class GetWebController {
 
     private ThreadUseCases threadUseCases;
     private CategoryUseCases categoryUseCases;
+    private CommentDAO commentDAO;
 
-    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases){
+    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO){
         this.threadUseCases = threadUseCases;
         this.categoryUseCases = categoryUseCases;
+        this.commentDAO = commentDAO;
     }
 
     @GetMapping("/")
@@ -48,6 +51,7 @@ public class GetWebController {
     public String LoadThread (Model model, @PathVariable String id){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         return "thread";
     }
 
