@@ -59,9 +59,9 @@
                 </div>
                 <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                     <div class="wrap">
-                        <form action="#" method="post" class="form">
-                            <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
-                            <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
+                        <form class="form">
+                            <div class="pull-left txt"><input id="navigation" type="text" class="form-control" placeholder="Search Threads"></div>
+                            <div class="pull-right"><button id = "searchButton" class="btn btn-default" type="button"  onclick="Search()"><i class="fa fa-search"></i></button></div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -89,6 +89,12 @@
             </div>
         </div>
     </div>
+    <script>
+        function Search(){
+            window.location.replace("/Search/"+ document.getElementById('navigation').value);
+        }
+    </script>
+
 </div>
 
 <div th:fragment="footer">
