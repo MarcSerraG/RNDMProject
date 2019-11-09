@@ -31,14 +31,17 @@ public class ThreadDAO {
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
 
 
+
+
     //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
-        Thread thread = new Thread(resultSet.getString("id_thread"),
+        Thread thread = new Thread(
+                resultSet.getString("id_thread"),
                 resultSet.getString("title"),
                 resultSet.getString("content"),
-               resultSet.getString("image_url"),
-               resultSet.getString("users_username"),
+                resultSet.getString("image_url"),
+                resultSet.getString("users_username"),
                null,
                 new Category(resultSet.getString("category_name")),
                 resultSet.getString("date_creation"),
@@ -101,9 +104,5 @@ public class ThreadDAO {
     public int countUserThreads(String username) {
         return this.jdbctemplate.queryForObject(NUM_THREADS, Integer.class, username);
     }
-
-
-
-
 
 }
