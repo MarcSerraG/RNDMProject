@@ -2,6 +2,7 @@ package com.rndm.rndmproject.domain;
 
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,11 +19,11 @@ public class Comment {
     private String content;
     private String thread;
     private String fatherComment;
-    private Comment father;
+    private String fatherContent;
+    private String fatherUser;
     private String id;
     private Date date;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-    private CommentDAO commentDAO;
     //Constructor
     //We need to implement the comment addition yet
     public Comment(String username, String content, String fatherComment, String thread){
@@ -38,7 +39,7 @@ public class Comment {
 
     //Constructor DAO
     //We need to implement the comment addition yet
-    public Comment(String id, String username, String content, String fatherComment, String thread, String date){
+    public Comment(String id, String username, String content, String fatherComment, String thread, String date, String fatherContent, String fatherUser){
 
         this.username = username;
         this.content = content;
@@ -47,8 +48,15 @@ public class Comment {
             this.date = formatter.parse(date);
         }catch (Exception e){}
         this.id = id;
-        //thread.addComment(id);
-        if (fatherComment != null) this.fatherComment = fatherComment;
+        this.fatherContent = fatherContent;
+        this.fatherUser = fatherUser;
+        if (fatherComment != null){
+            this.fatherComment = fatherComment;
+        }
+    }
+
+    public Comment(){
+
     }
 
     //Methods
@@ -56,10 +64,17 @@ public class Comment {
     public String getID() {return id;}
     public String getDate(){return formatter.format(date);}
     public String getContent(){return content;}
-    public String getFatherComment(){return fatherComment;}
+    public String getFatherComment(){
+        return fatherComment;
+    }
+    public String getFatherContent(){
+        return fatherContent;
+    }
+    public String getFatherUser() { return fatherUser;}
     public String getUsername(){return username;}
     public String getThread(){return thread;}
     @Override
     public String toString(){return id +" "+ content +" "+ fatherComment +" "+ username +" "+ thread +" "+ getDate();}
     //public void deleteComment(){if (fatherComment == null) thread.removeComment(this);}
+
 }

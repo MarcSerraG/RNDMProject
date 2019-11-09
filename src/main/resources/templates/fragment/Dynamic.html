@@ -80,8 +80,8 @@
             <div class="posttext pull-left">
 
                 <blockquote>
-                    <span class="original">Original Posted by <span th:text="${comment.getUsername()}"></span></span>
-                    <span th:text="${comment.getContent()}"></span>
+                    <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
+                    <span th:text="${comment.getFatherContent()}"></span>
                     </blockquote>
                     <p th:text="${comment.getContent()}"></p>
                 </div>
@@ -89,22 +89,12 @@
             </div>
         <div class="postinfobot">
 
-            <div class="likeblock pull-left">
-                <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>55</a>
-                <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i>12</a>
-            </div>
-
             <div class="prev pull-left">
                 <a href="#"><i class="fa fa-reply"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
 
-            <div class="next pull-right">
-                <a href="#"><i class="fa fa-share"></i></a>
-
-                <a href="#"><i class="fa fa-flag"></i></a>
-            </div>
 
             <div class="clearfix"></div>
         </div>
