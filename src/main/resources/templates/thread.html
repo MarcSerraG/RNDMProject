@@ -90,88 +90,16 @@
                                 </div>
                             </div>
 
+                            <div th:each="comment : ${Comments}">
 
-                            <!-- POST -->
-                            <div class="post" th:each="comment : ${Comments}">
-                                <div class="topwrap">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img src="images/avatar2.jpg" alt="" />
-                                            <div class="status red">&nbsp;</div>
-                                        </div>
+                                <span th:if="${comment.getFatherComment() == null}">
+                                    <div th:replace="fragment/Dynamic :: singleComment"></div>
+                                </span>
+                                <span th:if="${comment.getFatherComment() != null}">
+                                    <div th:replace="fragment/Dynamic :: fatherComment"></div>
+                                </span>
 
-                                        <div class="icons">
-                                            <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="posttext pull-left">
-                                        <p th:text="${comment.getContent()}"></p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>                              
-                                <div class="postinfobot">
-
-                                    <div class="prev pull-left">                                        
-                                        <a href="#"><i class="fa fa-reply"></i></a>
-                                    </div>
-
-                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-                                    <div class="clearfix"></div>
-                                </div>
                             </div>
-                            <!--COMMENT-->
-
-
-
-                            <!--
-                            <div class="post">
-                                <div class="topwrap">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img src="images/avatar3.jpg" alt="" />
-                                            <div class="status red">&nbsp;</div>
-                                        </div>
-
-                                        <div class="icons">
-                                            <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="posttext pull-left">
-
-                                        <blockquote>
-                                            <span class="original">Original Posted by - theguy_21:</span>
-                                            Did you see that Dove ad pop up in your Facebook feed this year? How about the Geico camel one? 
-                                        </blockquote>
-                                        <p>Toronto Mayor Rob Ford does not have a bigger fan than "Anchorman's" Ron Burgundy. In fact, Burgundy wants Ford to be re-elected so much, that he agreed to sing the campaign song Brien. The tune in question ...</p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>                              
-                                <div class="postinfobot">
-
-                                    <div class="likeblock pull-left">
-                                        <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i>55</a>
-                                        <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i>12</a>
-                                    </div>
-
-                                    <div class="prev pull-left">                                        
-                                        <a href="#"><i class="fa fa-reply"></i></a>
-                                    </div>
-
-                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : 20 Nov @ 9:50am</div>
-
-                                    <div class="next pull-right">                                        
-                                        <a href="#"><i class="fa fa-share"></i></a>
-
-                                        <a href="#"><i class="fa fa-flag"></i></a>
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                            -->
-
-
 
                             <!-- POST -->
                             <div class="post">
@@ -217,8 +145,6 @@
                                 </form>
                             </div>
 
-
-                        </div>
                         <div class="col-lg-4 col-md-4">
 
                             <!-- -->
@@ -257,13 +183,9 @@
                                     <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
-
-
             </section>
 
             <div th:replace="fragment/Static :: footer"></div>
