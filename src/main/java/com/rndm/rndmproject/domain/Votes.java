@@ -17,6 +17,10 @@ public class Votes {
         this.threadUser = threadUser;
     }
 
+    public String getThreadID(){
+        return this.threadID;
+    }
+
     public int getUpVotes() {
         return this.upVotes;
     }
@@ -25,11 +29,7 @@ public class Votes {
         return this.titleThread;
     }
 
-    public void setDownVotes(int downVotes) {
-        this.downVotes = downVotes;
-    }
-
-    public void setThreadUser(String threadUser) {
-        this.threadUser = threadUser;
-    }
+ public String getThreadUser(){
+        return this.threadUser;
+ }
 }

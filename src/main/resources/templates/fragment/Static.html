@@ -107,17 +107,7 @@
 </div>
 
 
-<div class="sidebarblock" th:fragment="topThreads">
 
-        <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
-        <div class="divline"></div>
-        <div class="blocktxt">
-            <ul class="cats">
-                <li th:each="Votes : ${TopThreads}"><a href="#"><span th:text="${Votes.getTitleThread()}"></span>
-                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
-            </ul>
-        </div>
-</div>
 
 <div th:fragment="footer">
     <footer>

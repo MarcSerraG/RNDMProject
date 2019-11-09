@@ -25,12 +25,6 @@ public class VotesDAO {
 
     private Votes votesMapper(ResultSet resultSet) throws SQLException {
 
-        System.out.println(resultSet.getString("id_thread"));
-        System.out.println(resultSet.getString("title"));
-        System.out.println(resultSet.getString("positive"));
-        System.out.println(resultSet.getString("negative"));
-        System.out.println(resultSet.getString("users_username"));
-
         Votes votes = new Votes(
                 resultSet.getString("id_thread"),
                 resultSet.getString("title"),
