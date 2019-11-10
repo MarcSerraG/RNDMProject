@@ -22,12 +22,7 @@ public class RndmProjectApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        //System.out.println(commentDAO.getComment("100"));
-        //System.out.println(commentDAO.getComment("101"));
-
-        //System.out.println(father.getUsername());
-        //Comment father2 = commentDAO.getComment("102");
-        //System.out.println(father2.getContent());
+        System.out.println(commentDAO.getComment("101").getFatherComment());
 
     }
 }

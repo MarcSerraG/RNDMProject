@@ -3,12 +3,14 @@ package com.rndm.rndmproject.persistence;
 import com.rndm.rndmproject.domain.Comment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 @Repository
 public class CommentDAO {
 
@@ -47,6 +49,7 @@ public class CommentDAO {
         );
         return comment;
     }
+
     private final RowMapper<Comment> mapper = (resultSet, i) -> commentMapper(resultSet);
 
     private Comment getFatherComment(String id) {return jdbcTemplate.queryForObject(GET_FATHER, mapper, id);}

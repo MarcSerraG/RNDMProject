@@ -80,10 +80,10 @@
             <div class="posttext pull-left">
 
                 <blockquote>
-                    <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
-                    <span th:text="${comment.getFatherContent()}"></span>
+                    <span class="original">Original Posted by <span th:text="${comment.getUsername()}"></span></span>
+                    <span th:text="${comment.content}"></span>
                     </blockquote>
-                    <p th:text="${comment.getContent()}"></p>
+                    <p th:text="${comment.content}"></p>
                 </div>
                 <div class="clearfix"></div>
             </div>
