@@ -124,6 +124,7 @@ public class Thread {
             upvotes++;
             downvotes --;
             user.setVoteFromThread(this, true);
+
         }
     }
     public void addDownvote(User user){

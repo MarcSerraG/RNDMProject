@@ -1,43 +1,55 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <meta charset="utf-8">
-    <title>Login - RNDM | Another RaNDoM page</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>RNDM :: Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--CSS-->
-    <link rel="stylesheet" type="text/css" href="Login_CSS.css">
-  </head>
-  <body>
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<link rel="stylesheet"  th:href="@{/linearicons-free/icon-font.min.css}">
+	<link rel="stylesheet"  th:href="@{/css/util.css}">
+	<link rel="stylesheet"  th:href="@{/css/form.css}">
+	<script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
-    <div class="PageLimiter">
-      <div class="PageContainer">
-        <div class="LoginContainer">
-          <span class="Login-Title">SING IN!</span>
-          <form class="FormLogin" action="" method="POST" th:object="${userlogin}">
+</head>
+<body>
 
-            <div class="LoginValidation" data-validate ="User is required">
-              <input class="LoginInput" type="text" name="Username" placeholder="User" th:field="*{username}">
-              <span class="IconsLogin" data-placeholder="&#xe82a;"></span>
-            </div>
+	<div class="limiter">
+		<div class="container-login100"   style="background-image: url('images/bg-01.jpg');">
+			<div class="wrap-login100 p-t-30 p-b-50">
 
-            <div class="LoginValidation" data-validate ="Password is required">
-              <input class="LoginInput" type="password" name="Password" placeholder="Password" th:field="*{password}">
-              <span class="InconsLogin" data-placeholder="&#xe80f;"></span>
-            </div>
+				<span class="login100-form-title p-b-41">WELCOME BACK!</span>
 
-            <div class="buttonLoginContainer">
-              <button class="loginButton">SIGN IN</button>
-            </div>
+				<form class="login100-form validate-form p-b-60 p-t-5" method="post" th:object="${userlogin}">
 
-            <div class="RegisterDiv">
-              New to RNDM? <a href="#"><span class="RegisterSpan">SING UP</span></a>
-            </div>
+					<div class="wrap-input100 validate-input" data-validate = "Please enter a valid username">
+						<input class="input100" type="text" name="username" placeholder="User" th:field="*{username}">
+						<span class="focus-input100" data-placeholder="&#xe82a;"></span>
+					</div>
 
-          </form>
-        </div>
-      </div>
-    </div>
+					<div class="wrap-input100 validate-input" data-validate="Please enter a valid password">
+						<input class="input100" type="password" name="pass" placeholder="Password" th:field="*{password}">
+						<span class="focus-input100" data-placeholder="&#xe80f;"></span>
+					</div>
 
-  </body>
+					<div class="container-login100-form-btn m-t-32">
+						<button class="login100-form-btn" type="submit">SING IN</button>
+					</div>
+
+					<div class="RegisterDiv p-t-20">
+						Do not have an account with us?
+						<a href="/newuser"><span class="RegisterSpan">Become a member now!</span></a>
+					</div>
+
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/main.js}"></script>
+
+
+</body>
 </html>

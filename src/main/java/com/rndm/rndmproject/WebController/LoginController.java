@@ -20,24 +20,18 @@ public class LoginController {
         this.userUseCases = userUseCases;
     }
 
-    @GetMapping("register")
-    public String registerUser(Model model) {
-        model.addAttribute("usernew", new User());
-        return "register-copia";
+    @GetMapping("login")
+    public String loginUser(Model model) {
+        model.addAttribute("userlogin", new User());
+        return "login";
     }
 
-    @PostMapping("register")
-    public String registerUser(@Valid User usernew, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    @PostMapping("login")
+    public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
             // Do nothing for now
             // return "login";
         }
-        /*
-        model.addAttribute("username", usernew.getUsername());
-        model.addAttribute("password", usernew.getPassword());
-        model.addAttribute("email", usernew.getEmail());*/
-
-        this.userUseCases.insertUser(usernew);
 
         return "redirect:/";
     }

@@ -24,4 +24,7 @@ public class Category {
     public boolean addThreadtoCategory(Thread thd){return threads.add(thd);}
 
 
+
+
+
 }
