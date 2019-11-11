@@ -99,20 +99,21 @@
             <div class="clearfix"></div>
         </div>
     </div>
+</div>
 <!--Comment with father-->
 
 
-    <div class="sidebarblock" th:fragment="topThreads">
+<div class="sidebarblock" th:fragment="topThreads">
 
-        <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
-        <div class="divline"></div>
-        <div class="blocktxt">
-            <ul class="cats">
-                <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
-            </ul>
-        </div>
+    <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
+    <div class="divline"></div>
+    <div class="blocktxt">
+        <ul class="cats">
+            <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
+                <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+        </ul>
     </div>
+</div>
 
 </body>
 </html>
