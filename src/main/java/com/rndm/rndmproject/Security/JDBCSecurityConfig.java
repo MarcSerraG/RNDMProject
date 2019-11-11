@@ -13,9 +13,9 @@ import javax.sql.DataSource;
 public class JDBCSecurityConfig extends BaseSecurityConfig {
     private DataSource dataSource;
 
-    private static final String USERS_QUERY = "select username, password, enabled from user where username = ?";
+    private static final String USERS_QUERY = "select username, password, enabled from usuari where username = ?";
 
-    private static final String AUTHORITIES_QUERY = "select username, is_private, enabled from user where username = ?";
+    private static final String AUTHORITIES_QUERY = "select username, is_private, 'true' as enabled from usuari where username = ?";
 
     public JDBCSecurityConfig(DataSource dataSource) {
         this.dataSource = dataSource;

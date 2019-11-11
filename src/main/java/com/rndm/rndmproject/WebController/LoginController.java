@@ -27,16 +27,16 @@ public class LoginController {
     }
 
     @PostMapping("register")
-    public String registerUser(@Valid User usernew, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    public String registerUser(@Valid User usernew, Errors errors, Model model) {
         if (errors.hasErrors()) {
             return "register";
         }
-        /*
-        model.addAttribute("username", usernew.getUsername());
+        /*model.addAttribute("username", usernew.getUsername());
         model.addAttribute("password", usernew.getPassword());
         model.addAttribute("email", usernew.getEmail());*/
 
         this.userUseCases.insertUser(usernew);
+
         System.out.println(usernew.getUsername() + "   " + usernew.getEmail() + "    " + usernew.getPassword());
 
         return "redirect:/";
