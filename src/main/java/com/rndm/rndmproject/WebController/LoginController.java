@@ -29,13 +29,11 @@ public class LoginController {
 
     @PostMapping("register")
     public String registerUser(@ModelAttribute("usernew") @Valid User usernew, Errors errors, Model model) {
-        if (errors.hasErrors()) {
-            return "register";
-        }
-        else {
+        if (!errors.hasErrors()) {
             this.userUseCases.insertUser(usernew);
             return "redirect:/";
         }
+        return "register";
     }
 
     @GetMapping("login")

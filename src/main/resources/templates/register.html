@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" dir="ltr" xmlns:th="http://www.thymeleaf.org" xmlns:javascript="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8">
     <title>RNDM :: New User</title>
@@ -22,23 +22,23 @@
 
         <form class="login100-form validate-form p-b-50 p-t-1" id="Form1" method="post" th:object="${usernew}">
 
-			<div class="wrap-input100 validate-input" data-validate = "Please enter a valid username">
-				<input class="input100" type="text" name="Username" placeholder="Username" th:field="*{username}">
+			<div class="wrap-input100 validate-input" id="username2">
+				<input class="input100" type="text" id="username" name="Username" placeholder="Username" th:field="*{username}"> <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" Style="Display:none;" class="username"></span> </input>
 				<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 			</div>
 
-            <div class="wrap-input100 validate-input" data-validate = "Please enter a valid email">
-				<input class="input100" type="text" name="Email" placeholder="Email" th:field="*{email}">
+            <div class="wrap-input100 validate-input" id="email2">
+				<input class="input100" type="text"  id="email" name="Email" placeholder="Email" th:field="*{email}"> <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" Style="Display:none;" class="email"></span> </input>
 				<span class="focus-input100" data-placeholder="&#xe818;"></span>
 			</div>
 
-            <div class="wrap-input100 validate-input" data-validate = "Please enter a valid password">
-				<input class="input100" type="password" name="Password" placeholder="Password" th:field="*{password}">
+            <div class="wrap-input100 validate-input pa" id="password2">
+				<input class="input100" type="password"  id="password" name="Password" placeholder="Password" th:field="*{password}" > <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" Style="Display:none;" class="password"></span> </input>
 				<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 			</div>
 
-            <div class="wrap-input100 validate-input" data-validate = "Please enter a valid password">
-				<input class="input100" type="password" name="Repeat Password" placeholder="Repeat Password">
+            <div class="wrap-input100 validate-input" data-validate = "Password don't match">
+				<input class="input100" type="password" id = "repeatPassword" name="Repeat Password" placeholder="Repeat Password">
 				<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 			</div>
 
@@ -57,6 +57,7 @@
 
 	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
+
 
 
   </body>
