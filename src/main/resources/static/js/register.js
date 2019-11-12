@@ -1,6 +1,5 @@
 
-(function ($) {
-    "use strict";
+$(document).ready(function () {
 
 
     /*==================================================================
@@ -20,13 +19,12 @@
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
-
+/*
     $('.validate-form').on('submit',function(){
         var check = true;
 
         for(var i=0; i<input.length-1; i++) {
             if(validate(input[i]) == false){
-
                 showValidate(input[i]);
                 check=false;
             }
@@ -34,7 +32,21 @@
 
         return check;
     });
+*/
+    recheck();
 
+    function recheck(){
+        var check = true;
+
+        for(var i=0; i<input.length-1; i++) {
+            if(validate(input[i]) == false){
+                showValidate(input[i]);
+                check=false;
+            }
+        }
+
+        return check;
+    }
 
     $('.validate-form .input100').each(function(){
         $(this).focus(function(){
@@ -102,18 +114,28 @@
 
 
 
-})(jQuery);
 
-$(document).ready(function () {
+
     $("#repeatPassword").keyup(checkPasswordMatch);
-});
 
-function checkPasswordMatch() {
-    var password = $("#password").val();
-    var confirmPassword = $("#repeatPassword").val();
+    $("#password").keyup(IsEmptyRepeated);
 
-    if (password != confirmPassword)
+
+    function IsEmptyRepeated() {
         $("#repeatPassword").parent().addClass('alert-validate');
-    else
-        $("#repeatPassword").parent().removeClass('alert-validate');
-}
+    }
+
+
+    function checkPasswordMatch() {
+        var password = $("#password").val();
+        var confirmPassword = $("#repeatPassword").val();
+
+        if (password != confirmPassword)
+            $("#repeatPassword").parent().addClass('alert-validate');
+        else {
+            $("#repeatPassword").parent().removeClass('alert-validate');
+            $("#registerButton").prop('disabled', false);
+        }
+    }
+
+});

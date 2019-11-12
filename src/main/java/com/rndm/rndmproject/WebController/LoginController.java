@@ -24,13 +24,20 @@ public class LoginController {
     @GetMapping("register")
     public String registerUser(Model model) {
         model.addAttribute("usernew", new User());
+        model.addAttribute("UserExist", "");
         return "register";
     }
 
     @PostMapping("register")
     public String registerUser(@ModelAttribute("usernew") @Valid User usernew, Errors errors, Model model) {
         if (!errors.hasErrors()) {
-            this.userUseCases.insertUser(usernew);
+            try {
+                this.userUseCases.insertUser(usernew);
+            }catch (Exception e){
+                errors.rejectValue("username", null, "This user already exist");
+                return "register";
+            }
+
             return "redirect:/";
         }
         return "register";
@@ -45,6 +52,7 @@ public class LoginController {
     @PostMapping("login")
     public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
+
              return "login";
         }
 

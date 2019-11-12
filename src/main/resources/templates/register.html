@@ -23,7 +23,9 @@
         <form class="login100-form validate-form p-b-50 p-t-1" id="Form1" method="post" th:object="${usernew}">
 
 			<div class="wrap-input100 validate-input" id="username2">
-				<input class="input100" type="text" id="username" name="Username" placeholder="Username" th:field="*{username}"> <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" Style="Display:none;" class="username"></span> </input>
+				<input class="input100" type="text" id="username" name="Username" placeholder="Username" th:field="*{username}">
+				<span th:if="${#fields.hasErrors('username')}"  th:errors="*{username}" Style="Display:none;" class="username"></span>
+				</input>
 				<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 			</div>
 
@@ -43,7 +45,7 @@
 			</div>
 
             <div class="container-login100-form-btn m-t-30">
-				<button class="login100-form-btn" id="registerButton">REGISTER</button>
+				<button class="login100-form-btn" id="registerButton" disabled>REGISTER</button>
 			</div>
 
 			<div class="RegisterDiv p-t-20">
@@ -56,7 +58,7 @@
     </div>
 
 	<script th:src="@{/js/jquery-3.2.1.min.js}"></script>
-	<script th:src="@{/js/main.js}"></script>
+	<script th:src="@{/js/register.js}"></script>
 
 
 
