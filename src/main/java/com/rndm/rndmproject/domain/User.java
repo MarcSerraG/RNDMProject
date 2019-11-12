@@ -11,21 +11,15 @@ public class User {
 
     //Variable definition & validation constraints
     @NotEmpty(message = "username cannot be null nor empty")
-    //@Size(min = 6, max = 24, message = "username must be between 8 and 24 characters long")
-    //@Pattern(regexp = "^(?=.*[a-z])", message = "username must have at least one lowercase")
-    //@Pattern(regexp = "^(?=.*[A-Z])", message = "username must have at least one uppercase")
+    @Size(min = 6, max = 24, message = "username must be between 8 and 24 characters long")
     private String username;
 
     @NotEmpty(message = "email cannot be null nor empty")
-    //@Size(min = 12, max = 32, message = "email must be between 12 an 32 characters long")
-    //@Email(message = "email should be valid")
+    @Email(message = "email should be valid")
     private String email;
 
     @NotEmpty(message = "password cannot be null nor empty")
-    //@Size(min = 8, max = 64, message = "password must be between 8 an 64 characters long")
-    //@Pattern(regexp = "^(?=.*[a-z])", message = "password must have at least one lowercase")
-    //@Pattern(regexp = "^(?=.*[A-Z])", message = "password must have at least one uppercase")
-    //@Pattern(regexp = "^(?=.*[0-9])", message = "password must have at least one character")
+    @Size(min = 8, max = 64, message = "password must be between 8 an 64 characters long")
     private String password;
 
     private List<Thread> threads;

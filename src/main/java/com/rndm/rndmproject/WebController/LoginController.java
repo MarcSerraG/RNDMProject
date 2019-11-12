@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,19 +28,14 @@ public class LoginController {
     }
 
     @PostMapping("register")
-    public String registerUser(@Valid User usernew, Errors errors, Model model) {
+    public String registerUser(@ModelAttribute("usernew") @Valid User usernew, Errors errors, Model model) {
         if (errors.hasErrors()) {
             return "register";
         }
-        /*model.addAttribute("username", usernew.getUsername());
-        model.addAttribute("password", usernew.getPassword());
-        model.addAttribute("email", usernew.getEmail());*/
-
-        this.userUseCases.insertUser(usernew);
-
-        System.out.println(usernew.getUsername() + "   " + usernew.getEmail() + "    " + usernew.getPassword());
-
-        return "redirect:/";
+        else {
+            this.userUseCases.insertUser(usernew);
+            return "redirect:/";
+        }
     }
 
     @GetMapping("login")
@@ -51,8 +47,7 @@ public class LoginController {
     @PostMapping("login")
     public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
         if (errors.hasErrors()) {
-            // Do nothing for now
-            // return "login";
+             return "login";
         }
 
         return "redirect:/";
