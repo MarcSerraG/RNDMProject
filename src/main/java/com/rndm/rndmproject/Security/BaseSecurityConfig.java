@@ -28,17 +28,23 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)
-                .loginPage("/login")
-                .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/", true)
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")
+                    .defaultSuccessUrl("/", true)
+                    .permitAll()
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(2419200)
                 .key("tecnocampus")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //needed only when csrf is enabled (as by default is post)
-                .logoutSuccessUrl("/"); //where to go when logout is successful
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/¡")
+                    .permitAll();
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //needed only when csrf is enabled (as by default is post)
+                //.logoutSuccessUrl("/"); //where to go when logout is successful
         //.logoutUrl("logoutpage"); // default is "/logout""
 
         http
