@@ -18,6 +18,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/Category/{category}").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/font-awesome-4.0.3/**").permitAll()
+                .antMatchers("/linearicons-free/**").permitAll()
                 .antMatchers("/fonts/**").permitAll()
                 .antMatchers("/img/**").permitAll()
                 .antMatchers("/js/**").permitAll()
