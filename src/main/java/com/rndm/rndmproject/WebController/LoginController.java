@@ -26,15 +26,4 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("login")
-    public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-            // Do nothing for now
-            // return "login";
-        }
-
-        return "redirect:/";
-    }
-
-
 }

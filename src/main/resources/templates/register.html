@@ -8,7 +8,7 @@
 
 	  <!--<link rel="stylesheet" th:href="@{/linearicons-free/icon-font.min.css}">-->
 	  <link rel="stylesheet"  th:href="@{/css/util.css}">
-	  <link rel="stylesheet" type="text/css" th:href="@{/css/form.css}">
+	  <link rel="stylesheet" th:href="@{/css/form.css}">
 	  <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
   </head>
@@ -20,20 +20,20 @@
           <span class="login100-form-title p-b-41">WELCOME NEW USER!</span>
 
 
-        <form class="login100-form validate-form p-b-50 p-t-1" id="Form1">
+        <form class="login100-form validate-form p-b-50 p-t-1" id="Form1" method="post" th:object="${usernew}">
 
 			<div class="wrap-input100 validate-input" data-validate = "Please enter a valid username">
-				<input class="input100" type="text" name="Username" placeholder="Username">
+				<input class="input100" type="text" name="Username" placeholder="Username" th:field="*{username}">
 				<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 			</div>
 
             <div class="wrap-input100 validate-input" data-validate = "Please enter a valid email">
-				<input class="input100" type="text" name="Email" placeholder="Email">
+				<input class="input100" type="text" name="Email" placeholder="Email" th:field="*{email}">
 				<span class="focus-input100" data-placeholder="&#xe818;"></span>
 			</div>
 
             <div class="wrap-input100 validate-input" data-validate = "Please enter a valid password">
-				<input class="input100" type="text" name="Password" placeholder="Password">
+				<input class="input100" type="text" name="Password" placeholder="Password" th:field="*{password}">
 				<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 			</div>
 

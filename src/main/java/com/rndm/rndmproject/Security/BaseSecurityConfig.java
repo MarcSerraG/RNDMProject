@@ -12,6 +12,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                .antMatchers("/NewThread").authenticated()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/").permitAll()
                 .antMatchers("/{page}").permitAll()
@@ -26,11 +27,9 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/js/**").permitAll()
                 .antMatchers("/rs-plugin/**").permitAll()
                 .antMatchers("/fragment/**").permitAll()
-                .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)
                 .loginPage("/login")
-                .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
                 .and()
                 .httpBasic()

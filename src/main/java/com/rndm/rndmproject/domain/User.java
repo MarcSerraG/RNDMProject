@@ -1,5 +1,7 @@
 package com.rndm.rndmproject.domain;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.validation.constraints.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,22 +12,22 @@ import java.util.Map;
 public class User {
 
     //Variable definition & validation constraints
-    @NotEmpty(message = "username cannot be null nor empty")
+   /* @NotEmpty(message = "username cannot be null nor empty")
     @Size(min = 8, max = 24, message = "username must be between 8 and 24 characters long")
     @Pattern(regexp = "^(?=.*[a-z])", message = "username must have at least one lowercase")
-    @Pattern(regexp = "^(?=.*[A-Z])", message = "username must have at least one uppercase")
+    @Pattern(regexp = "^(?=.*[A-Z])", message = "username must have at least one uppercase")*/
     private String username;
 
-    @NotEmpty(message = "email cannot be null nor empty")
+   /* @NotEmpty(message = "email cannot be null nor empty")
     @Size(min = 12, max = 32, message = "email must be between 12 an 32 characters long")
-    @Email(message = "email should be valid")
+    @Email(message = "email should be valid")*/
     private String email;
 
-    @NotEmpty(message = "password cannot be null nor empty")
+   /* @NotEmpty(message = "password cannot be null nor empty")
     @Size(min = 8, max = 64, message = "password must be between 8 an 64 characters long")
     @Pattern(regexp = "^(?=.*[a-z])", message = "password must have at least one lowercase")
     @Pattern(regexp = "^(?=.*[A-Z])", message = "password must have at least one uppercase")
-    @Pattern(regexp = "^(?=.*[0-9])", message = "password must have at least one character")
+    @Pattern(regexp = "^(?=.*[0-9])", message = "password must have at least one character")*/
     private String password;
 
     private List<Thread> threads;
@@ -77,7 +79,10 @@ public class User {
     public void setUsername(String name){this.username = name;}
     public void setEmail(String email){this.email = email;}
     public void setDate(Date date){this.date = date;}
-    public void setPassword(String password){this.password = password;}
+    public void setPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
     public void setPremium(boolean premium){this.premium = premium;}
     public void setModerator(boolean moderator){this.moderator = moderator;}
     public boolean getIsConnected(){return isConnected;}

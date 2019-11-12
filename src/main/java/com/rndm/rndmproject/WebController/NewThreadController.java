@@ -41,7 +41,6 @@ public class NewThreadController {
         if(errors.hasErrors()){
             return "new_thread";
         }
-        System.out.println(NewThread.getTitle());
 
         try {
             if(NewThread.getTitle() == null){
