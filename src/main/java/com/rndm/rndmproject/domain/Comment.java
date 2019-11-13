@@ -55,12 +55,13 @@ public class Comment {
         }
     }
 
+    //new Comment Constructor
     public Comment(){
 
     }
 
     //Methods
-    private String generateID(){return username + date;}//This is temporary, alphanumeric encrypt needed
+    private String generateID(){return Integer.toString(username.hashCode() + date.hashCode());}//This is temporary, alphanumeric encrypt needed
     public String getID() {return id;}
     public String getDate(){return formatter.format(date);}
     public String getContent(){return content;}

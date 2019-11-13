@@ -27,6 +27,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rs-plugin/**").permitAll()
                 .antMatchers("/fragment/**").permitAll()
                 .antMatchers("/Static.html").permitAll()
+                .antMatchers("/Thread/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)
