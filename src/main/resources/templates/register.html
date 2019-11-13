@@ -25,17 +25,18 @@
 			<div class="wrap-input100 validate-input" id="username2">
 				<input class="input100" type="text" id="username" name="Username" placeholder="Username" th:field="*{username}">
 				<span th:if="${#fields.hasErrors('username')}"  th:errors="*{username}" Style="Display:none;" class="username"></span>
-				</input>
 				<span class="focus-input100" data-placeholder="&#xe82a;"></span>
 			</div>
 
             <div class="wrap-input100 validate-input" id="email2">
-				<input class="input100" type="text"  id="email" name="Email" placeholder="Email" th:field="*{email}"> <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" Style="Display:none;" class="email"></span> </input>
+				<input class="input100" type="text"  id="email" name="Email" placeholder="Email" th:field="*{email}">
+				<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" Style="Display:none;" class="email"></span>
 				<span class="focus-input100" data-placeholder="&#xe818;"></span>
 			</div>
 
             <div class="wrap-input100 validate-input pa" id="password2">
-				<input class="input100" type="password"  id="password" name="Password" placeholder="Password" th:field="*{password}" > <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" Style="Display:none;" class="password"></span> </input>
+				<input class="input100" type="password"  id="password" name="Password" placeholder="Password" th:field="*{password}" >
+				<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" Style="Display:none;" class="password"></span>
 				<span class="focus-input100" data-placeholder="&#xe80f;"></span>
 			</div>
 

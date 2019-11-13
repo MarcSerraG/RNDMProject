@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
@@ -34,7 +35,13 @@ public class LoginController {
             try {
                 this.userUseCases.insertUser(usernew);
             }catch (Exception e){
-                errors.rejectValue("username", null, "This user already exist");
+                if(String.valueOf(e).contains("email")){
+                    errors.rejectValue("username", null, "This user already exist");
+                }else{
+                    errors.rejectValue("username", null, "This user already exist");
+                }
+                System.out.println(e);
+
                 return "register";
             }
 
@@ -44,18 +51,22 @@ public class LoginController {
     }
 
     @GetMapping("login")
-    public String loginUser(Model model) {
+    public String loginUser(Model model , HttpServletRequest request) {
         model.addAttribute("userlogin", new User());
+        model.addAttribute("badCredentials", request.getParameter("badCredentials") );
         return "login";
+    }
+
+    @GetMapping("login_error")
+    public String loginError(Model model, RedirectAttributes redirectAttributes) {
+        model.addAttribute("userlogin", new User());
+        redirectAttributes.addAttribute("badCredentials", "username or/and password incorrect");
+
+        return "redirect:/login";
     }
 
     @PostMapping("login")
     public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
-        if (errors.hasErrors()) {
-
-             return "login";
-        }
-
         return "redirect:/";
     }
 

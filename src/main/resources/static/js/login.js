@@ -1,7 +1,4 @@
-
 $(document).ready(function () {
-
-
 
     $('.input100').each(function(){
         $(this).on('blur', function(){
@@ -11,9 +8,9 @@ $(document).ready(function () {
             else {
                 $(this).removeClass('has-val');
             }
-        })    
+        })
     })
-  
+
 
     var input = $('.validate-input .input100');
 
@@ -22,7 +19,7 @@ $(document).ready(function () {
     function recheck(){
         var check = true;
 
-        for(var i=0; i<input.length-1; i++) {
+        for(var i=0; i<input.length; i++) {
             if(validate(input[i]) == false){
                 showValidate(input[i]);
                 check=false;
@@ -34,7 +31,7 @@ $(document).ready(function () {
 
     $('.validate-form .input100').each(function(){
         $(this).focus(function(){
-           hideValidate(this);
+            hideValidate(this);
         });
     });
 
@@ -43,21 +40,19 @@ $(document).ready(function () {
 
         if(spanContent !=""){
             ConvertID($(input).attr('id'),spanContent);
-           return false;
+            return false;
         }
 
     }
 
     function showValidate(input) {
         var thisAlert = $(input).parent();
-
         $(thisAlert).addClass('alert-validate');
     }
 
     function hideValidate(input) {
         var thisAlert = $(input).parent();
         $(".username").text("");
-        $(".email").text("");
         $(".password").text("");
         $(thisAlert).removeClass('alert-validate');
     }
@@ -67,10 +62,6 @@ $(document).ready(function () {
             case 'username':
                 var user = $('.username');
                 return user;
-                break;
-            case 'email':
-                var email = $('.email');
-                return email;
                 break;
             case 'password':
                 var pass = $('.password');
@@ -85,41 +76,10 @@ $(document).ready(function () {
                 $('#username2').attr("data-validate", message);
                 return;
                 break;
-            case 'email':
-                $('#email2').attr("data-validate", message);
-                return;
-                break;
             case 'password':
                 $('#password2').attr("data-validate", message);
                 return;
                 break;
         }
     }
-
-
-
-
-
-    $("#repeatPassword").keyup(checkPasswordMatch);
-
-    $("#password").keyup(IsEmptyRepeated);
-
-
-    function IsEmptyRepeated() {
-        $("#repeatPassword").parent().addClass('alert-validate');
-    }
-
-
-    function checkPasswordMatch() {
-        var password = $("#password").val();
-        var confirmPassword = $("#repeatPassword").val();
-
-        if (password != confirmPassword)
-            $("#repeatPassword").parent().addClass('alert-validate');
-        else {
-            $("#repeatPassword").parent().removeClass('alert-validate');
-            $("#registerButton").prop('disabled', false);
-        }
-    }
-
 });
