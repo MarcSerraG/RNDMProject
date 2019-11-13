@@ -22,6 +22,7 @@
         <!-- fonts -->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" th:href="@{/font-awesome-4.0.3/css/font-awesome.min.css}">
+        <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
         <!-- CSS STYLE-->
         <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="screen" />
@@ -85,18 +86,9 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
 
-                            <!-- -->
-                            <div class="sidebarblock">
-                                <h3>Tags</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <ul class="cats">
-                                        <li><a href="#">Trading for Money <span class="badge pull-right">20</span></a></li>
-                                    </ul>
-                                </div>
-                            </div>
 
-                            <!-- -->
+                            <div th:replace="fragment/Dynamic :: topThreads"></div>
+                             <!-- -->
                             <div class="sidebarblock">
                                 <h3>My Active Threads</h3>
                                 <div class="divline"></div>

@@ -20,6 +20,7 @@
     <!-- fonts -->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" th:href="@{/font-awesome-4.0.3/css/font-awesome.min.css}">
+    <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
     <!-- CSS STYLE-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="screen" />
@@ -59,9 +60,9 @@
                 </div>
                 <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                     <div class="wrap">
-                        <form action="#" method="post" class="form">
-                            <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
-                            <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
+                        <form class="form">
+                            <div class="pull-left txt"><input id="navigation" type="text" class="form-control" placeholder="Search Threads"></div>
+                            <div class="pull-right"><button id = "searchButton" class="btn btn-default" type="button"  onclick="Search()"><i class="fa fa-search"></i></button></div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -89,6 +90,18 @@
             </div>
         </div>
     </div>
+    <script>
+        function Search(){
+            window.location.replace("/Search/"+ document.getElementById('navigation').value);
+        }
+        var input = document.getElementById("navigation");
+        input.addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("searchButton").click();
+            }
+        });
+    </script>
 </div>
 
 <div th:fragment="footer">
@@ -129,6 +142,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

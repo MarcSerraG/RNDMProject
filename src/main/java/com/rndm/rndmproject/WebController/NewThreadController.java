@@ -3,6 +3,7 @@ package com.rndm.rndmproject.WebController;
 import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
 import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.persistence.VotesDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -19,12 +20,18 @@ public class NewThreadController {
 
     private ThreadUseCases threadUseCases;
     private CategoryUseCases categoryUseCases;
-    public NewThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases){this.threadUseCases = useCases; this.categoryUseCases = categoryUseCases;}
+    private VotesDAO votesDAO;
+    public NewThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases, VotesDAO votesDAO){
+        this.threadUseCases = useCases;
+        this.categoryUseCases = categoryUseCases;
+        this.votesDAO = votesDAO;
+    }
 
     @GetMapping
     public String NewThread(Model model){
         model.addAttribute("NewThread",new Thread());
         model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("TopThreads", votesDAO.getTopThread());
         return "new_thread";
     }
 
