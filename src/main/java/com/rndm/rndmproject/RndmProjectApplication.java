@@ -1,8 +1,6 @@
 package com.rndm.rndmproject;
 
-import com.rndm.rndmproject.Controller.WeatherREST;
-import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.rndm.rndmproject.REST.WeatherREST;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,7 +25,7 @@ public class RndmProjectApplication implements CommandLineRunner {
         RestTemplate rest = new RestTemplate();
 
         WeatherREST weather = rest.getForObject(
-                "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=71d74a92f4a94cdec1174ca88377b4cf", WeatherREST.class);
+                "http://api.openweathermap.org/data/2.5/weather?q=Mataro,es&APPID=71d74a92f4a94cdec1174ca88377b4cf", WeatherREST.class);
         System.out.println(weather.toString());
 
     }
