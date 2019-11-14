@@ -102,7 +102,7 @@
 </div>
 <!--Comment with father-->
 
-
+<!--Top threads-->
 <div class="sidebarblock" th:fragment="topThreads">
 
     <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
@@ -114,6 +114,34 @@
         </ul>
     </div>
 </div>
+<!--Top threads-->
+<!--Weather-->
+<div class="sidebarblock" th:fragment="weather">
+
+    <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
+    <div class="divline"></div>
+    <div class="blocktxt">
+        <ul class="cats">
+            <li>
+                <span th:text="${Weather.getClima()}"></span>
+            </li>
+            <li>
+                <span>Current temperature:</span>
+                <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
+            </li>
+            <li>
+                <span>Maximum:</span>
+                <span class="badge pull-right" th:text="${Weather.getTempMax()} + 'ºC'"></span>
+            </li>
+            <li>
+                <span>Minimum:</span>
+                <span class="badge pull-right" th:text="${Weather.getTempMin()} + 'ºC'"></span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<!--Weather-->
 
 </body>
 </html>
