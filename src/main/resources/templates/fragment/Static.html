@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -44,7 +43,8 @@
     </div>
 </div>
 
-<div th:fragment="navigation">
+
+<div th:fragment="navigation-anon">
     <div class="headernav">
         <div class="container">
             <div class="row">
@@ -68,6 +68,60 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
+                    <!--div class="stnt pull-left">
+                        <form action="/login" method="get" class="form">
+                            <button class="btn btn-primary">Sign In</button>
+                        </form>
+                    </div>
+
+                    <div class="stnt pull-left">
+                        <form action="/register" method="get" class="form">
+                            <button class="btn btn-primary">Create An Account</button>
+                        </form>
+                    </div-->
+                    <div class="stnt pull-left"></div>
+                    <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+
+                    <div class="avatar pull-left dropdown">
+                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                        <div class="status green">&nbsp;</div>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-3" href="/register">Create an account</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="navigation-logged">
+    <div class="headernav">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="/"><img th:src="@{/images/logo.jpg}"  alt=""  /></a></div>
+                <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
+                    <div class="dropdown">
+                        <a data-toggle="dropdown" href="#" >Select Category</a> <b class="caret"></b>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/">All Categories</a></li>
+                            <li role="presentation" th:each="categoryName : ${Categories}" th:value="${categoryName.getName()}"><a role="menuitem" tabindex="-1" th:href="${'/Category/' + categoryName.getName()}" ><span th:text="${categoryName.getName()}"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
+                    <div class="wrap">
+                        <form action="#" method="post" class="form">
+                            <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
+                            <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
                     <div class="stnt pull-left">
                         <form action="/NewThread" method="get" class="form">
                             <button class="btn btn-primary">Start New Topic</button>
@@ -80,8 +134,8 @@
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-3" href="#">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="04_new_account.html">Create account</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
                         </ul>
                     </div>
 
