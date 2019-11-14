@@ -55,7 +55,7 @@
         <div class="postinfo pull-left">
             <div class="comments">
                 <div class="commentbg">
-                    560
+                    <span th:text="${Comment.getCount(post.getID())}"></span>
                     <div class="mark"></div>
                 </div>
             </div>
