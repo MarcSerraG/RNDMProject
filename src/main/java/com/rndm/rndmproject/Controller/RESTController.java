@@ -25,7 +25,5 @@ public class RESTController {
       weather = rest.getForObject(
               "http://api.openweathermap.org/data/2.5/weather?q=Mataro,es&units=metric&APPID=71d74a92f4a94cdec1174ca88377b4cf",
               WeatherREST.class);
-
-      System.out.println(weather);
-        return weather;}
+      return weather;}
 }
