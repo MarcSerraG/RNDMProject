@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="posttext pull-left">
                                         <h2 th:text="${threadByID.getTitle()}"></h2>
-                                        <div class="content"th:utext="${threadByID.getText()}"/>
+                                        <div class="content"th:text="${threadByID.getText()}"/>
                                     </div>
                                     <div class="clearfix"></div>
                                 </div>                              
@@ -97,11 +97,10 @@
 
                                 <span th:if="${comment.getFatherComment() == null}">
                                     <div th:replace="fragment/Dynamic :: singleComment"></div>
-                                    <div th:replace="fragment/Dynamic :: writeComment"></div>
+
                                 </span>
                                 <span th:if="${comment.getFatherComment() != null}">
                                     <div th:replace="fragment/Dynamic :: fatherComment"></div>
-                                    <div th:replace="fragment/Dynamic :: writeComment"></div>
                                 </span>
                             </div>
 

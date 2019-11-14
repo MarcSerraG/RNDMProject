@@ -118,7 +118,7 @@
 
 <!-- Write comment-->
     <div class="post"  th:fragment="writeCommentThread"><!-- Style="Display:none;" -->
-        <form action="#" class="form" method="post" th:object=${newComment}">
+        <form action="#" class="form" method="post" th:object="${newComment}">
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
@@ -129,21 +129,18 @@
                     <div class="icons">
                         <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
                     </div>
-
+                    <span th:field="*{thread}" style="display: none"><span th:text="${threadByID.getID()}"></span></span>
+                    <span th:field="*{username}" style="display: none"><span th:text="${username}"></span></span>
                 </div>
                 <div class="posttext pull-left">
                     <div class="textwraper">
-                        <div class="postreply">Comment: a Thread/Replay to </div>
-                        <textarea name="reply" id="reply" placeholder="Type your message here"></textarea>
+                        <div class="postreply">Comment: </div>
+                        <textarea name="reply" id="reply" placeholder="Type your comment here" th:field="*{content}"></textarea>
                     </div>
                 </div>
                 <div class="clearfix"></div>
             </div>
             <div class="postinfobot">
-
-                <div class="notechbox pull-left">
-                    <input type="checkbox" name="note" id="note" class="form-control" />
-                </div>
 
                 <div class="pull-right postreply">
                     <div class="pull-left"><button type="submit" class="btn btn-primary">Comment</button></div>

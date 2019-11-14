@@ -56,8 +56,11 @@ public class Comment {
     }
 
     //new Comment Constructor
-    public Comment(){
-
+    public Comment(String thread, String username){
+        this.thread = thread;
+        this.username = username;
+        this.date = new Date(System.currentTimeMillis());
+        this.id = generateID();
     }
 
     //Methods
@@ -78,4 +81,29 @@ public class Comment {
     public String toString(){return id +" "+ content +" "+ fatherComment +" "+ username +" "+ thread +" "+ getDate();}
     //public void deleteComment(){if (fatherComment == null) thread.removeComment(this);}
 
+
+    public void setUsername(String username){
+        this.username = username;
+        this.id= generateID();
+    }
+
+    public void setContent(String content){
+        this.content = content;
+    }
+
+    public void setThread(String thread){
+        this.thread = thread;
+    }
+
+    public void setFatherComment(String fatherComment){
+        this.fatherComment = fatherComment;
+    }
+
+    public void setFatherContent(String fatherContent){
+        this.fatherContent = fatherContent;
+    }
+
+    public void setFatherUser (String fatherUser){
+        this.fatherUser = fatherUser;
+    }
 }
