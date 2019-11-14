@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -68,6 +67,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
+                    <!--div class="stnt pull-left">
+                        <form action="/login" method="get" class="form">
+                            <button class="btn btn-primary">Sign In</button>
+                        </form>
+                    </div>
+
+                    <div class="stnt pull-left">
+                        <form action="/register" method="get" class="form">
+                            <button class="btn btn-primary">Create An Account</button>
+                        </form>
+                    </div-->
                     <div class="stnt pull-left"></div>
                     <div class="env pull-left"><i class="fa fa-envelope"></i></div>
 
@@ -123,8 +133,8 @@
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-3" href="#">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="04_new_account.html">Create account</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
                         </ul>
                     </div>
 

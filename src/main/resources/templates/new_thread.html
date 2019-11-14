@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,7 +39,7 @@
 
             <div th:replace="fragment/Static :: slide"></div>
 
-            <div th:replace="fragment/Static :: navigation"></div>
+            <div th:replace="fragment/Static :: navigation-logged"></div>
 
 
             <section class="content">
