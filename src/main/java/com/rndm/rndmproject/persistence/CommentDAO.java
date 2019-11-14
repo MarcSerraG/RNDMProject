@@ -21,10 +21,18 @@ public class CommentDAO {
     private final String GET_FATHER = "select * from comments where comments_id_comment = ?";
     private final String GET_BY_USERNAME = "select * from comments where users_username = ?";
     private final String GET_BY_THREAD = "select * from comments where threads_id_thread = ?";
+    private final String GET_FATHER_CONTENT = "select content from comments where id_comment = ?";
+    private final String GET_FATHER_USER = "select users_username from comments where id_comment = ?";
 
     public CommentDAO(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
 
     private Comment commentMapper(ResultSet resultSet) throws SQLException {
+        String FatherContent = " ";
+        String FatherUser = " ";
+        if(resultSet.getString("comments_id_comment")!= null) {
+            FatherContent = getFatherContent(resultSet.getString("comments_id_comment"));
+            FatherUser = getFatherUser(resultSet.getString("comments_id_comment"));
+        }
 
         Comment comment = new Comment(
                 resultSet.getString("id_comment"),
@@ -32,7 +40,11 @@ public class CommentDAO {
                 resultSet.getString("content"),
                 resultSet.getString("comments_id_comment"),
                 resultSet.getString("threads_id_thread"),
-                resultSet.getString("date_comment"));
+                resultSet.getString("date_comment"),
+                FatherContent,
+                FatherUser
+
+        );
         return comment;
     }
     private final RowMapper<Comment> mapper = (resultSet, i) -> commentMapper(resultSet);
@@ -48,5 +60,13 @@ public class CommentDAO {
             comment.getFatherComment(),
             comment.getUsername(),
             comment.getThread());
+    }
+
+    public String getFatherContent(String idFather){
+        return jdbcTemplate.queryForObject(GET_FATHER_CONTENT, String.class, idFather);
+    }
+
+    public String getFatherUser(String idFather){
+        return jdbcTemplate.queryForObject(GET_FATHER_USER, String.class, idFather);
     }
 }

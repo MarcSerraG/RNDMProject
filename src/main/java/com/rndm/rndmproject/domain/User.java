@@ -10,11 +10,14 @@ import java.util.Map;
 public class User {
 
     //Variable definition & validation constraints
-    @Size(min = 6, max = 24, message = "username must be between 8 and 24 characters long")
+
+    @Size(min = 4, max = 20, message = "username must be between 4 and 20 characters long")
     private String username;
 
+    @NotEmpty(message = "email cannot be empty")
     @Email(message = "email should be valid")
     private String email;
+
 
     @Size(min = 8, max = 64, message = "password must be between 8 an 64 characters long")
     private String password;
@@ -65,7 +68,9 @@ public class User {
     public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
     // Setters
-    public void setUsername(String name){this.username = name;}
+    public void setUsername(String name){
+        this.username = name;
+    }
     public void setEmail(String email){this.email = email;}
     public void setDate(Date date){this.date = date;}
     public void setPassword(String password){this.password = password;}
