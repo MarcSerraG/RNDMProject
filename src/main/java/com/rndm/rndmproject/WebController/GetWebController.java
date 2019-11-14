@@ -1,7 +1,9 @@
 package com.rndm.rndmproject.WebController;
 
 import com.rndm.rndmproject.Controller.CategoryUseCases;
+import com.rndm.rndmproject.Controller.RESTController;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
+import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
@@ -22,12 +24,14 @@ public class GetWebController {
     private CategoryUseCases categoryUseCases;
     private VotesDAO votesDAO;
     private CommentDAO commentDAO;
+    private RESTController restController;
 
-    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO){
+    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO, RESTController rest){
         this.threadUseCases = threadUseCases;
         this.categoryUseCases = categoryUseCases;
         this.commentDAO = commentDAO;
         this.votesDAO = votesDAO;
+        this.restController = rest;
     }
 
     @GetMapping("/")
@@ -35,6 +39,7 @@ public class GetWebController {
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("Weather", restController.getWeather());
         return "index";
     }
 
@@ -42,6 +47,7 @@ public class GetWebController {
     @GetMapping("/{page}")
     public String firstThreads (Model model, @PathVariable int page){
         model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
+        model.addAttribute("Weather", restController.getWeather());
         return "index";
     }
 
@@ -50,6 +56,7 @@ public class GetWebController {
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("Weather", restController.getWeather());
         return"index";
     }
 
@@ -59,6 +66,7 @@ public class GetWebController {
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("Weather", restController.getWeather());
         return "thread";
     }
 
@@ -67,6 +75,7 @@ public class GetWebController {
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("Weather", restController.getWeather());
         return"index";
     }
 
