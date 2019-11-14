@@ -17,6 +17,7 @@ public class CommentDAO {
     private final String INSERT_COMMENT = "insert into comment " +
             "(id_comment, content, comments_id_comment, users_username, threads_id_thread) " +
             "values (?,?,?,?,?)";
+    private final String COUNT_COMMENTS = "select count(*) from comments where threads_id_thread = ?";
     private final String FIND_COMMENT = "select * from comments where id_comment = ?";
     private final String GET_FATHER = "select * from comments where comments_id_comment = ?";
     private final String GET_BY_USERNAME = "select * from comments where users_username = ?";
@@ -51,6 +52,7 @@ public class CommentDAO {
 
     private Comment getFatherComment(String id) {return jdbcTemplate.queryForObject(GET_FATHER, mapper, id);}
     private List<Comment> getCommentsByUsername(String username) {return jdbcTemplate.query(GET_BY_USERNAME, mapper, username);}
+    public int getCount(String id) {return jdbcTemplate.queryForObject(COUNT_COMMENTS,Integer.class, id);}
     public Comment getComment(String id){return jdbcTemplate.queryForObject(FIND_COMMENT, mapper, id);}
     public List<Comment> getCommentsByThread (String id){return jdbcTemplate.query(GET_BY_THREAD, mapper, id);}
     public int insert(Comment comment){return jdbcTemplate.update(
