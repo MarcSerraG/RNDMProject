@@ -30,19 +30,57 @@
 </head>
 <body>
 
-<div class="tp-banner-container" th:fragment="slide">
-    <div class="tp-banner" >
-        <ul>
-            <!-- SLIDE  -->
-            <li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
-                <!-- MAIN IMAGE -->
-                <img th:src="@{/images/slide.jpg}"  alt="slidebg1"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-                <!-- LAYERS -->
-            </li>
-        </ul>
+<div th:fragment="slide">
+    <div class="tp-banner-container">
+        <div class="tp-banner" >
+            <ul>
+                <!-- SLIDE  -->
+                <li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
+                    <!-- MAIN IMAGE -->
+                    <img th:src="@{/images/slide.jpg}"  alt="slidebg1"  data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                    <!-- LAYERS -->
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
+<div th:fragment="thread">
+    <div class="post beforepagination">
+        <div class="topwrap">
+            <div class="userinfo pull-left">
+                <div class="avatar">
+                    <img th:src="@{/images/avatar.jpg}"  alt="" />
+                    <div class="status green">&nbsp;</div>
+                </div>
+
+                <div class="icons">
+                    <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
+                </div>
+            </div>
+            <div class="posttext pull-left">
+                <h2 th:text="${threadByID.getTitle()}"></h2>
+                <div class="content"th:utext="${threadByID.getText()}"/>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="postinfobot">
+
+            <div class="likeblock pull-left">
+                <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
+                <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
+            </div>
+
+            <div class="prev pull-left">
+                <a href="#"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${threadByID.getDate()}"></span></div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
 
 <div th:fragment="navigation-anon">
     <div class="headernav">
@@ -169,32 +207,35 @@
     </footer>
 </div>
 
-<div class="container" th:fragment="pages">
-    <div class="row">
-        <div class="col-lg-8 col-xs-12">
-            <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-            <div class="pull-left">
-                <ul class="paginationforum">
-                    <li class="hidden-xs"><a href="#">1</a></li>
-                    <li class="hidden-xs"><a href="#">2</a></li>
-                    <li class="hidden-xs"><a href="#">3</a></li>
-                    <li class="hidden-xs"><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#" class="active">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li class="hidden-xs"><a href="#">9</a></li>
-                    <li class="hidden-xs"><a href="#">10</a></li>
-                    <li class="hidden-xs hidden-md"><a href="#">11</a></li>
-                    <li class="hidden-xs hidden-md"><a href="#">12</a></li>
-                    <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-                    <li><a href="#">1586</a></li>
-                </ul>
+<div th:fragment="pages">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xs-12">
+                <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+                <div class="pull-left">
+                    <ul class="paginationforum">
+                        <li class="hidden-xs"><a href="#">1</a></li>
+                        <li class="hidden-xs"><a href="#">2</a></li>
+                        <li class="hidden-xs"><a href="#">3</a></li>
+                        <li class="hidden-xs"><a href="#">4</a></li>
+                        <li><a href="#">5</a></li>
+                        <li><a href="#">6</a></li>
+                        <li><a href="#" class="active">7</a></li>
+                        <li><a href="#">8</a></li>
+                        <li class="hidden-xs"><a href="#">9</a></li>
+                        <li class="hidden-xs"><a href="#">10</a></li>
+                        <li class="hidden-xs hidden-md"><a href="#">11</a></li>
+                        <li class="hidden-xs hidden-md"><a href="#">12</a></li>
+                        <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
+                        <li><a href="#">1586</a></li>
+                    </ul>
+                </div>
+                <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+                <div class="clearfix"></div>
             </div>
-            <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
-            <div class="clearfix"></div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

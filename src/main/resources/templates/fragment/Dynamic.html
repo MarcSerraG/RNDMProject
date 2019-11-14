@@ -30,6 +30,43 @@
 </head>
 <body>
 
+<!--Thread-->
+<div th:fragment="thread">
+    <div class="post">
+        <div class="wrap-ut pull-left">
+            <div class="userinfo pull-left">
+                <div class="avatar">
+                    <img th:src="@{images/avatar.jpg}" alt="" />
+                    <div class="status green">&nbsp;</div>
+                </div>
+
+                <div class="icons">
+                    <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                </div>
+            </div>
+
+            <div class="posttext pull-left">
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
+            </div>
+
+            <div class="clearfix"></div>
+            </div>
+        <div class="postinfo pull-left">
+            <div class="comments">
+                <div class="commentbg">
+                    560
+                    <div class="mark"></div>
+                </div>
+            </div>
+            <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
+            <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--Thread-->
+
 <!--Comment without father-->
 <div th:fragment="singleComment">
     <div class="post">
@@ -103,42 +140,44 @@
 <!--Comment with father-->
 
 <!--Top threads-->
-<div class="sidebarblock" th:fragment="topThreads">
-
-    <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
-    <div class="divline"></div>
-    <div class="blocktxt">
-        <ul class="cats">
-            <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
-        </ul>
+<div th:fragment="topThreads">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
+                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+            </ul>
+        </div>
     </div>
 </div>
 <!--Top threads-->
+
 <!--Weather-->
-<div class="sidebarblock" th:fragment="weather">
-
-    <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
-    <div class="divline"></div>
-    <div class="blocktxt">
-        <ul class="cats">
-            <li>
-                <span th:text="${Weather.getClima()}"></span>
-            </li>
-            <li>
-                <span>Current temperature:</span>
-                <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
-            </li>
-            <li>
-                <span>Maximum:</span>
-                <span class="badge pull-right" th:text="${Weather.getTempMax()} + 'ºC'"></span>
-            </li>
-            <li>
-                <span>Minimum:</span>
-                <span class="badge pull-right" th:text="${Weather.getTempMin()} + 'ºC'"></span>
-            </li>
-
-        </ul>
+<div th:fragment="weather">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li>
+                    <span th:text="${Weather.getClima()}"></span>
+                </li>
+                <li>
+                    <span>Current temperature:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
+                </li>
+                <li>
+                    <span>Maximum:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTempMax()} + 'ºC'"></span>
+                </li>
+                <li>
+                    <span>Minimum:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTempMin()} + 'ºC'"></span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 <!--Weather-->
