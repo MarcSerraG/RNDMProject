@@ -1,7 +1,5 @@
 $(document).ready(function () {
-
     iconChange();
-
     function iconChange() {
         var clima = $("#clima").text();
         var icon = $("#clima");
