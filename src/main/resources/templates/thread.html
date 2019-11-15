@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,10 +37,8 @@
         <div class="container-fluid">
 
             <div th:replace="fragment/Static :: slide"></div>
-
-            <div th:replace="fragment/Static :: navigation"></div>
-
-
+            <div sec:authorize="isAnonymous()"><div th:replace="fragment/Static :: navigation-anon"></div></div>
+            <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
 
             <section class="content">
                 <div class="container">
@@ -55,42 +54,11 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
 
-                            <!-- POST -->
-                            <div class="post beforepagination">
-                                <div class="topwrap">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img th:src="@{/images/avatar.jpg}"  alt="" />
-                                            <div class="status green">&nbsp;</div>
-                                        </div>
+                            <!-- Post Section -->
+                            <div th:replace="fragment/Static :: thread"></div>
+                            <!-- Post Section -->
 
-                                        <div class="icons">
-                                            <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
-                                        </div>
-                                    </div>
-                                    <div class="posttext pull-left">
-                                        <h2 th:text="${threadByID.getTitle()}"></h2>
-                                        <div class="content"th:utext="${threadByID.getText()}"/>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>                              
-                                <div class="postinfobot">
-
-                                    <div class="likeblock pull-left">
-                                        <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
-                                        <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
-                                    </div>
-
-                                    <div class="prev pull-left">                                        
-                                        <a href="#"><i class="fa fa-reply"></i></a>
-                                    </div>
-
-                                    <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${threadByID.getDate()}"></span></div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-
+                            <!-- Comment Section -->
                             <div th:each="comment : ${Comments}">
 
                                 <span th:if="${comment.getFatherComment() == null}">
@@ -100,6 +68,7 @@
                                     <div th:replace="fragment/Dynamic :: fatherComment"></div>
                                 </span>
                             </div>
+                            <!-- Comment Section -->
 
                             <!-- POST -->
                             <div class="post">
@@ -145,11 +114,11 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
 
-                            <!-- -->
+                            <!--Here starts right panel-->
+                            <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
 
-
-                            <!-- -->
+                            <!--Static content to be revised-->
                             <div class="sidebarblock">
                                 <h3>My Active Threads</h3>
                                 <div class="divline"></div>

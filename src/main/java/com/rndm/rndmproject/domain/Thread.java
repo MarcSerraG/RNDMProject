@@ -112,7 +112,7 @@ public class Thread {
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
-    private String generateID(){return Integer.toString(username.hashCode() + date.hashCode());}//Need a modification, alphanumeric encrypt
+    private String generateID(){return Integer.toString(Math.abs(username.hashCode() + date.hashCode()));}//Need a modification, alphanumeric encrypt
     public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}

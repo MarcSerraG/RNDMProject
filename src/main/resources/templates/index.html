@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -37,7 +37,8 @@
 
             <div th:replace="fragment/Static :: slide"></div>
 
-            <div th:replace="fragment/Static :: navigation"></div>
+            <div sec:authorize="isAnonymous()"><div th:replace="fragment/Static :: navigation-anon"></div></div>
+            <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
 
 
             <section class="content">
@@ -48,45 +49,15 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
 
-                            <!-- POST -->
-                            <div class="post" th:each="post : ${IndexThread}">
-                                <div class="wrap-ut pull-left">
-                                    <div class="userinfo pull-left">
-                                        <div class="avatar">
-                                            <img th:src="@{images/avatar.jpg}" alt="" />
-                                            <div class="status green">&nbsp;</div>
-                                        </div>
+                            <div th:each="post : ${IndexThread}">
+                                <div th:replace="fragment/Dynamic :: thread"></div>
+                            </div>
 
-                                        <div class="icons">
-                                            <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
-                                        </div>
-                                    </div>
-
-                                    <div class="posttext pull-left">
-                                        <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
-                                        <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
-                                    </div>
-
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="postinfo pull-left">
-                                    <div class="comments">
-                                        <div class="commentbg">
-                                            560
-                                            <div class="mark"></div>
-                                        </div>
-
-                                    </div>
-                                    <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
-                                    <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div><!-- POST -->
 
                         </div>
                         <div class="col-lg-4 col-md-4">
 
-
+                            <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
                              <!-- -->
                             <div class="sidebarblock">
