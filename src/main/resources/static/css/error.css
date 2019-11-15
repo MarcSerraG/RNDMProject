@@ -8,7 +8,7 @@ html, body {
 canvas {
     align-items: center;
     justify-content: center;
-    border: 1px solid black;
+    border: 1px solid #363838;
 }
 * {
     -webkit-box-sizing: border-box;
@@ -44,11 +44,11 @@ canvas {
 }
 
 .notfound .notfound-404 h1 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Ubuntu-Regular, sans-serif;
     font-size: 236px;
     font-weight: 200;
     margin: 0px;
-    color: #211b19;
+    color: #1abc9c;
     text-transform: uppercase;
     position: absolute;
     left: 50%;
@@ -59,11 +59,11 @@ canvas {
 }
 
 .notfound .notfound-404 h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: Ubuntu-Regular, sans-serif;
     font-size: 28px;
     font-weight: 400;
     text-transform: uppercase;
-    color: #211b19;
+    color: #363838;
     background: #fff;
     padding: 10px 5px;
     margin: auto;
@@ -88,15 +88,15 @@ canvas {
     color: #fff;
     text-transform: uppercase;
     padding: 13px 23px;
-    background: #ff6300;
+    background: #1abc9c;
     font-size: 18px;
     -webkit-transition: 0.2s all;
     transition: 0.2s all;
 }
 
 .notfound a:hover {
-    color: #ff6300;
-    background: #211b19;
+    color: #1abc9c;
+    background: #363838;
 }
 
 @media only screen and (max-width: 767px) {

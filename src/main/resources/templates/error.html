@@ -11,7 +11,7 @@
     <div class="notfound">
         <div class="notfound-404">
             <h1>Oops!</h1>
-            <h2>404 - The Page can't be found</h2>
+            <h2>Something went wrong</h2>
         </div>
         <canvas width="400" height="400" id="game"></canvas>
         <div class="return-page">
@@ -73,7 +73,7 @@ function loop() {
         snake.cells.pop();
     }
     // draw apple
-    context.fillStyle = 'red';
+    context.fillStyle = '#1abc9c';
     context.fillRect(apple.x, apple.y, grid-1, grid-1);
     context.fillStyle = 'black';
     snake.cells.forEach(function(cell, index) {
