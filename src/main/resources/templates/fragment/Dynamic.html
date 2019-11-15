@@ -157,13 +157,12 @@
 <!--Weather-->
 <div th:fragment="weather">
     <div class="sidebarblock">
-        <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
+
+        <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
+        <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li>
-                    <span th:text="${Weather.getClima()}"></span>
-                </li>
                 <li>
                     <span>Current temperature:</span>
                     <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
@@ -179,6 +178,8 @@
             </ul>
         </div>
     </div>
+
+
 </div>
 <!--Weather-->
 
