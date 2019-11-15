@@ -40,7 +40,6 @@
             <div sec:authorize="isAnonymous()"><div th:replace="fragment/Static :: navigation-anon"></div></div>
             <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
 
-
             <section class="content">
 
                 <div th:replace="fragment/Static :: pages"></div>
@@ -57,45 +56,16 @@
                                 <div th:replace="fragment/Dynamic :: thread"></div>
                             </div>
 
-
                         </div>
                         <div class="col-lg-4 col-md-4">
-
                             <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
-                             <!-- -->
-                            <div class="sidebarblock">
-                                <h3>My Active Threads</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-                                </div>
-                            </div>
-
-
+                            <div th:replace="fragment/Dynamic :: categories"></div>
                         </div>
                     </div>
                 </div>
 
-
                 <div th:replace="fragment/Static :: pages"></div>
-
             </section>
 
             <div th:replace="fragment/Static :: footer"></div>
@@ -103,12 +73,10 @@
 
         <!-- get jQuery from the google apis -->
         <script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
- 
 
         <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
         <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
         <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
-
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/weather.js}"></script>
 
@@ -131,7 +99,6 @@
             });	//ready
 
         </script>
-
         <!-- END REVOLUTION SLIDER -->
     </body>
 </html>

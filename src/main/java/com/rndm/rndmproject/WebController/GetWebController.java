@@ -41,6 +41,7 @@ public class GetWebController {
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
+        model.addAttribute("Category", threadUseCases);
         return "index";
     }
 
@@ -59,6 +60,7 @@ public class GetWebController {
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
+        model.addAttribute("Category", threadUseCases);
         return"index";
     }
 
