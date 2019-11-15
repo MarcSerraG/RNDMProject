@@ -11,12 +11,12 @@ import java.util.List;
 public class Thread {
 
     //Variable definition & validation constraints
-    private int id;
+    private String id;
     private String title;
     private Date date;
     private int upvotes;
     private int downvotes;
-    private List<Comment> comments;
+    private List<String> comments;
     private String text;
     private Object media;
     private String username;
@@ -48,12 +48,12 @@ public class Thread {
         id = generateID();
         upvotes = 0;
         downvotes = 0;
-        comments = new ArrayList<Comment>();
+        comments = new ArrayList<String>();
         date = new Date(System.currentTimeMillis());
     }
 
     //Constructor 2
-    public Thread (int id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes){
 
         this.id = id;
         this.title = title;
@@ -64,7 +64,7 @@ public class Thread {
         this.category = category;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
-        comments = new ArrayList<Comment>();
+        comments = new ArrayList<String>();
         try {
             date = formatter.parse(data);
         }catch (Exception e){
@@ -72,34 +72,22 @@ public class Thread {
         }
     }
 
-    //Constructor 3
-    public Thread (String title, String text){
-        this.id = 150;
-        this.title = title;
-        this.text = text;
-        this.media = "http//";
-        this.username = "Ricard";
-        this.category = new Category("category");
-        this.upvotes = 20;
-        this.downvotes = 20;
-        date = new Date(System.currentTimeMillis());
-    }
-
     //Contructor 4
 
     public Thread(){
-        this.id = 150;
         this.media = "http//";
         this.username = "Ricard";
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
+        this.id = generateID();
+        System.out.println("Identificador: " +id);
     }
 
 
 
     //ConstructorDAO
-    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, int id, int upvotes, int downvotes, List<Comment> comments, Date date) {
+    public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category, String id, int upvotes, int downvotes, List<String> comments, Date date) {
 
         this.title = title;
         this.text = text;
@@ -115,17 +103,17 @@ public class Thread {
     }
 
     //Methods
-    public int getID(){return id;}
+    public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
     public String getTitle(){return title;}
-    public List<Comment> getComments(){return comments;}
+    public List<String> getComments(){return comments;}
     public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
     public int getUpvotes(){return upvotes;}
     public int getDownvotes(){return downvotes;}
-    private int generateID(){return username.hashCode();}
-    public void addComment(Comment comment){comments.add(comment);}
+    private String generateID(){return Integer.toString(Math.abs(username.hashCode() + date.hashCode()));}//Need a modification, alphanumeric encrypt
+    public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
 
@@ -168,6 +156,8 @@ public class Thread {
         else if (diff > minute) return diff / minute + " minutes";
         else return diff / second + " seconds";
     }
+    @Override
+    public String toString(){return id +" "+title+" "+date;}
 
     //Convert html to text. index.html use it
     public static String html2text(String html) {

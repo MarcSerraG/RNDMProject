@@ -28,6 +28,8 @@ public class ThreadUseCases {
 
         public List<Thread> findThreadByCategory ( String Category ){ return this.threadDAO.findThreadByCategory(Category); }
 
+        public List<Thread> findThreadByName (String title) {return this.threadDAO.findThreadByName(title);}
+
         public Thread getThread ( String id ){ return this.threadDAO.getThread(id);}
 
 
