@@ -1,6 +1,8 @@
 package com.rndm.rndmproject.domain;
 
 
+import java.util.Comparator;
+
 public class Votes {
 
     private String threadID;
@@ -31,6 +33,13 @@ public class Votes {
     }
     public String getUser() {
         return user;
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Votes)) return false;
+        Votes obj = (Votes) o;
+
+        return (obj.threadID.equals(obj.threadID) && obj.user.equals(this.user) && obj.positive == this.positive);
     }
 
 }

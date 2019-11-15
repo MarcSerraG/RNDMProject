@@ -18,6 +18,8 @@ public class VotesDAO {
             "FROM `thread`\n" +
             "    LEFT JOIN `vote` ON `vote`.`threads_id_thread` = `thread`.`id_thread`\n order by vote.positive DESC LIMIT 10";
 
+    private final String FIND_VOTES_THREAD = "SELECT positive, threads_id_thread, users_username FROM vote WHERE threads_id_thread = ?";
+
 
     public VotesDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
@@ -27,9 +29,7 @@ public class VotesDAO {
 
         Votes votes = new Votes(
                 resultSet.getString("id_thread"),
-                resultSet.getString("title"),
-                resultSet.getInt("positive"),
-                resultSet.getInt("negative"),
+                resultSet.getBoolean("positive"),
                 resultSet.getString("users_username"));
         return votes;
     };
@@ -40,6 +40,10 @@ public class VotesDAO {
 
     public List<Votes> getTopThread(){
         return this.jdbctemplate.query(FIND_TOPTHREADS,mapper);
+    }
+
+    public List<Votes> getThreadVotes(String threadID) {
+        return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper);
     }
 
 

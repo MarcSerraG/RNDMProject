@@ -3,9 +3,7 @@ package com.rndm.rndmproject.domain;
 import org.jsoup.Jsoup;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class Thread {
@@ -22,6 +20,7 @@ public class Thread {
     private String username;
     private List<Tag> tags;
     private Category category;
+    private Set<Votes> setVotes;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     public void setTitle(String title) {
@@ -49,6 +48,7 @@ public class Thread {
         upvotes = 0;
         downvotes = 0;
         comments = new ArrayList<String>();
+        setVotes = new HashSet<Votes>();
         date = new Date(System.currentTimeMillis());
     }
 
@@ -80,6 +80,8 @@ public class Thread {
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
+        comments = new ArrayList<String>();
+        setVotes = new HashSet<Votes>();
         this.id = generateID();
         System.out.println("Identificador: " +id);
     }
@@ -118,21 +120,11 @@ public class Thread {
     public String getText(){return text;}
 
 
-    public void addUpvote(User user){
-
-        if (user.hasVoteFromThread(this) && !user.getVoteFromThread(this)){
-            upvotes++;
-            downvotes --;
-            user.setVoteFromThread(this, true);
-        }
+    public void addVote(Votes vote){
+        this.setVotes.add(vote);
     }
-    public void addDownvote(User user){
-
-        if (user.hasVoteFromThread(this) && user.getVoteFromThread(this)){
-            upvotes --;
-            downvotes ++;
-            user.setVoteFromThread(this, false);
-        }
+    public void addManyVotes(Collection<Votes> votes){
+        this.setVotes.addAll(votes);
     }
 
     public String timeSinceCreation() {
