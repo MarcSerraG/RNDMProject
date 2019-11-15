@@ -4,32 +4,33 @@ package com.rndm.rndmproject.domain;
 public class Votes {
 
     private String threadID;
-    private String titleThread;
-    private int upVotes;
-    private int downVotes;
-    private String threadUser;
+    private boolean positive; // If true, vote is positive. Else it is negative.
+    private String user;
 
-    public Votes(String threadID, String titleThread, int upVotes, int downVotes, String threadUser){
+    public Votes(String threadID, boolean positive, String user){
         this.threadID = threadID;
-        this.titleThread = titleThread;
-        this.upVotes = upVotes;
-        this.downVotes = downVotes;
-        this.threadUser = threadUser;
+        this.positive = positive;
+        this.user = user;
+    }
+
+    public void setThreadID(String threadID) {
+        this.threadID = threadID;
+    }
+    public void setPositive(boolean positive) {
+        this.positive = positive;
+    }
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getThreadID(){
         return this.threadID;
     }
-
-    public int getUpVotes() {
-        return this.upVotes;
+    public boolean getPositive() {
+        return positive;
+    }
+    public String getUser() {
+        return user;
     }
 
-    public String getTitleThread() {
-        return this.titleThread;
-    }
-
- public String getThreadUser(){
-        return this.threadUser;
- }
 }
