@@ -49,6 +49,10 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
 
+                            <div th:if="${category != null}">
+                                <div th:replace="fragment/Dynamic :: categoryHeader"></div>
+                            </div>
+
                             <div th:each="post : ${IndexThread}">
                                 <div th:replace="fragment/Dynamic :: thread"></div>
                             </div>
