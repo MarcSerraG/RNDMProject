@@ -16,6 +16,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 .antMatchers("loginCorrect").permitAll()
                 .antMatchers("/login_error").permitAll()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/Category/{category}").permitAll()
                 .antMatchers("/Search/{title}").permitAll()
@@ -28,6 +29,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/rs-plugin/**").permitAll()
                 .antMatchers("/fragment/**").permitAll()
                 .antMatchers("/Static.html").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)
