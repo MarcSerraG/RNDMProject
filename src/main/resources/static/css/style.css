@@ -26,15 +26,3 @@
 		padding:0;
 }
 
-label.error {
-	color: red;
-}
-
-input.error {
-	background-color: #ffcccc;
-}
-
-div.errors {
-	background-color: #ffcccc;
-	border: 2px solid red;
-}

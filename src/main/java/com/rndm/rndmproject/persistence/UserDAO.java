@@ -1,14 +1,9 @@
 package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
-
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,20 +18,16 @@ public class UserDAO {
 
     private JdbcTemplate jdbctemplate;
 
-    private final String FIND_ALL = "select * from usuari";
+    private final String FIND_ALL = "select * from users";
     private final String FIND_USERNAME = FIND_ALL + " where username = ?";
-    private final String INSERT_USER = "insert into usuari (username, password, email, date_start, is_private, date_sus_start) values (?,?,?,?,?,?)";
-    private final String CHANGE_PASSWORD = "update usuari set password = ? where username = ?";
-    private final String GET_PASSWORD = "select password from usuari where username = ?";
-    private final String GET_EMAIL = "select email from usuari where username = ?";
-    private final String GET_DATE = "select date_start from usuari where username = ?";
-    private final String GET_PRIVATE = "select is_private from usuari where username = ?";
-    private final String GET_ISCONNECTED = "select is_connected from usuari where username = ?";
+    private final String INSERT_USER = "insert into user (username, password, email, date_start, is_private) values (?,?,?,?,?)";
+    private final String CHANGE_PASSWORD = "update user set password = ? where username = ?";
+    private final String GET_PASSWORD = "select password from user where username = ?";
+    private final String GET_EMAIL = "select email from user where username = ?";
+    private final String GET_DATE = "select date_start from user where username = ?";
+    private final String GET_PRIVATE = "select is_private from user where username = ?";
+    private final String GET_ISCONNECTED = "select is_connected from user where username = ?";
 
-    @Bean
-    private PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
 
     //TODO ROWMAPPER
@@ -86,12 +77,17 @@ public class UserDAO {
     public int insertUser(User user){
 
         Date date = new Date();
+        char premium;
+        if (user.getPremium())
+            premium = '1';
+        else
+            premium = '0';
 
         //TODO date string format de ricard
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
-        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(), null);
+        return jdbctemplate.update(INSERT_USER, user.getUsername(), user.getPassword(), user.getEmail(), strDate, premium);
     }
 
 
