@@ -157,13 +157,12 @@
 <!--Weather-->
 <div th:fragment="weather">
     <div class="sidebarblock">
-        <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
+
+        <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
+        <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li>
-                    <span th:text="${Weather.getClima()}"></span>
-                </li>
                 <li>
                     <span>Current temperature:</span>
                     <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
@@ -179,6 +178,8 @@
             </ul>
         </div>
     </div>
+
+
 </div>
 <!--Weather-->
 
@@ -200,6 +201,21 @@
     </div>
 </div>
 <!--Category Header-->
+
+<!--Top Categories-->
+<div th:fragment="categories">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-fire"></i>CATEGORIES</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li th:each="category : ${Categories}"><a th:href="'/Category/'+ ${category.getName()}"><span th:text="${category.getName()}"></span>
+                    <span class="badge pull-right" th:text="${Category.getCount(category.getName())}"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--Top Categories-->
 
 </body>
 </html>

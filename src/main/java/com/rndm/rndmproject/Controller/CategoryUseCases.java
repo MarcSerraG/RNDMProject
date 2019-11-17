@@ -19,5 +19,4 @@ public class CategoryUseCases {
 
     public List<Category> findCategories(){ return this.categoryDAO.findCategories();}
 
-
 }
