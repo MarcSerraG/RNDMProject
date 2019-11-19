@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,7 +40,7 @@
 
             <div th:replace="fragment/Static :: slide"></div>
 
-            <div th:replace="fragment/Static :: navigation"></div>
+            <div th:replace="fragment/Static :: navigation-logged"></div>
 
 
             <section class="content">
@@ -186,6 +186,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script th:src="@{js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/weather.js}"></script>
 
 
         <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
@@ -227,6 +228,19 @@
                     theme: 'snow',
                 });
             })();
+        </script>
+
+        <script type="text/javascript">
+            function Search(){
+                window.location.replace("/Search/"+ document.getElementById('navigation').value);
+            }
+            var input = document.getElementById("navigation");
+            input.addEventListener("keyup", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("searchButton").click();
+                }
+            });
         </script>
 
 

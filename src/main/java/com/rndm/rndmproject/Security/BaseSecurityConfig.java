@@ -16,8 +16,10 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login").anonymous()
                 .antMatchers("loginCorrect").permitAll()
                 .antMatchers("/login_error").permitAll()
+                .antMatchers("/error").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/Category/{category}").permitAll()
+                .antMatchers("/Search/{title}").permitAll()
                 .antMatchers("/css/**").permitAll()
                 .antMatchers("/font-awesome-4.0.3/**").permitAll()
                 .antMatchers("/linearicons-free/**").permitAll()
@@ -41,8 +43,13 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .key("tecnocampus")
                 .and()
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //needed only when csrf is enabled (as by default is post)
-                .logoutSuccessUrl("/"); //where to go when logout is successful
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/")
+                    .permitAll();
+                //.logoutRequestMatcher(new AntPathRequestMatcher("/logout")) //needed only when csrf is enabled (as by default is post)
+                //.logoutSuccessUrl("/"); //where to go when logout is successful
         //.logoutUrl("logoutpage"); // default is "/logout""
 
         http

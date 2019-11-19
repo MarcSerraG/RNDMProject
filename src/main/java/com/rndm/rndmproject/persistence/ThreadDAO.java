@@ -20,6 +20,7 @@ public class ThreadDAO {
     private final String INSERT_THREAD = "insert into thread " +
             "(id_thread, title, content, image_url, is_private, users_username, category_name, date_creation) " +
             "values (?,?,?,?,?,?,?,?)";
+    private final String GET_COUNT = "select count(*) from thread where category_name = ?";
     private final String NUM_THREADS = "select count(*) from thread where users_username = ?";
     private final String GET_AUTHOR = "select users_username from thread where id_thread = ?";
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
@@ -61,6 +62,8 @@ public class ThreadDAO {
     public int insert(Thread thread){
         return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), 0, thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
     }
+
+    public int getCount(String name) {return jdbctemplate.queryForObject(GET_COUNT, Integer.class, name);}
 
     public List<Thread> findFirstTen(){
         return jdbctemplate.query(FIRST_THREADS, mapper, 10);

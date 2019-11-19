@@ -30,6 +30,43 @@
 </head>
 <body>
 
+<!--Thread-->
+<div th:fragment="thread">
+    <div class="post">
+        <div class="wrap-ut pull-left">
+            <div class="userinfo pull-left">
+                <div class="avatar">
+                    <img th:src="@{images/avatar.jpg}" alt="" />
+                    <div class="status green">&nbsp;</div>
+                </div>
+
+                <div class="icons">
+                    <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                </div>
+            </div>
+
+            <div class="posttext pull-left">
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
+            </div>
+
+            <div class="clearfix"></div>
+            </div>
+        <div class="postinfo pull-left">
+            <div class="comments">
+                <div class="commentbg">
+                    <span th:text="${Comment.getCount(post.getID())}"></span>
+                    <div class="mark"></div>
+                </div>
+            </div>
+            <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
+            <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--Thread-->
+
 <!--Comment without father-->
     <div th:fragment="singleComment">
         <div class="post">
@@ -114,7 +151,32 @@
             </ul>
         </div>
     </div>
+<!--Weather-->
+<div th:fragment="weather">
+    <div class="sidebarblock">
 
+        <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
+        <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li>
+                    <span>Current temperature:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
+                </li>
+                <li>
+                    <span>Maximum:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTempMax()} + 'ºC'"></span>
+                </li>
+                <li>
+                    <span>Minimum:</span>
+                    <span class="badge pull-right" th:text="${Weather.getTempMin()} + 'ºC'"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--Weather-->
 
 <!-- Write comment-->
     <div class="post"  th:fragment="writeCommentThread"><!-- Style="Display:none;" -->
@@ -150,6 +212,43 @@
             </div>
         </form>
     </div>
+
+
+
+
+<!--Category Header-->
+<div th:fragment="categoryHeader">
+    <div class="post">
+        <div class="wrap-ut pull-left">
+            <div class="userinfo pull-left">
+                <div class="avatar"></div>
+            </div>
+
+            <div class="posttext pull-left">
+                <h2><i class="fas fa-cat"></i>    <span th:text="${category}"></span></h2>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--Category Header-->
+
+<!--Top Categories-->
+<div th:fragment="categories">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-fire"></i>CATEGORIES</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li th:each="category : ${Categories}"><a th:href="'/Category/'+ ${category.getName()}"><span th:text="${category.getName()}"></span>
+                    <span class="badge pull-right" th:text="${Category.getCount(category.getName())}"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--Top Categories-->
 
 </body>
 </html>
