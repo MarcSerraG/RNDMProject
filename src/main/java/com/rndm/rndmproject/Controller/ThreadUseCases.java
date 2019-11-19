@@ -34,5 +34,7 @@ public class ThreadUseCases {
 
         public int getCount(String name) {return this.threadDAO.getCount(name);}
 
+        public List<String> getTop(){return  this.threadDAO.getTop();}
+
 
 }
