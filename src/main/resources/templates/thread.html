@@ -60,7 +60,6 @@
 
                             <!-- Comment Section -->
                             <div th:each="comment : ${Comments}">
-
                                 <span th:if="${comment.getFatherComment() == null}">
                                     <div th:replace="fragment/Dynamic :: singleComment"></div>
                                 </span>
@@ -160,6 +159,7 @@
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/bootstrap.min.js"></script>
+        <script th:src="@{/js/weather.js}"></script>
 
 
         <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
@@ -180,6 +180,19 @@
 
             });	//ready
 
+        </script>
+
+        <script type="text/javascript">
+            function Search(){
+                window.location.replace("/Search/"+ document.getElementById('navigation').value);
+            }
+            var input = document.getElementById("navigation");
+            input.addEventListener("keyup", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("searchButton").click();
+                }
+            });
         </script>
 
         <!-- END REVOLUTION SLIDER -->
