@@ -59,7 +59,7 @@
                     <div class="mark"></div>
                 </div>
             </div>
-            <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
+            <!--div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div-->
             <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
         </div>
         <div class="clearfix"></div>
@@ -146,8 +146,8 @@
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+                <!--<li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
+                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li-->
             </ul>
         </div>
     </div>

@@ -21,6 +21,8 @@ public class Thread {
     private List<Tag> tags;
     private Category category;
     private Set<Votes> setVotes;
+    // Username - Positive (true) negative (false)
+    private Map<String, Boolean> mapVotes;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     public void setTitle(String title) {
@@ -48,7 +50,8 @@ public class Thread {
         upvotes = 0;
         downvotes = 0;
         comments = new ArrayList<String>();
-        setVotes = new HashSet<Votes>();
+        //setVotes = new HashSet<Votes>();
+        mapVotes = new HashMap<String, Boolean>();
         date = new Date(System.currentTimeMillis());
     }
 
@@ -112,8 +115,8 @@ public class Thread {
     public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
-    public int getUpvotes(){return upvotes;}
-    public int getDownvotes(){return downvotes;}
+    public int getUpvotes(){return countVotes()[0];}
+    public int getDownvotes(){return countVotes()[1];}
     private String generateID(){return Integer.toString(Math.abs(username.hashCode() + date.hashCode()));}//Need a modification, alphanumeric encrypt
     public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
@@ -121,10 +124,25 @@ public class Thread {
 
 
     public void addVote(Votes vote){
-        this.setVotes.add(vote);
+        String username = vote.getUser();
+        Boolean positive = vote.getPositive();
+        this.mapVotes.put(username, positive);
     }
     public void addManyVotes(Collection<Votes> votes){
-        this.setVotes.addAll(votes);
+        for (Votes vote : votes)
+            addVote(vote);
+    }
+
+    public int[] countVotes() {
+       List<Boolean> votes = (List<Boolean>) this.mapVotes.values();
+       int[] res = {0, 0};
+       for (Boolean vote : votes) {
+           if (vote)
+                   ++res[0];
+           else
+               ++res[1];
+       }
+       return res;
     }
 
     public String timeSinceCreation() {
