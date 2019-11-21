@@ -8,6 +8,7 @@ import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
 import com.rndm.rndmproject.persistence.VotesDAO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -63,12 +64,13 @@ public class GetWebController {
     }
 
     @GetMapping("/Thread/{id}")
-    public String LoadThread (Model model, @PathVariable String id){
+    public String LoadThread (Model model, @PathVariable String id, Authentication auth){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
+        System.out.println(auth.getName() + "   " + auth.toString());
         return "thread";
     }
 

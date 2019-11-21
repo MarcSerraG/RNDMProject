@@ -20,6 +20,9 @@ public class VotesDAO {
 
     private final String FIND_VOTES_THREAD = "SELECT positive, threads_id_thread, users_username FROM vote WHERE threads_id_thread = ?";
 
+    private final String INSERT_UPVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('1', ?, ?)";
+    private final String INSERT_DOWNVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('0', ?, ?)";
+
 
     public VotesDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
@@ -44,6 +47,21 @@ public class VotesDAO {
 
     public List<Votes> getThreadVotes(String threadID) {
         return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper);
+    }
+
+    public int insert_upvote(String username, String threadID) {
+        return jdbctemplate.update(INSERT_UPVOTE,username, threadID);
+    }
+
+    public int insert_downvote(String username, String threadID) {
+        return jdbctemplate.update(INSERT_DOWNVOTE, username, threadID);
+    }
+
+    public int insert_vote(Votes vote) {
+        if (vote.getPositive())
+            return insert_upvote(vote.getUser(), vote.getThreadID());
+        else
+            return insert_downvote(vote.getUser(), vote.getThreadID());
     }
 
 

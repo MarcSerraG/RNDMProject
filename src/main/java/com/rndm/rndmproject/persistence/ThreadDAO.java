@@ -16,6 +16,7 @@ import java.util.List;
 public class ThreadDAO {
 
     private JdbcTemplate jdbctemplate;
+    private VotesDAO votesDAO;
 
     private final String INSERT_THREAD = "insert into thread " +
             "(id_thread, title, content, image_url, is_private, users_username, category_name, date_creation) " +
@@ -46,9 +47,11 @@ public class ThreadDAO {
                 new Category(resultSet.getString("category_name")),
                 resultSet.getString("date_creation"),
                 0,
-                0);
+                0,
+                votesDAO.getThreadVotes(resultSet.getString("id_thread")));
         return thread;
     };
+
 
     private final RowMapper<Thread> mapper = (resultSet, i) -> {
         return threadMapper(resultSet);

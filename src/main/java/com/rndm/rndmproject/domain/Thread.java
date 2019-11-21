@@ -107,6 +107,29 @@ public class Thread {
         this.date = date;
     }
 
+    //ConstructorDAO2
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes, Collection<Votes> votes) {
+
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.media = media;
+        this.username = username;
+        this.tags = tags;
+        this.category = category;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        comments = new ArrayList<String>();
+        try {
+            date = formatter.parse(data);
+        }catch (Exception e){
+
+        }
+        this.mapVotes = new HashMap<String, Boolean>();
+        this.addManyVotes(votes);
+        this.countVotes();
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
@@ -142,6 +165,8 @@ public class Thread {
            else
                ++res[1];
        }
+       this.upvotes = res[0];
+       this.downvotes = res[1];
        return res;
     }
 
