@@ -24,18 +24,7 @@ public class Comment {
     private String id;
     private Date date;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
-    //Constructor
-    //We need to implement the comment addition yet
-    public Comment(String username, String content, String fatherComment, String thread){
 
-        this.username = username;
-        this.content = content;
-        this.thread = thread;
-        date = new Date(System.currentTimeMillis());
-        id = generateID();
-        //addComment(id);
-        if (fatherComment != null) this.fatherComment = fatherComment;
-    }
 
     //Constructor DAO
     //We need to implement the comment addition yet
@@ -55,12 +44,24 @@ public class Comment {
         }
     }
 
-    //new Comment Constructor
+    //new Comment of a Thread Constructor
     public Comment(String thread, String username){
         this.thread = thread;
         this.username = username;
         this.date = new Date(System.currentTimeMillis());
         this.id = generateID();
+        this.fatherContent = "";
+        this.fatherComment = "";
+    }
+
+    //new Comment of a Comment Constructor
+    public Comment(String thread, String username, String fatherComment, String fatherContent){
+        this.thread = thread;
+        this.username = username;
+        this.date = new Date(System.currentTimeMillis());
+        this.id = generateID();
+        this.fatherContent = fatherContent;
+        this.fatherComment = fatherComment;
     }
 
     //Methods

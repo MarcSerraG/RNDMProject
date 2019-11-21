@@ -3,6 +3,7 @@ package com.rndm.rndmproject.WebController;
 import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.RESTController;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
+import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Comment;
 import com.rndm.rndmproject.domain.Thread;
@@ -69,20 +70,52 @@ public class GetWebController {
     }
 
     @GetMapping("/Thread/{id}")
-    public String LoadThread (Model model, @PathVariable String id, Principal principal, RedirectAttributes redirectAttributes){
+    public String LoadThread (Model model, @PathVariable String id, HttpServletRequest request, Principal principal){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
+
+
+        try{
+            request.getParameter("commentThread");
+            System.out.println("No peta");
+
+            //Comment of a thread
+            if(request.getParameter("commentThread").equals("thread")){
+                System.out.println("No peta v3");
+                System.out.println("Comentario Thread");
+                model.addAttribute("newComment", new Comment(id, principal.getName()));
+            }else{
+                //comment of a comment
+                    String content = commentDAO.getContent(request.getParameter("commentID"));
+                    System.out.println("No peta v2");
+                    model.addAttribute("newComment", new Comment(id, principal.getName(), request.getParameter("commentID"), content));
+
+            }
+        }catch (Exception e){
+            System.out.println("Peta y molt fort" + e);
+            return "thread";
+        }
+
+
+
         return "thread";
     }
 
     @GetMapping("Thread/{id}/Comment")
-    public String CommentThread (Model model, @PathVariable String id, Principal principal, HttpServletRequest request){
-        model.addAttribute("newComment", new Comment(id, principal.getName()));
-        return "thread";
+    public String CommentThread (@PathVariable String id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("commentThread", "thread");
+        return "redirect:../../Thread/"+id;
+    }
+
+    @GetMapping("Thread/{id}/Comment/{commentID}")
+    public String CommentThreadComment ( @PathVariable String id, @PathVariable String commentID, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("commentID", commentID);
+        redirectAttributes.addAttribute("commentThread", "new");
+        return "redirect:../../Thread/"+id;
     }
 
     @GetMapping("Search/{title}")

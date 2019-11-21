@@ -46,7 +46,7 @@
             </div>
 
             <div class="posttext pull-left">
-                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
                 <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
             </div>
 
@@ -89,7 +89,7 @@
             <div class="postinfobot">
 
                 <div class="prev pull-left">
-                    <a href="#"><i class="fa fa-reply"></i></a>
+                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
                 </div>
 
                 <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
@@ -127,7 +127,7 @@
             <div class="postinfobot">
 
                 <div class="prev pull-left">
-                    <a href="#"><i class="fa fa-reply"></i></a>
+                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
                 </div>
 
                 <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
@@ -153,7 +153,7 @@
     </div>
 <!--Weather-->
 <div th:fragment="weather">
-    <div class="sidebarblock">
+    <div class="sidebarblock m-t-200">
 
         <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
         <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
@@ -174,13 +174,15 @@
                 </li>
             </ul>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 <!--Weather-->
 
 <!-- Write comment-->
-    <div class="post"  th:fragment="writeCommentThread"><!-- Style="Display:none;" -->
-        <form action="#" class="form" method="post" th:object="${newComment}">
+<div th:fragment="writeCommentThread">
+    <div class="post"  ><!-- Style="Display:none;" -->
+        <form action="/NewComment" class="form" method="post" th:object="${newComment}">
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
@@ -191,8 +193,7 @@
                     <div class="icons">
                         <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
                     </div>
-                    <span th:field="*{thread}" style="display: none"><span th:text="${threadByID.getID()}"></span></span>
-                    <span th:field="*{username}" style="display: none"><span th:text="${username}"></span></span>
+
                 </div>
                 <div class="posttext pull-left">
                     <div class="textwraper">
@@ -212,6 +213,7 @@
             </div>
         </form>
     </div>
+</div>
 
 
 

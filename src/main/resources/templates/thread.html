@@ -41,6 +41,7 @@
             <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
 
             <section class="content">
+
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 breadcrumbf">
@@ -58,55 +59,31 @@
                             <div th:replace="fragment/Static :: thread"></div>
                             <!-- Post Section -->
 
+                            <div id="addComment" th:if="${newComment != null}"> <div th:replace="fragment/Dynamic :: writeCommentThread"></div> </div>
+
                             <!-- Comment Section -->
                             <div th:each="comment : ${Comments}">
                                 <span th:if="${comment.getFatherComment() == null}">
                                     <div th:replace="fragment/Dynamic :: singleComment"></div>
-
                                 </span>
                                 <span th:if="${comment.getFatherComment() != null}">
                                     <div th:replace="fragment/Dynamic :: fatherComment"></div>
                                 </span>
                             </div>
+                        </div>
                             <!-- Comment Section -->
 
-
-
-
-
+                        <!--Here starts right panel-->
                         <div class="col-lg-4 col-md-4">
 
-                            <!--Here starts right panel-->
                             <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
-
-                            <!--Static content to be revised-->
-                            <div class="sidebarblock">
-                                <h3>My Active Threads</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-                                </div>
-                            </div>
                         </div>
+                        <!--Here finish right panel-->
+
                     </div>
                 </div>
+
             </section>
 
             <div th:replace="fragment/Static :: footer"></div>
@@ -116,13 +93,11 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 
         <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+        <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/weather.js}"></script>
+
 
 
         <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
