@@ -157,7 +157,7 @@ public class Thread {
     }
 
     public int[] countVotes() {
-       List<Boolean> votes = (List<Boolean>) this.mapVotes.values();
+       Collection<Boolean> votes = this.mapVotes.values();
        int[] res = {0, 0};
        for (Boolean vote : votes) {
            if (vote)

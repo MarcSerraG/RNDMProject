@@ -57,8 +57,9 @@ public class ThreadDAO {
         return threadMapper(resultSet);
     };
 
-    public ThreadDAO(JdbcTemplate jdbctemplate){
+    public ThreadDAO(JdbcTemplate jdbctemplate, VotesDAO votesDAO){
         this.jdbctemplate = jdbctemplate;
+        this.votesDAO = votesDAO;
     }
 
     public int insert(Thread thread){

@@ -14,9 +14,10 @@ public class VotesDAO {
 
     private JdbcTemplate jdbctemplate;
 
-    private final String FIND_TOPTHREADS = "SELECT `thread`.`id_thread`, `thread`.`title`, `vote`.`positive`, `vote`.`negative`, `thread`.`users_username`\n" +
-            "FROM `thread`\n" +
-            "    LEFT JOIN `vote` ON `vote`.`threads_id_thread` = `thread`.`id_thread`\n order by vote.positive DESC LIMIT 10";
+    private final String FIND_TOPTHREADS = "SELECT thread.id_thread, thread.title, vote.positive, vote.negative, thread.users_username " +
+            "FROM thread LEFT JOIN vote ON vote.threads_id_thread = thread.id_thread order by vote.positive DESC LIMIT 10";
+
+    private final String FIND_TOPTEN = "SELECT count(positive), threads_id_thread FROM vote WHERE vote = 1 GROUP BY threads_id_thread ORDER BY count(positive)";
 
     private final String FIND_VOTES_THREAD = "SELECT positive, threads_id_thread, users_username FROM vote WHERE threads_id_thread = ?";
 
@@ -46,7 +47,7 @@ public class VotesDAO {
     }
 
     public List<Votes> getThreadVotes(String threadID) {
-        return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper);
+        return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper,threadID);
     }
 
     public int insert_upvote(String username, String threadID) {
