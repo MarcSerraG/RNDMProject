@@ -46,12 +46,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8">
+                    <div th:each="post : ${IndexThread}">
+                        <div th:replace="fragment/Dynamic :: thread"></div>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <div th:replace="fragment/Dynamic :: weather"></div>
+                    <!--<div th:replace="fragment/Dynamic :: weather"></div>-->
                     <div th:replace="fragment/Dynamic :: userImage"></div>
                     <!--<div th:replace="fragment/Dynamic :: topThreads"></div>-->
-                    <div th:replace="fragment/Dynamic :: categories"></div>
+                    <!--<div th:replace="fragment/Dynamic :: categories"></div>-->
                 </div>
             </div>
         </div>
