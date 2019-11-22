@@ -154,6 +154,19 @@
 </div>
 <!--Top threads-->
 
+<!--User image -->
+<div th:fragment="userImage">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-camera"></i> Profile Image</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <div class="roundedimage">
+                <img th:src="@{/images/test.png}"/>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--Weather-->
 <div th:fragment="weather">
     <div class="sidebarblock">
