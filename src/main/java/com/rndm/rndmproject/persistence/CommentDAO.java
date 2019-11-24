@@ -14,9 +14,7 @@ public class CommentDAO {
 
     JdbcTemplate jdbcTemplate;
 
-    private final String INSERT_COMMENT = "insert into comment " +
-            "(id_comment, content, comments_id_comment, users_username, threads_id_thread) " +
-            "values (?,?,?,?,?)";
+    private final String INSERT_COMMENT = "insert into comments (id_comment, content, comments_id_comment, users_username, threads_id_thread, date_comment) values (?,?,?,?,?,?)";
     private final String COUNT_COMMENTS = "select count(*) from comments where threads_id_thread = ?";
     private final String FIND_COMMENT = "select * from comments where id_comment = ?";
     private final String GET_FATHER = "select * from comments where comments_id_comment = ?";
@@ -61,7 +59,7 @@ public class CommentDAO {
             comment.getID(),
             comment.getContent(),
             comment.getFatherComment(),
-            comment.getUsername(),
+            comment.getCommentuser(),
             comment.getThread(),
             comment.getDate()
             );

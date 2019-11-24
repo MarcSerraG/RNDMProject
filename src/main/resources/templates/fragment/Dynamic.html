@@ -181,8 +181,8 @@
 
 <!-- Write comment-->
 <div th:fragment="writeCommentThread">
-    <div class="post"  ><!-- Style="Display:none;" -->
-        <form action="/NewComment" class="form" method="post" th:object="${newComment}">
+    <div class="post" >
+        <form  class="form" method="post" action="/postComment" th:object="${newComment}">
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
@@ -193,8 +193,16 @@
                     <div class="icons">
                         <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
                     </div>
-
                 </div>
+
+                <div   style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
+
+                <div style="display: none" th:if="${CommentID != null}"><input type="text" th:value="${CommentID}" id="fatherComment" name="fatherComment" ></div>
+
+                <div style="display: none" ><input type="text" th:value="${threadByID.getID()}" id="thread" name="thread" ></div>
+
+
+
                 <div class="posttext pull-left">
                     <div class="textwraper">
                         <div class="postreply">Comment: </div>
@@ -206,7 +214,7 @@
             <div class="postinfobot">
 
                 <div class="pull-right postreply">
-                    <div class="pull-left"><button type="submit" class="btn btn-primary">Comment</button></div>
+                    <div class="pull-left"><button type="submit" method="post" class="btn btn-primary" >Comment</button></div>
                     <div class="clearfix"></div>
                 </div>
                 <div class="clearfix"></div>

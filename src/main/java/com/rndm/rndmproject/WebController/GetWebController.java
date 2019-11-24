@@ -78,25 +78,25 @@ public class GetWebController {
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
 
+        model.addAttribute("commentThread", null);
 
         try{
             request.getParameter("commentThread");
-            System.out.println("No peta");
-
             //Comment of a thread
             if(request.getParameter("commentThread").equals("thread")){
-                System.out.println("No peta v3");
                 System.out.println("Comentario Thread");
-                model.addAttribute("newComment", new Comment(id, principal.getName()));
+                model.addAttribute("user", principal.getName());
+                model.addAttribute("commentThread", "thread");
+
             }else{
                 //comment of a comment
-                    String content = commentDAO.getContent(request.getParameter("commentID"));
-                    System.out.println("No peta v2");
-                    model.addAttribute("newComment", new Comment(id, principal.getName(), request.getParameter("commentID"), content));
-
+                model.addAttribute("user", principal.getName());
+                model.addAttribute("CommentID", request.getParameter("commentID"));
+                model.addAttribute("commentThread", "new");
             }
+            System.out.println("NewComment object created");
+            model.addAttribute("newComment", new Comment());
         }catch (Exception e){
-            System.out.println("Peta y molt fort" + e);
             return "thread";
         }
 
@@ -111,12 +111,15 @@ public class GetWebController {
         return "redirect:../../Thread/"+id;
     }
 
+
     @GetMapping("Thread/{id}/Comment/{commentID}")
     public String CommentThreadComment ( @PathVariable String id, @PathVariable String commentID, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("commentID", commentID);
         redirectAttributes.addAttribute("commentThread", "new");
-        return "redirect:../../Thread/"+id;
+        return "redirect:../../../Thread/"+id;
     }
+
+
 
     @GetMapping("Search/{title}")
     public String FindThreadByName (Model model, @PathVariable String title){

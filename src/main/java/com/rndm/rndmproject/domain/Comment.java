@@ -1,10 +1,5 @@
 package com.rndm.rndmproject.domain;
 
-import com.rndm.rndmproject.persistence.CommentDAO;
-import com.rndm.rndmproject.persistence.ThreadDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.text.SimpleDateFormat;
@@ -14,7 +9,7 @@ public class Comment {
 
     //Variable definition & validation constraints
     @NotEmpty(message = "username cannot be null nor empty")
-    private String username;
+    private String commentuser;
     @NotNull(message = "content cannot be null")
     private String content;
     private String thread;
@@ -28,9 +23,9 @@ public class Comment {
 
     //Constructor DAO
     //We need to implement the comment addition yet
-    public Comment(String id, String username, String content, String fatherComment, String thread, String date, String fatherContent, String fatherUser){
+    public Comment(String id, String commentuser, String content, String fatherComment, String thread, String date, String fatherContent, String fatherUser){
 
-        this.username = username;
+        this.commentuser = commentuser;
         this.content = content;
         this.thread = thread;
         try {
@@ -45,9 +40,9 @@ public class Comment {
     }
 
     //new Comment of a Thread Constructor
-    public Comment(String thread, String username){
+    public Comment(String thread, String commentuser){
         this.thread = thread;
-        this.username = username;
+        this.commentuser = commentuser;
         this.date = new Date(System.currentTimeMillis());
         this.id = generateID();
         this.fatherContent = "";
@@ -55,17 +50,25 @@ public class Comment {
     }
 
     //new Comment of a Comment Constructor
-    public Comment(String thread, String username, String fatherComment, String fatherContent){
+    public Comment(String thread, String commentuser, String fatherComment, String fatherContent){
         this.thread = thread;
-        this.username = username;
+        this.commentuser = commentuser;
         this.date = new Date(System.currentTimeMillis());
         this.id = generateID();
         this.fatherContent = fatherContent;
         this.fatherComment = fatherComment;
     }
 
+    public Comment(){
+        this.date = new Date(System.currentTimeMillis());
+    }
+
     //Methods
-    private String generateID(){return Integer.toString(username.hashCode() + date.hashCode());}//This is temporary, alphanumeric encrypt needed
+    public String generateID(){
+        String ident= Integer.toString(commentuser.hashCode() + date.hashCode());
+        this.id = ident;
+        return ident;
+    }//This is temporary, alphanumeric encrypt needed
     public String getID() {return id;}
     public String getDate(){return formatter.format(date);}
     public String getContent(){return content;}
@@ -76,15 +79,19 @@ public class Comment {
         return fatherContent;
     }
     public String getFatherUser() { return fatherUser;}
-    public String getUsername(){return username;}
+    public String getCommentuser(){return commentuser;}
     public String getThread(){return thread;}
     @Override
-    public String toString(){return id +" "+ content +" "+ fatherComment +" "+ username +" "+ thread +" "+ getDate();}
+    public String toString(){return "Comment ID: "+id +" Content: "+ content +" ID fatherComent: "+ fatherComment + " UserName: "+ commentuser +" ThreadID: "+ thread +" Post Date: "+ getDate();}
     //public void deleteComment(){if (fatherComment == null) thread.removeComment(this);}
 
 
-    public void setUsername(String username){
-        this.username = username;
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public void setCommentuser(String commentuser){
+        this.commentuser = commentuser;
         this.id= generateID();
     }
 

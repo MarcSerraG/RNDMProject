@@ -59,15 +59,33 @@
                             <div th:replace="fragment/Static :: thread"></div>
                             <!-- Post Section -->
 
-                            <div id="addComment" th:if="${newComment != null}"> <div th:replace="fragment/Dynamic :: writeCommentThread"></div> </div>
+                            <div id="addComment" th:if="${commentThread != null}">
+                                <div th:if="${commentThread.equals('thread')}">
+                                    <div th:replace="fragment/Dynamic :: writeCommentThread"></div>
+                                </div>
+                            </div>
 
                             <!-- Comment Section -->
                             <div th:each="comment : ${Comments}">
                                 <span th:if="${comment.getFatherComment() == null}">
                                     <div th:replace="fragment/Dynamic :: singleComment"></div>
+                                    <div th:if="${commentThread != null}">
+                                        <div th:if="${commentThread.equals('new')}">
+                                            <div th:if="${CommentID == comment.getID()}">
+                                                <div th:replace="fragment/Dynamic :: writeCommentThread"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </span>
                                 <span th:if="${comment.getFatherComment() != null}">
                                     <div th:replace="fragment/Dynamic :: fatherComment"></div>
+                                    <div th:if="${commentThread != null}">
+                                        <div th:if="${commentThread.equals('new')}">
+                                            <div th:if="${CommentID == comment.getID()}">
+                                                <div th:replace="fragment/Dynamic :: writeCommentThread"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </span>
                             </div>
                         </div>
