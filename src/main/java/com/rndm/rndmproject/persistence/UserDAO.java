@@ -32,6 +32,7 @@ public class UserDAO {
     private final String GET_DATE = "select date_start from usuari where username = ?";
     private final String GET_PRIVATE = "select is_private from usuari where username = ?";
     private final String GET_ISCONNECTED = "select is_connected from usuari where username = ?";
+    private final String GET_IMAGE = "select image from usuari where username = ?";
 
     @Bean
     private PasswordEncoder passwordEncoder() {
@@ -81,6 +82,8 @@ public class UserDAO {
         else
             return false;
     }
+
+    public String getImage(String name){return this.jdbctemplate.queryForObject(GET_IMAGE, String.class, name);}
 
     // TO DO
     public int insertUser(User user){

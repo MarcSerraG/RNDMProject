@@ -36,12 +36,12 @@
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{images/avatar.png}" alt="" />
+                    <img th:src="@{${Users.getImage(post.getUsername())}}" alt="" />
                     <div class="status green">&nbsp;</div>
                 </div>
 
                 <div class="icons">
-                    <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                    <img th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
                 </div>
             </div>
 
@@ -166,6 +166,7 @@
         </div>
     </div>
 </div>
+<!--User image -->
 
 <!--Weather-->
 <div th:fragment="weather">
