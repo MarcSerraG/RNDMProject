@@ -47,6 +47,8 @@ public class GetWebController {
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
+        model.addAttribute("Logo", categoryUseCases);
         return "index";
     }
 

@@ -3,7 +3,6 @@ package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.Category;
 import com.rndm.rndmproject.domain.Thread;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -20,6 +19,7 @@ public class ThreadDAO {
     private final String INSERT_THREAD = "insert into thread " +
             "(id_thread, title, content, image_url, is_private, users_username, category_name, date_creation) " +
             "values (?,?,?,?,?,?,?,?)";
+    private final String GET_TOP = "select category_name from thread group by category_name asc";
     private final String GET_COUNT = "select count(*) from thread where category_name = ?";
     private final String NUM_THREADS = "select count(*) from thread where users_username = ?";
     private final String GET_AUTHOR = "select users_username from thread where id_thread = ?";
@@ -31,10 +31,6 @@ public class ThreadDAO {
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
 
-
-
-
-    //TODO
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
         Thread thread = new Thread(
@@ -62,6 +58,7 @@ public class ThreadDAO {
     public int insert(Thread thread){
         return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), 0, thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
     }
+    public List<String> getTop () {return jdbctemplate.queryForList(GET_TOP, String.class);}
 
     public int getCount(String name) {return jdbctemplate.queryForObject(GET_COUNT, Integer.class, name);}
 
@@ -97,12 +94,10 @@ public class ThreadDAO {
         else
             return false;
     }
-
     // Returns all the threads an User has
     public List<Thread> getUserThreads(String username) {
         return this.jdbctemplate.query(FIND_USER_THREADS, mapper, username);
     }
-
     // Returns the count of an User's threads
     public int countUserThreads(String username) {
         return this.jdbctemplate.queryForObject(NUM_THREADS, Integer.class, username);

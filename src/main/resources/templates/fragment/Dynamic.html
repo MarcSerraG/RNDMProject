@@ -248,12 +248,12 @@
 <!--Top Categories-->
 <div th:fragment="categories">
     <div class="sidebarblock">
-        <h3><i class="fas fa-fire"></i>CATEGORIES</h3>
+        <h3><i class="fas fa-fire"></i> TOP CATEGORIES</h3>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li th:each="category : ${Categories}"><a th:href="'/Category/'+ ${category.getName()}"><span th:text="${category.getName()}"></span>
-                    <span class="badge pull-right" th:text="${Category.getCount(category.getName())}"></span></a></li>
+                <li th:each="category : ${TopCategory}"><i th:class="${Logo.getLogo(category)}"></i><a th:href="'/Category/'+ ${category}"><span id="catName" th:text="' ' + ${category}"></span>
+                    <span class="badge pull-right" th:text="${Category.getCount(category)}"></span></a></li>
             </ul>
         </div>
     </div>
