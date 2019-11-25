@@ -20,8 +20,6 @@ public class NewCommentController {
 
     @PostMapping("postComment")
     public String NewComment (@ModelAttribute Comment newComment){
-        System.out.println(newComment);
-        //newComment.generateID();
         this.commentDAO.insert(newComment);
         return "redirect:/Thread/"+ newComment.getThread();
     }
