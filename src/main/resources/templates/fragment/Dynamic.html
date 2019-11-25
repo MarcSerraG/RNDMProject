@@ -46,7 +46,7 @@
             </div>
 
             <div class="posttext pull-left">
-                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
                 <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
             </div>
 
@@ -68,80 +68,80 @@
 <!--Thread-->
 
 <!--Comment without father-->
-<div th:fragment="singleComment">
-    <div class="post">
-        <div class="topwrap">
-            <div class="userinfo pull-left">
-                <div class="avatar">
-                    <img src="images/avatar2.jpg" alt="" />
-                    <div class="status red">&nbsp;</div>
+    <div th:fragment="singleComment">
+        <div class="post">
+            <div class="topwrap">
+                <div class="userinfo pull-left">
+                    <div class="avatar">
+                        <img th:src="@{images/avatar2.jpg}"  alt="" />
+                        <div class="status red">&nbsp;</div>
+                    </div>
+
+                    <div class="icons">
+                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    </div>
                 </div>
-
-                <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                </div>
-            </div>
-            <div class="posttext pull-left">
-                <p th:text="${comment.getContent()}"></p>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="postinfobot">
-
-            <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
-            </div>
-
-            <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-            <div class="clearfix"></div>
-        </div>
-    </div>
-</div>
-<!--Comment without father-->
-
-<!--Comment with father-->
-<div th:fragment="fatherComment">
-    <div class="post">
-        <div class="topwrap">
-            <div class="userinfo pull-left">
-                <div class="avatar">
-                    <img src="images/avatar3.jpg" alt="" />
-                    <div class="status red">&nbsp;</div>
-                </div>
-
-                <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                </div>
-            </div>
-            <div class="posttext pull-left">
-
-                <blockquote>
-                    <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
-                    <span th:text="${comment.getFatherContent()}"></span>
-                    </blockquote>
+                <div class="posttext pull-left">
                     <p th:text="${comment.getContent()}"></p>
                 </div>
                 <div class="clearfix"></div>
             </div>
-        <div class="postinfobot">
+            <div class="postinfobot">
 
-            <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <div class="prev pull-left">
+                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
+                </div>
+
+                <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
+
+                <div class="clearfix"></div>
             </div>
-
-            <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-
-            <div class="clearfix"></div>
         </div>
     </div>
-</div>
+<!--Comment without father-->
+
+<!--Comment with father-->
+    <div th:fragment="fatherComment">
+        <div class="post">
+            <div class="topwrap">
+                <div class="userinfo pull-left">
+                    <div class="avatar">
+                        <img th:src="@{images/avatar3.jpg}"  alt="" />
+                        <div class="status red">&nbsp;</div>
+                    </div>
+
+                    <div class="icons">
+                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    </div>
+                </div>
+                <div class="posttext pull-left">
+
+                    <blockquote>
+                        <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
+                        <span th:text="${comment.getFatherContent()}"></span>
+                        </blockquote>
+                        <p th:text="${comment.getContent()}"></p>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            <div class="postinfobot">
+
+                <div class="prev pull-left">
+                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
+                </div>
+
+                <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
+
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
 <!--Comment with father-->
 
-<!--Top threads-->
-<div th:fragment="topThreads">
-    <div class="sidebarblock">
+<!--Top Threads-->
+    <div class="sidebarblock" th:fragment="topThreads">
+
         <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
         <div class="divline"></div>
         <div class="blocktxt">
@@ -151,12 +151,9 @@
             </ul>
         </div>
     </div>
-</div>
-<!--Top threads-->
-
 <!--Weather-->
 <div th:fragment="weather">
-    <div class="sidebarblock">
+    <div class="sidebarblock m-t-200">
 
         <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
         <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
@@ -177,11 +174,57 @@
                 </li>
             </ul>
         </div>
+        <div class="clearfix"></div>
     </div>
-
-
 </div>
 <!--Weather-->
+
+<!-- Write comment-->
+<div th:fragment="writeCommentThread">
+    <div class="post" >
+        <form  class="form" method="post" action="/postComment" th:object="${newComment}">
+            <div class="topwrap">
+                <div class="userinfo pull-left">
+                    <div class="avatar">
+                        <img th:src="@{images/avatar4.jpg}"  alt="" />
+                        <div class="status red">&nbsp;</div>
+                    </div>
+
+                    <div class="icons">
+                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    </div>
+                </div>
+
+                <div   style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
+
+                <div style="display: none" th:if="${CommentID != null}"><input type="text" th:value="${CommentID}" id="fatherComment" name="fatherComment" ></div>
+
+                <div style="display: none" ><input type="text" th:value="${threadByID.getID()}" id="thread" name="thread" ></div>
+
+
+
+                <div class="posttext pull-left">
+                    <div class="textwraper">
+                        <div class="postreply">Comment: </div>
+                        <textarea name="reply" id="reply" placeholder="Type your comment here" th:field="*{content}"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="postinfobot">
+
+                <div class="pull-right postreply">
+                    <div class="pull-left"><button type="submit" method="post" class="btn btn-primary" >Comment</button></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 
 <!--Category Header-->
 <div th:fragment="categoryHeader">
