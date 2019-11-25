@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,6 +31,7 @@ public class ThreadDAO {
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
+    private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive)";
 
 
 
@@ -51,7 +53,6 @@ public class ThreadDAO {
                 votesDAO.getThreadVotes(resultSet.getString("id_thread")));
         return thread;
     };
-
 
     private final RowMapper<Thread> mapper = (resultSet, i) -> {
         return threadMapper(resultSet);
@@ -107,6 +108,18 @@ public class ThreadDAO {
     // Returns the count of an User's threads
     public int countUserThreads(String username) {
         return this.jdbctemplate.queryForObject(NUM_THREADS, Integer.class, username);
+    }
+
+    public List<Thread> getTopThreads() {
+        List<String> threadsIDs = this.jdbctemplate.queryForList(FIND_TOPTHREADS, String.class);
+
+        List<Thread> listThreads = new ArrayList<Thread>();
+
+        for (String id : threadsIDs) {
+            listThreads.add(this.getThread(id));
+        }
+
+        return listThreads;
     }
 
 }

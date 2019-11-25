@@ -32,7 +32,7 @@ public class VotesDAO {
     private Votes votesMapper(ResultSet resultSet) throws SQLException {
 
         Votes votes = new Votes(
-                resultSet.getString("id_thread"),
+                resultSet.getString("threads_id_thread"),
                 resultSet.getBoolean("positive"),
                 resultSet.getString("users_username"));
         return votes;

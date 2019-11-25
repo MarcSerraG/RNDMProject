@@ -32,5 +32,7 @@ public class ThreadUseCases {
 
         public Thread getThread ( String id ){ return this.threadDAO.getThread(id);}
 
+        public List<Thread> getTopThreads() { return this.threadDAO.getTopThreads(); }
+
 
 }

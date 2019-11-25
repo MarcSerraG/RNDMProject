@@ -39,7 +39,7 @@ public class GetWebController {
     public String firstThreads (Model model){
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         return "index";
@@ -68,7 +68,7 @@ public class GetWebController {
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         System.out.println(auth.getName() + "   " + auth.toString());
         return "thread";
@@ -78,7 +78,7 @@ public class GetWebController {
     public String FindThreadByName (Model model, @PathVariable String title){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         return"index";
     }
