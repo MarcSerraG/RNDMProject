@@ -86,7 +86,6 @@ public class GetWebController {
             request.getParameter("commentThread");
             //Comment of a thread
             if(request.getParameter("commentThread").equals("thread")){
-                System.out.println("Comentario Thread");
                 model.addAttribute("user", principal.getName());
                 model.addAttribute("commentThread", "thread");
 
@@ -96,7 +95,6 @@ public class GetWebController {
                 model.addAttribute("CommentID", request.getParameter("commentID"));
                 model.addAttribute("commentThread", "new");
             }
-            System.out.println("NewComment object created");
             model.addAttribute("newComment", new Comment());
         }catch (Exception e){
             return "thread";
