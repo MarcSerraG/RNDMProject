@@ -36,7 +36,7 @@
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${Users.getImage(post.getUsername())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" />
                     <div class="status green">&nbsp;</div>
                 </div>
 
@@ -73,7 +73,7 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar2.jpg" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getUsername())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
 
@@ -106,7 +106,7 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar3.jpg" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getUsername())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
 

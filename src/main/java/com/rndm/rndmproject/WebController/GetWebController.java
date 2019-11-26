@@ -61,7 +61,7 @@ public class GetWebController {
     }
 
     @GetMapping("/Category/{category}")
-    public String FindByCategory (Model model, @PathVariable String category){
+    public String FindByCategory (Model model, @PathVariable String category, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
@@ -69,11 +69,12 @@ public class GetWebController {
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return"index";
     }
 
     @GetMapping("/Thread/{id}")
-    public String LoadThread (Model model, @PathVariable String id){
+    public String LoadThread (Model model, @PathVariable String id, Principal principal){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
@@ -81,11 +82,12 @@ public class GetWebController {
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return "thread";
     }
 
     @GetMapping("Search/{title}")
-    public String FindThreadByName (Model model, @PathVariable String title){
+    public String FindThreadByName (Model model, @PathVariable String title, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
@@ -93,6 +95,7 @@ public class GetWebController {
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return"index";
     }
 
