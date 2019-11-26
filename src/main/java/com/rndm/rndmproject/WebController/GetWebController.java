@@ -87,7 +87,8 @@ public class GetWebController {
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
-
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         model.addAttribute("commentThread", null);
 
         try{
@@ -107,11 +108,6 @@ public class GetWebController {
         }catch (Exception e){
             return "thread";
         }
-
-
-
-        model.addAttribute("Users", userUseCases);
-        model.addAttribute("Principal", principal);
         return "thread";
     }
 

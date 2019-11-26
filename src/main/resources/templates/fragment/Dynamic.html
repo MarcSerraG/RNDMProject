@@ -51,7 +51,7 @@
             </div>
 
             <div class="clearfix"></div>
-            </div>
+        </div>
         <div class="postinfo pull-left">
             <div class="comments">
                 <div class="commentbg">
@@ -73,31 +73,31 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getUsername())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
 
-                    <div class="icons">
-                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                    </div>
+                <div class="icons">
+                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
                 </div>
-                <div class="posttext pull-left">
-                    <p th:text="${comment.getContent()}"></p>
-                </div>
-                <div class="clearfix"></div>
             </div>
-            <div class="postinfobot">
-
-                <div class="prev pull-left">
-                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
-                </div>
-
-                <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-                <div class="clearfix"></div>
+            <div class="posttext pull-left">
+                <p th:text="${comment.getContent()}"></p>
             </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="postinfobot">
+
+            <div class="prev pull-left">
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
+
+            <div class="clearfix"></div>
         </div>
     </div>
+</div>
 <!--Comment without father-->
 
 <!--Comment with father-->
@@ -106,48 +106,47 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getUsername())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
-                <div class="posttext pull-left">
-
-                    <blockquote>
-                        <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
-                        <span th:text="${comment.getFatherContent()}"></span>
-                        </blockquote>
-                        <p th:text="${comment.getContent()}"></p>
-                    </div>
-                    <div class="clearfix"></div>
+                <div class="icons">
+                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
                 </div>
-            <div class="postinfobot">
-
-                <div class="prev pull-left">
-                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
-                </div>
-
-                <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-
-                <div class="clearfix"></div>
             </div>
+            <div class="posttext pull-left">
+                <blockquote>
+                    <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
+                    <span th:text="${comment.getFatherContent()}"></span>
+                </blockquote>
+                <p th:text="${comment.getContent()}"></p>
+            </div>
+            <div class="clearfix"></div>
+            </div>
+        <div class="postinfobot">
+            <div class="prev pull-left">
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
+            <div class="clearfix"></div>
         </div>
     </div>
+</div>
 <!--Comment with father-->
 
 <!--Top Threads-->
-    <div class="sidebarblock" th:fragment="topThreads">
-
+<div  th:fragment="topThreads">
+    <div class="sidebarblock">
         <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
                 <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+                 <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
             </ul>
         </div>
     </div>
 </div>
-<!--Top threads-->
+<!--Top Threads-->
 
 <!--User image -->
 <div th:fragment="userImage">
@@ -198,7 +197,7 @@
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
-                        <img th:src="@{images/avatar4.jpg}"  alt="" />
+                        <img th:src="@{${'../' + Users.getImage(principal.getName())}}"  alt="" />
                         <div class="status red">&nbsp;</div>
                     </div>
 
@@ -234,9 +233,7 @@
         </form>
     </div>
 </div>
-
-
-
+<!-- Write comment-->
 
 <!--Category Header-->
 <div th:fragment="categoryHeader">
