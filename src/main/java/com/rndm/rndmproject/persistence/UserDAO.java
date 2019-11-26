@@ -31,6 +31,7 @@ public class UserDAO {
     private final String GET_EMAIL = "select email from usuari where username = ?";
     private final String GET_DATE = "select date_start from usuari where username = ?";
     private final String GET_PRIVATE = "select is_private from usuari where username = ?";
+    private final String GET_MOD = "select is_moderator from usuari where username = ?";
     private final String GET_ISCONNECTED = "select is_connected from usuari where username = ?";
     private final String GET_IMAGE = "select image from usuari where username = ?";
 
@@ -75,13 +76,9 @@ public class UserDAO {
     }
 
 
-    public boolean isPrivate(String name) {
-        Character c = this.jdbctemplate.queryForObject(GET_PRIVATE, Character.class, name);
-        if (c == '1')
-            return true;
-        else
-            return false;
-    }
+    public boolean isPrivate(String name) {return this.jdbctemplate.queryForObject(GET_PRIVATE, Boolean.class, name);}
+
+    public boolean isModerator(String name){return jdbctemplate.queryForObject(GET_MOD, Boolean.class, name);}
 
     public String getImage(String name){return this.jdbctemplate.queryForObject(GET_IMAGE, String.class, name);}
 
