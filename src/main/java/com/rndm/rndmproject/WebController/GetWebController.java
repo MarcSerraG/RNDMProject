@@ -74,8 +74,10 @@ public class GetWebController {
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
     }
 
@@ -90,6 +92,8 @@ public class GetWebController {
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
         model.addAttribute("commentThread", null);
+        model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
 
         try{
             request.getParameter("commentThread");
@@ -137,6 +141,8 @@ public class GetWebController {
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+        model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
     }
 
