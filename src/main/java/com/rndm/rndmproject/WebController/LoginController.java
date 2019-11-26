@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class LoginController {
@@ -65,10 +66,14 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @PostMapping("login")
-    public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("success")
+    public String succesLogin(Principal principal){
+        System.out.println(principal.getName());
+        this.userUseCases.ChangeConnected(principal.getName(), 1);
         return "redirect:/";
     }
+
+
 
 
 }

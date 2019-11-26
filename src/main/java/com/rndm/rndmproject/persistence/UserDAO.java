@@ -1,5 +1,6 @@
 package com.rndm.rndmproject.persistence;
 
+import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +34,8 @@ public class UserDAO {
     private final String GET_PRIVATE = "select is_private from usuari where username = ?";
     private final String GET_ISCONNECTED = "select is_connected from usuari where username = ?";
     private final String GET_IMAGE = "select image from usuari where username = ?";
+    private final String GET_CONNECTED = "select connected from usuari where username = ?";
+    private final String CHANGE_STATUS = "update usuari set connected = ? where username = ?";
 
     @Bean
     private PasswordEncoder passwordEncoder() {
@@ -67,13 +70,6 @@ public class UserDAO {
         return jdbctemplate.query(FIND_ALL, mapper);
     }
 
-    //To be revised
-    public boolean getIsConnected(String username) {
-        List<User> li = jdbctemplate.query(FIND_USERNAME, mapper, username);
-        User u = li.get(0);
-        return u.getIsConnected();
-    }
-
 
     public boolean isPrivate(String name) {
         Character c = this.jdbctemplate.queryForObject(GET_PRIVATE, Character.class, name);
@@ -95,6 +91,14 @@ public class UserDAO {
         String strDate = dateFormat.format(date);
 
         return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(), null);
+    }
+
+    public int IsUserconnected(String username){
+        return jdbctemplate.queryForObject(GET_CONNECTED, Integer.class, username);
+    }
+
+    public int ChangeConnected (String username, int status){
+        return jdbctemplate.update(CHANGE_STATUS, status, username);
     }
 
 
