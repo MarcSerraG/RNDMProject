@@ -30,6 +30,8 @@ public class ThreadUseCases {
 
         public List<Thread> findThreadByName (String title) {return this.threadDAO.findThreadByName(title);}
 
+        public List<Thread> findThreadByUser (String user){ return this.threadDAO.findThreadByUser(user); }
+
         public Thread getThread ( String id ){ return this.threadDAO.getThread(id);}
 
         public int getCount(String name) {return this.threadDAO.getCount(name);}

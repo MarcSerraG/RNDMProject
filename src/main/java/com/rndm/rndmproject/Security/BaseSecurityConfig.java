@@ -13,6 +13,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/").permitAll()
                 .antMatchers("/{page}").permitAll()
                 .antMatchers("/register").anonymous()
+                .antMatchers("/profile").permitAll()
                 .antMatchers("/login").anonymous()
                 .antMatchers("loginCorrect").permitAll()
                 .antMatchers("/login_error").permitAll()

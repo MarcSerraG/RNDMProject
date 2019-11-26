@@ -3,6 +3,7 @@ package com.rndm.rndmproject.WebController;
 import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.RESTController;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
+import com.rndm.rndmproject.Controller.UserUseCases;
 import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Comment;
@@ -30,17 +31,19 @@ public class GetWebController {
     private VotesDAO votesDAO;
     private CommentDAO commentDAO;
     private RESTController restController;
+    private UserUseCases userUseCases;
 
-    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO, RESTController rest){
+    public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO, RESTController rest, UserUseCases userUseCases){
         this.threadUseCases = threadUseCases;
         this.categoryUseCases = categoryUseCases;
         this.commentDAO = commentDAO;
         this.votesDAO = votesDAO;
         this.restController = rest;
+        this.userUseCases = userUseCases;
     }
 
     @GetMapping("/")
-    public String firstThreads (Model model){
+    public String firstThreads (Model model, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
@@ -49,6 +52,8 @@ public class GetWebController {
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("TopCategory", threadUseCases.getTop());
         model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return "index";
     }
 
@@ -57,17 +62,20 @@ public class GetWebController {
     public String firstThreads (Model model, @PathVariable int page){
         model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
         model.addAttribute("Weather", restController.getWeather());
+        model.addAttribute("Users", userUseCases);
         return "index";
     }
 
     @GetMapping("/Category/{category}")
-    public String FindByCategory (Model model, @PathVariable String category){
+    public String FindByCategory (Model model, @PathVariable String category, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return"index";
     }
 
@@ -79,7 +87,8 @@ public class GetWebController {
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
-
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         model.addAttribute("commentThread", null);
 
         try{
@@ -99,9 +108,6 @@ public class GetWebController {
         }catch (Exception e){
             return "thread";
         }
-
-
-
         return "thread";
     }
 
@@ -122,13 +128,15 @@ public class GetWebController {
 
 
     @GetMapping("Search/{title}")
-    public String FindThreadByName (Model model, @PathVariable String title){
+    public String FindThreadByName (Model model, @PathVariable String title, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return"index";
     }
 

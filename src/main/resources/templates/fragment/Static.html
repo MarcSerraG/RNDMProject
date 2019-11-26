@@ -50,7 +50,7 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{/images/avatar.jpg}"  alt="" />
+                    <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" />
                     <div class="status green">&nbsp;</div>
                 </div>
 
@@ -110,7 +110,7 @@
                     <div class="env pull-left "></div>
 
                     <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/noreg.jpg}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
@@ -158,8 +158,8 @@
                     <div class="stnt pull-left"></div>
                     <div class="env pull-left "></div>
 
-                    <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                    <div class="avatar pull-left dropdown" style="margin-left: 20px">
+                        <a data-toggle="dropdown" href="#"><img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
