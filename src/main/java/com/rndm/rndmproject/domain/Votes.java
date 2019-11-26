@@ -6,19 +6,26 @@ import java.util.Comparator;
 public class Votes {
 
     private String threadID;
-    private boolean positive; // If true, vote is positive. Else it is negative.
+
+    // If true, vote is positive. If false, it is negative.
+    // If null, the user has not voted yet.
+    private Boolean positive;
     private String user;
 
-    public Votes(String threadID, boolean positive, String user){
+    public Votes(String threadID, Boolean positive, String user){
         this.threadID = threadID;
         this.positive = positive;
         this.user = user;
     }
 
+    public Votes(String threadID, String user) {
+        this(threadID, null, user);
+    }
+
     public void setThreadID(String threadID) {
         this.threadID = threadID;
     }
-    public void setPositive(boolean positive) {
+    public void setPositive(Boolean positive) {
         this.positive = positive;
     }
     public void setUser(String user) {
@@ -28,11 +35,18 @@ public class Votes {
     public String getThreadID(){
         return this.threadID;
     }
-    public boolean getPositive() {
+    public Boolean getPositive() {
         return positive;
     }
     public String getUser() {
         return user;
+    }
+
+    public boolean hasVoted() {
+        if (this.positive == null)
+            return false;
+        else
+            return true;
     }
 
     public boolean equals(Object o) {

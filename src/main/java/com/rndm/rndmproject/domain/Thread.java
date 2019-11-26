@@ -20,8 +20,7 @@ public class Thread {
     private String username;
     private List<Tag> tags;
     private Category category;
-    private Set<Votes> setVotes;
-    // Username - Positive (true) negative (false)
+    // Username - Positive (true) negative (false) - No vote (null)
     private Map<String, Boolean> mapVotes;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
@@ -50,7 +49,6 @@ public class Thread {
         upvotes = 0;
         downvotes = 0;
         comments = new ArrayList<String>();
-        //setVotes = new HashSet<Votes>();
         mapVotes = new HashMap<String, Boolean>();
         date = new Date(System.currentTimeMillis());
     }
@@ -84,7 +82,6 @@ public class Thread {
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
         comments = new ArrayList<String>();
-        setVotes = new HashSet<Votes>();
         this.id = generateID();
         System.out.println("Identificador: " +id);
     }
@@ -144,6 +141,7 @@ public class Thread {
     public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
+    public Boolean getVote(String username) { return this.mapVotes.get(username); }
 
 
     public void addVote(Votes vote){
@@ -151,6 +149,12 @@ public class Thread {
         Boolean positive = vote.getPositive();
         this.mapVotes.put(username, positive);
     }
+
+    public boolean removeVote(Votes vote) {
+        String username = vote.getUser();
+        return this.mapVotes.remove(username);
+    }
+
     public void addManyVotes(Collection<Votes> votes){
         for (Votes vote : votes)
             addVote(vote);

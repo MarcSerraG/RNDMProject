@@ -16,14 +16,14 @@ public class ErrorHandlingController implements ErrorController {
     @ExceptionHandler(Exception.class)
     public String handleGeneralException(Model model, HttpServletRequest request, Exception ex){
         String url = request.getRequestURL().toString();
-        System.out.println("1 Error "+url + " raised "+ ex);
+        //System.out.println("1 Error "+url + " raised "+ ex);
         return "error";
     }
 
     @ExceptionHandler(InternalError.class)
     public String internalServerException(Model model, HttpServletRequest request, Exception ex){
         String url = request.getRequestURL().toString();
-        System.out.println("2 Error "+url + " raised "+ ex);
+        //System.out.println("2 Error "+url + " raised "+ ex);
         return "error";
     }
 

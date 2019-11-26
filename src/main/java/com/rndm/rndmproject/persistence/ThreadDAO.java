@@ -3,7 +3,7 @@ package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.Category;
 import com.rndm.rndmproject.domain.Thread;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import com.rndm.rndmproject.domain.Votes;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -121,5 +121,25 @@ public class ThreadDAO {
 
         return listThreads;
     }
+
+    public void addVote(Thread thread, Votes vote) {
+
+        Boolean bool = thread.getVote(vote.getUser());
+        if (bool == null) {
+            this.votesDAO.insertVote(vote);
+            thread.addVote(vote);
+        }
+        else if ((bool && vote.getPositive()) || (!bool && !vote.getPositive())) {
+            this.votesDAO.deleteVote(vote);
+            thread.removeVote(vote);
+        }
+        else {
+            this.votesDAO.updateVote(vote);
+            thread.addVote(vote);
+        }
+
+    }
+
+
 
 }

@@ -23,6 +23,10 @@ public class VotesDAO {
 
     private final String INSERT_UPVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('1', ?, ?)";
     private final String INSERT_DOWNVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('0', ?, ?)";
+    public final String DELETE_VOTE = "DELETE FROM vote WHERE users_username = ? AND threads_id_thread = ?";
+    public final String UPDATE_VOTE = "UPDATE vote SET positive = ? WHERE users_username = ? AND threads_id_thread = ?";
+
+    public final String FIND_VOTE = "SELECT * FROM vote WHERE users_username = ? AND threads_id_thread = ?";
 
 
     public VotesDAO(JdbcTemplate jdbctemplate){
@@ -30,10 +34,13 @@ public class VotesDAO {
     }
 
     private Votes votesMapper(ResultSet resultSet) throws SQLException {
+        Boolean positive = resultSet.getBoolean("positive");
+        if (resultSet.wasNull())
+            positive = null;
 
         Votes votes = new Votes(
                 resultSet.getString("threads_id_thread"),
-                resultSet.getBoolean("positive"),
+                positive,
                 resultSet.getString("users_username"));
         return votes;
     };
@@ -50,19 +57,36 @@ public class VotesDAO {
         return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper,threadID);
     }
 
-    public int insert_upvote(String username, String threadID) {
+    public int insertUpvote(String username, String threadID) {
         return jdbctemplate.update(INSERT_UPVOTE,username, threadID);
     }
 
-    public int insert_downvote(String username, String threadID) {
+    public int insertDownvote(String username, String threadID) {
         return jdbctemplate.update(INSERT_DOWNVOTE, username, threadID);
     }
 
-    public int insert_vote(Votes vote) {
+    public int insertVote(Votes vote) {
         if (vote.getPositive())
-            return insert_upvote(vote.getUser(), vote.getThreadID());
+            return insertUpvote(vote.getUser(), vote.getThreadID());
         else
-            return insert_downvote(vote.getUser(), vote.getThreadID());
+            return insertDownvote(vote.getUser(), vote.getThreadID());
+    }
+
+    public int deleteVote(Votes vote) {
+        return this.jdbctemplate.update(DELETE_VOTE, vote.getUser(), vote.getThreadID());
+    }
+
+    public int updateVote(Votes vote) {
+        int positive = 0;
+
+        if (vote.getPositive())
+            positive = 1;
+
+        return this.jdbctemplate.update(UPDATE_VOTE, positive, vote.getUser(), vote.getThreadID());
+    }
+
+    public Votes findVote(String username, String threadID) {
+        return this.jdbctemplate.queryForObject(FIND_VOTE, mapper, username, threadID);
     }
 
 
