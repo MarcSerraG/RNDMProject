@@ -109,9 +109,26 @@
                     <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
-                <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                <div class="posttext pull-left">
+
+                    <blockquote>
+                        <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
+                        <span th:text="${comment.getFatherContent()}"></span>
+                    </blockquote>
+                        <p th:text="${comment.getContent()}"></p>
                 </div>
+                    <div class="clearfix"></div>
+            </div>
+                <div class="postinfobot">
+
+                <div class="prev pull-left">
+                    <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
+                </div>
+
+                <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
+
+
+                <div class="clearfix"></div>
             </div>
             <div class="posttext pull-left">
                 <blockquote>
@@ -206,7 +223,7 @@
                     </div>
                 </div>
 
-                <div   style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
+                <div  style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
 
                 <div style="display: none" th:if="${CommentID != null}"><input type="text" th:value="${CommentID}" id="fatherComment" name="fatherComment" ></div>
 
