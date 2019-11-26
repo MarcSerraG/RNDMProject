@@ -4,7 +4,9 @@ import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.RESTController;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
 import com.rndm.rndmproject.Controller.UserUseCases;
+import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
+import com.rndm.rndmproject.domain.Comment;
 import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
@@ -15,7 +17,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -46,6 +50,8 @@ public class GetWebController {
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
+        model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
         return "index";
@@ -74,17 +80,56 @@ public class GetWebController {
     }
 
     @GetMapping("/Thread/{id}")
-    public String LoadThread (Model model, @PathVariable String id, Principal principal){
+    public String LoadThread (Model model, @PathVariable String id, HttpServletRequest request, Principal principal){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", votesDAO.getTopThread());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
+
+        model.addAttribute("commentThread", null);
+
+        try{
+            request.getParameter("commentThread");
+            //Comment of a thread
+            if(request.getParameter("commentThread").equals("thread")){
+                model.addAttribute("user", principal.getName());
+                model.addAttribute("commentThread", "thread");
+
+            }else{
+                //comment of a comment
+                model.addAttribute("user", principal.getName());
+                model.addAttribute("CommentID", request.getParameter("commentID"));
+                model.addAttribute("commentThread", "new");
+            }
+            model.addAttribute("newComment", new Comment());
+        }catch (Exception e){
+            return "thread";
+        }
+
+
+
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
         return "thread";
     }
+
+    @GetMapping("Thread/{id}/Comment")
+    public String CommentThread (@PathVariable String id, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("commentThread", "thread");
+        return "redirect:../../Thread/"+id;
+    }
+
+
+    @GetMapping("Thread/{id}/Comment/{commentID}")
+    public String CommentThreadComment ( @PathVariable String id, @PathVariable String commentID, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("commentID", commentID);
+        redirectAttributes.addAttribute("commentThread", "new");
+        return "redirect:../../../Thread/"+id;
+    }
+
+
 
     @GetMapping("Search/{title}")
     public String FindThreadByName (Model model, @PathVariable String title, Principal principal){

@@ -13,8 +13,10 @@ import java.util.List;
 public class CategoryDAO {
 
     private JdbcTemplate jdbctemplate;
+    private ThreadDAO threadDAO;
 
     private final String FIND_CATEGORIES = "select * from category";
+    private final String GET_LOGO = "select logo from category where name = ?";
 
     public CategoryDAO(JdbcTemplate jdbctemplate){
         this.jdbctemplate = jdbctemplate;
@@ -32,5 +34,7 @@ public class CategoryDAO {
     public List<Category> findCategories(){
         return this.jdbctemplate.query(FIND_CATEGORIES, mapper);
     }
+    public String getLogo(String name){return jdbctemplate.queryForObject(GET_LOGO, String.class, name);}
+
 
 }

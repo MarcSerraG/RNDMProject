@@ -72,7 +72,7 @@
             </div>
 
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment'" ><i class="fa fa-reply" id="CommentThread"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${threadByID.getDate()}"></span></div>
