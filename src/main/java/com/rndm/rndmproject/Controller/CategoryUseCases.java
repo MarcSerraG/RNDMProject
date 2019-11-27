@@ -18,6 +18,5 @@ public class CategoryUseCases {
     }
 
     public List<Category> findCategories(){ return this.categoryDAO.findCategories();}
-
-
+    public String getLogo(String name){return this.categoryDAO.getLogo(name);}
 }

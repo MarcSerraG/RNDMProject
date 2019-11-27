@@ -50,12 +50,17 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{/images/avatar.jpg}"  alt="" />
+                    <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" />
                     <div class="status green">&nbsp;</div>
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
+                    <div th:if="${Users.isPrivate(threadByID.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(threadByID.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -72,7 +77,7 @@
             </div>
 
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment'" ><i class="fa fa-reply" id="CommentThread"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${threadByID.getDate()}"></span></div>
@@ -100,28 +105,17 @@
                     <div class="wrap">
                         <form class="form">
                             <div class="pull-left txt"><input id="navigation" type="text" class="form-control" placeholder="Search Threads"></div>
-                            <div class="pull-right"><button id = "searchButton" class="btn btn-default" type="button"  onclick="Search()"><i class="fa fa-search"></i></button></div>
+                            <div class="pull-right"><button id = "searchButton" class="btn btn-default" type="button"  onclick="Search()" ><i class="fa fa-search"></i></button></div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
                 </div>
                 <div class="col-lg-4 col-xs-12 col-sm-5 col-md-4 avt">
-                    <!--div class="stnt pull-left">
-                        <form action="/login" method="get" class="form">
-                            <button class="btn btn-primary">Sign In</button>
-                        </form>
-                    </div>
-
-                    <div class="stnt pull-left">
-                        <form action="/register" method="get" class="form">
-                            <button class="btn btn-primary">Create An Account</button>
-                        </form>
-                    </div-->
                     <div class="stnt pull-left"></div>
-                    <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                    <div class="env pull-left "></div>
 
                     <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/noreg.jpg}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
@@ -134,6 +128,7 @@
             </div>
         </div>
     </div>
+
 </div>
 
 <div th:fragment="navigation-logged">
@@ -152,9 +147,9 @@
                 </div>
                 <div class="col-lg-4 search hidden-xs hidden-sm col-md-3">
                     <div class="wrap">
-                        <form action="#" method="post" class="form">
-                            <div class="pull-left txt"><input type="text" class="form-control" placeholder="Search Topics"></div>
-                            <div class="pull-right"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></div>
+                        <form class="form">
+                            <div class="pull-left txt"><input id="navigation" type="text" class="form-control" placeholder="Search Threads"></div>
+                            <div class="pull-right"><button id = "searchButton" class="btn btn-default" type="button"  onclick="Search()" ><i class="fa fa-search"></i></button></div>
                             <div class="clearfix"></div>
                         </form>
                     </div>
@@ -165,15 +160,18 @@
                             <button class="btn btn-primary">Start New Topic</button>
                         </form>
                     </div>
-                    <div class="env pull-left"><i class="fa fa-envelope"></i></div>
+                    <div class="stnt pull-left"></div>
+                    <div class="env pull-left "></div>
 
-                    <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                    <div class="avatar pull-left dropdown" style="margin-left: 20px">
+                        <a data-toggle="dropdown" href="#"><img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
+                            <div th:if="${!Users.isPrivate(Principal.getName())}">
+                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
+                            </div>
                         </ul>
                     </div>
 
@@ -182,18 +180,6 @@
             </div>
         </div>
     </div>
-    <script>
-        function Search(){
-            window.location.replace("/Search/"+ document.getElementById('navigation').value);
-        }
-        var input = document.getElementById("navigation");
-        input.addEventListener("keyup", function(event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-                document.getElementById("searchButton").click();
-            }
-        });
-    </script>
 </div>
 
 <div th:fragment="footer">

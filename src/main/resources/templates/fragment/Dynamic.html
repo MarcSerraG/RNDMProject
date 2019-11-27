@@ -36,22 +36,27 @@
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{images/avatar.jpg}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" />
                     <div class="status green">&nbsp;</div>
                 </div>
 
                 <div class="icons">
-                    <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
 
             <div class="posttext pull-left">
-                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
                 <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
             </div>
 
             <div class="clearfix"></div>
-            </div>
+        </div>
         <div class="postinfo pull-left">
             <div class="comments">
                 <div class="commentbg">
@@ -73,12 +78,17 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar2.jpg" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
 
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -89,7 +99,7 @@
         <div class="postinfobot">
 
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
@@ -106,41 +116,40 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar3.jpg" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
                     <div class="status red">&nbsp;</div>
                 </div>
-
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
-
                 <blockquote>
                     <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
                     <span th:text="${comment.getFatherContent()}"></span>
-                    </blockquote>
-                    <p th:text="${comment.getContent()}"></p>
-                </div>
-                <div class="clearfix"></div>
+                </blockquote>
+                <p th:text="${comment.getContent()}"></p>
             </div>
+            <div class="clearfix"></div>
+        </div>
         <div class="postinfobot">
-
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
             </div>
-
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
 <!--Comment with father-->
 
-<!--Top threads-->
-<div th:fragment="topThreads">
+<!--Top Threads-->
+<div  th:fragment="topThreads">
     <div class="sidebarblock">
         <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
         <div class="divline"></div>
@@ -152,18 +161,31 @@
         </div>
     </div>
 </div>
-<!--Top threads-->
+<!--Top Threads-->
+
+<!--User image -->
+<div th:fragment="userImage">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-camera"></i> Profile Image</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <div class="roundedimage">
+                <img th:src="@{/images/avatar.jpg}"/>
+            </div>
+        </div>
+    </div>
+</div>
+<!--User image -->
 
 <!--Weather-->
 <div th:fragment="weather">
-    <div class="sidebarblock">
-        <h3><i class="fas fa-sun"></i> <span th:text=" ${Weather.getName()} + ', ' "></span><span th:text="${Weather.getCountry()}"></span></h3>
+    <div class="sidebarblock m-t-200">
+
+        <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
+        <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li>
-                    <span th:text="${Weather.getClima()}"></span>
-                </li>
                 <li>
                     <span>Current temperature:</span>
                     <span class="badge pull-right" th:text="${Weather.getTemp()} + 'ºC'"></span>
@@ -178,9 +200,60 @@
                 </li>
             </ul>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
 <!--Weather-->
+
+<!-- Write comment-->
+<div th:fragment="writeCommentThread">
+    <div class="post" >
+        <form  class="form" method="post" action="/postComment" th:object="${newComment}">
+            <div class="topwrap">
+                <div class="userinfo pull-left">
+                    <div class="avatar">
+                        <img th:src="@{${'../' + Users.getImage(Principal.getName())}}"  alt="" />
+                        <div class="status red">&nbsp;</div>
+                    </div>
+
+                    <div class="icons">
+                        <div th:if="${Users.isPrivate(Principal.getName())}">
+                            <img th:src="@{images/premium.png}" alt="" />
+                        </div>
+                        <div th:if="${Users.isModerator(Principal.getName())}">
+                            <img th:src="@{../images/mod.png}" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div   style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
+
+                <div style="display: none" th:if="${CommentID != null}"><input type="text" th:value="${CommentID}" id="fatherComment" name="fatherComment" ></div>
+
+                <div style="display: none" ><input type="text" th:value="${threadByID.getID()}" id="thread" name="thread" ></div>
+
+
+
+                <div class="posttext pull-left">
+                    <div class="textwraper">
+                        <div class="postreply">Comment: </div>
+                        <textarea name="reply" id="reply" placeholder="Type your comment here" th:field="*{content}"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="postinfobot">
+
+                <div class="pull-right postreply">
+                    <div class="pull-left"><button type="submit" method="post" class="btn btn-primary" >Comment</button></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Write comment-->
 
 <!--Category Header-->
 <div th:fragment="categoryHeader">
@@ -200,6 +273,21 @@
     </div>
 </div>
 <!--Category Header-->
+
+<!--Top Categories-->
+<div th:fragment="categories">
+    <div class="sidebarblock">
+        <h3><i class="fas fa-fire"></i> TOP CATEGORIES</h3>
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li th:each="category : ${TopCategory}"><i th:class="${Logo.getLogo(category)}"></i><a th:href="'/Category/'+ ${category}"><span id="catName" th:text="' ' + ${category}"></span>
+                    <span class="badge pull-right" th:text="${Category.getCount(category)}"></span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--Top Categories-->
 
 </body>
 </html>

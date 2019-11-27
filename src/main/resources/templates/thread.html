@@ -41,6 +41,7 @@
             <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
 
             <section class="content">
+
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 breadcrumbf">
@@ -58,93 +59,50 @@
                             <div th:replace="fragment/Static :: thread"></div>
                             <!-- Post Section -->
 
+                            <div id="addComment" th:if="${commentThread != null}">
+                                <div th:if="${commentThread.equals('thread')}">
+                                    <div th:replace="fragment/Dynamic :: writeCommentThread"></div>
+                                </div>
+                            </div>
+
                             <!-- Comment Section -->
                             <div th:each="comment : ${Comments}">
-
                                 <span th:if="${comment.getFatherComment() == null}">
                                     <div th:replace="fragment/Dynamic :: singleComment"></div>
+                                    <div th:if="${commentThread != null}">
+                                        <div th:if="${commentThread.equals('new')}">
+                                            <div th:if="${CommentID == comment.getID()}">
+                                                <div th:replace="fragment/Dynamic :: writeCommentThread"> </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </span>
                                 <span th:if="${comment.getFatherComment() != null}">
                                     <div th:replace="fragment/Dynamic :: fatherComment"></div>
+                                    <div th:if="${commentThread != null}">
+                                        <div th:if="${commentThread.equals('new')}">
+                                            <div th:if="${CommentID == comment.getID()}">
+                                                <div th:replace="fragment/Dynamic :: writeCommentThread"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </span>
                             </div>
+                        </div>
                             <!-- Comment Section -->
 
-                            <!-- POST -->
-                            <div class="post">
-                                <form action="#" class="form" method="post">
-                                    <div class="topwrap">
-                                        <div class="userinfo pull-left">
-                                            <div class="avatar">
-                                                <img src="images/avatar4.jpg" alt="" />
-                                                <div class="status red">&nbsp;</div>
-                                            </div>
-
-                                            <div class="icons">
-                                                <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
-                                            </div>
-                                        </div>
-                                        <div class="posttext pull-left">
-                                            <div class="textwraper">
-                                                <div class="postreply">Post a Reply</div>
-                                                <textarea name="reply" id="reply" placeholder="Type your message here"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>                              
-                                    <div class="postinfobot">
-
-                                        <div class="notechbox pull-left">
-                                            <input type="checkbox" name="note" id="note" class="form-control" />
-                                        </div>
-
-                                        <div class="pull-left">
-                                            <label for="note"> Email me when some one post a reply</label>
-                                        </div>
-
-                                        <div class="pull-right postreply">
-                                            <div class="pull-left smile"><a href="#"><i class="fa fa-smile-o"></i></a></div>
-                                            <div class="pull-left"><button type="submit" class="btn btn-primary">Post Reply</button></div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
+                        <!--Here starts right panel-->
                         <div class="col-lg-4 col-md-4">
 
-                            <!--Here starts right panel-->
                             <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
-
-                            <!--Static content to be revised-->
-                            <div class="sidebarblock">
-                                <h3>My Active Threads</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-                                </div>
-                            </div>
+                            <div th:replace="fragment/Dynamic :: categories"></div>
                         </div>
+                        <!--Here finish right panel-->
+
                     </div>
                 </div>
+
             </section>
 
             <div th:replace="fragment/Static :: footer"></div>
@@ -154,12 +112,11 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 
         <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.plugins.min.js"></script>
-        <script type="text/javascript" src="rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+        <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+        <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
+        <script th:src="@{/js/bootstrap.min.js}"></script>
+        <script th:src="@{/js/weather.js}"></script>
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/bootstrap.min.js"></script>
 
 
         <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
@@ -180,6 +137,19 @@
 
             });	//ready
 
+        </script>
+
+        <script type="text/javascript">
+            function Search(){
+                window.location.replace("/Search/"+ document.getElementById('navigation').value);
+            }
+            var input = document.getElementById("navigation");
+            input.addEventListener("keyup", function(event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    document.getElementById("searchButton").click();
+                }
+            });
         </script>
 
         <!-- END REVOLUTION SLIDER -->
