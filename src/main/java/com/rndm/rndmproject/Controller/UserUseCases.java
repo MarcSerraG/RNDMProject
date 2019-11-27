@@ -34,7 +34,7 @@ public class UserUseCases {
 
     public String getImage (String name){return userDAO.getImage(name);}
 
-    public int getconnectedUser (String username){
+    public int getIsConnected (String username){
         return this.userDAO.IsUserconnected(username);
     }
 

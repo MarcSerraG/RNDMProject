@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSessionEvent;
 import javax.validation.Valid;
 import java.security.Principal;
 
@@ -67,9 +68,12 @@ public class LoginController {
     }
 
     @GetMapping("success")
-    public String succesLogin(Principal principal){
-        System.out.println(principal.getName());
+    public String succesLogin(Principal principal, HttpServletRequest session){
+
         this.userUseCases.ChangeConnected(principal.getName(), 1);
+
+        session.getSession().setAttribute("username", principal.getName());
+
         return "redirect:/";
     }
 
