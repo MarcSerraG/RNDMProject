@@ -5,6 +5,7 @@ import com.rndm.rndmproject.Controller.RESTController;
 import com.rndm.rndmproject.Controller.ThreadUseCases;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.domain.Votes;
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
 import com.rndm.rndmproject.persistence.VotesDAO;
@@ -64,13 +65,12 @@ public class GetWebController {
     }
 
     @GetMapping("/Thread/{id}")
-    public String LoadThread (Model model, @PathVariable String id, Authentication auth){
+    public String LoadThread (Model model, @PathVariable String id){
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
-        System.out.println(auth.getName() + "   " + auth.toString());
         return "thread";
     }
 
