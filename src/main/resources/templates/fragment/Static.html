@@ -67,8 +67,8 @@
         <div class="postinfobot">
 
             <!div class="likeblock pull-left">
-                <a href="Thread/" + "${threadByID.getID()}" + "/upvote" class="up" ><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
-                <a href="#/downvote" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
+                <a href="'/Thread/' + ${threadByID.getID()} + '/upvote'" class="up" ><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
+                <a href="'/Thread/' + ${threadByID.getID()} + '/downvote'" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
             </div>
 
             <div class="prev pull-left">
