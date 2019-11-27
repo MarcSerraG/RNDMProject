@@ -67,6 +67,7 @@ public class User {
     public boolean getPremium(){return premium;}
     public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
+    public boolean getIsConnected(){return isConnected;}
     // Setters
     public void setUsername(String name){
         this.username = name;
@@ -76,7 +77,13 @@ public class User {
     public void setPassword(String password){this.password = password;}
     public void setPremium(boolean premium){this.premium = premium;}
     public void setModerator(boolean moderator){this.moderator = moderator;}
-    public boolean getIsConnected(){return isConnected;}
+    public void setConnected(int connected){
+        switch (connected){
+            case 1: this.isConnected = true; break;
+            case 0: this.isConnected = false; break;
+        }
+    }
+
   
     public void addThread(Thread thd){threads.add(thd);}
     public void removeThread(Thread thd){threads.remove(thd);}
