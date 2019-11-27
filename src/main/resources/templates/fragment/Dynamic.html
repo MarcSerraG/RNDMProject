@@ -37,7 +37,9 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" />
-                    <div class="status green">&nbsp;</div>
+
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -79,7 +81,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -117,7 +120,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
                 <div class="icons">
                     <div th:if="${Users.isPrivate(comment.getCommentuser())}">
@@ -213,7 +217,8 @@
                 <div class="userinfo pull-left">
                     <div class="avatar">
                         <img th:src="@{${'../' + Users.getImage(Principal.getName())}}"  alt="" />
-                        <div class="status red">&nbsp;</div>
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 1}"><div class="status green">&nbsp;</div> </div>
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
                     </div>
 
                     <div class="icons">

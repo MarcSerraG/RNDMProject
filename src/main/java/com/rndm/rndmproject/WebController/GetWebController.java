@@ -54,6 +54,7 @@ public class GetWebController {
         model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+
         return "index";
     }
 

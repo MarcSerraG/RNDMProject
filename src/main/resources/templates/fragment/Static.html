@@ -51,7 +51,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" />
-                    <div class="status green">&nbsp;</div>
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -116,7 +117,7 @@
 
                     <div class="avatar pull-left dropdown">
                         <a data-toggle="dropdown" href="#"><img th:src="@{/images/noreg.jpg}" alt="" /></a> <b class="caret"></b>
-                        <div class="status green">&nbsp;</div>
+                        <div class="status red">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/register">Create an account</a></li>
