@@ -43,7 +43,12 @@
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
 
@@ -81,7 +86,12 @@
                 </div>
 
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -114,7 +124,12 @@
                     <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -207,7 +222,12 @@
                     </div>
 
                     <div class="icons">
-                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                        <div th:if="${Users.isPrivate(Principal.getName())}">
+                            <img th:src="@{images/premium.png}" alt="" />
+                        </div>
+                        <div th:if="${Users.isModerator(Principal.getName())}">
+                            <img th:src="@{../images/mod.png}" alt="" />
+                        </div>
                     </div>
                 </div>
 

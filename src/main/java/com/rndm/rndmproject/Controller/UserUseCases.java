@@ -28,6 +28,8 @@ public class UserUseCases {
         return this.userDAO.isPrivate(username);
     }
 
+    public boolean isModerator (String username) {return this.userDAO.isModerator(username);}
+
     public int insertUser (User user) {
         return this.userDAO.insertUser(user);
     }

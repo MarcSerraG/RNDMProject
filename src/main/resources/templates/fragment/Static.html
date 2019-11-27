@@ -56,7 +56,12 @@
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
+                    <div th:if="${Users.isPrivate(threadByID.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(threadByID.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -165,7 +170,9 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
+                            <div th:if="${!Users.isPrivate(Principal.getName())}">
+                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
+                            </div>
                         </ul>
                     </div>
 
