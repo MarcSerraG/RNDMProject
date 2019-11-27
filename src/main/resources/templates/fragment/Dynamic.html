@@ -30,13 +30,13 @@
 </head>
 <body>
 
-<!--Thread-->
+<!--Index Thread-->
 <div th:fragment="thread">
     <div class="post">
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
 
                     <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
                     <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
@@ -72,7 +72,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<!--Thread-->
+<!--Index Thread-->
 
 <!--Comment without father-->
 <div th:fragment="singleComment">
@@ -80,7 +80,7 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}"/>
                     <div th:if="${Users.getIsConnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
                     <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
@@ -119,7 +119,7 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}" />
                     <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
                     <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
