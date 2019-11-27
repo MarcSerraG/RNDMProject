@@ -31,7 +31,7 @@ public class NewThreadController {
     public String NewThread(Model model){
         model.addAttribute("NewThread",new Thread());
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         return "new_thread";
     }
 

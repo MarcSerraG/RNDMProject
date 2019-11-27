@@ -14,18 +14,11 @@ public class VotesDAO {
 
     private JdbcTemplate jdbctemplate;
 
-    private final String FIND_TOPTHREADS = "SELECT thread.id_thread, thread.title, vote.positive, vote.negative, thread.users_username " +
-            "FROM thread LEFT JOIN vote ON vote.threads_id_thread = thread.id_thread order by vote.positive DESC LIMIT 10";
-
-    private final String FIND_TOPTEN = "SELECT count(positive), threads_id_thread FROM vote WHERE vote = 1 GROUP BY threads_id_thread ORDER BY count(positive)";
-
     private final String FIND_VOTES_THREAD = "SELECT positive, threads_id_thread, users_username FROM vote WHERE threads_id_thread = ?";
-
     private final String INSERT_UPVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('1', ?, ?)";
     private final String INSERT_DOWNVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('0', ?, ?)";
     public final String DELETE_VOTE = "DELETE FROM vote WHERE users_username = ? AND threads_id_thread = ?";
     public final String UPDATE_VOTE = "UPDATE vote SET positive = ? WHERE users_username = ? AND threads_id_thread = ?";
-
     public final String FIND_VOTE = "SELECT * FROM vote WHERE users_username = ? AND threads_id_thread = ?";
 
 
@@ -48,10 +41,6 @@ public class VotesDAO {
     private final RowMapper<Votes> mapper = (resultSet, i) -> {
         return votesMapper(resultSet);
     };
-
-    public List<Votes> getTopThread(){
-        return this.jdbctemplate.query(FIND_TOPTHREADS,mapper);
-    }
 
     public List<Votes> getThreadVotes(String threadID) {
         return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper,threadID);

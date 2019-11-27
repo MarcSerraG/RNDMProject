@@ -72,7 +72,7 @@ public class GetWebController {
     public String FindByCategory (Model model, @PathVariable String category, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
