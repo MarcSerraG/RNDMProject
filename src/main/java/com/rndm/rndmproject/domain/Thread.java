@@ -3,9 +3,7 @@ package com.rndm.rndmproject.domain;
 import org.jsoup.Jsoup;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 
 public class Thread {
@@ -22,6 +20,8 @@ public class Thread {
     private String username;
     private List<Tag> tags;
     private Category category;
+    // Username - Positive (true) negative (false) - No vote (null)
+    private Map<String, Boolean> mapVotes;
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss");
 
     public void setTitle(String title) {
@@ -49,6 +49,7 @@ public class Thread {
         upvotes = 0;
         downvotes = 0;
         comments = new ArrayList<String>();
+        mapVotes = new HashMap<String, Boolean>();
         date = new Date(System.currentTimeMillis());
     }
 
@@ -80,6 +81,7 @@ public class Thread {
         this.upvotes = 20;
         this.downvotes = 20;
         date = new Date(System.currentTimeMillis());
+        comments = new ArrayList<String>();
         this.id = generateID();
         System.out.println("Identificador: " +id);
     }
@@ -102,6 +104,29 @@ public class Thread {
         this.date = date;
     }
 
+    //ConstructorDAO2
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes, Collection<Votes> votes) {
+
+        this.id = id;
+        this.title = title;
+        this.text = text;
+        this.media = media;
+        this.username = username;
+        this.tags = tags;
+        this.category = category;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+        comments = new ArrayList<String>();
+        try {
+            date = formatter.parse(data);
+        }catch (Exception e){
+
+        }
+        this.mapVotes = new HashMap<String, Boolean>();
+        this.addManyVotes(votes);
+        this.countVotes();
+    }
+
     //Methods
     public String getID(){return id;}
     public String getDate(){return formatter.format(date);}
@@ -110,29 +135,43 @@ public class Thread {
     public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
-    public int getUpvotes(){return upvotes;}
-    public int getDownvotes(){return downvotes;}
+    public int getUpvotes(){return countVotes()[0];}
+    public int getDownvotes(){return countVotes()[1];}
     private String generateID(){return Integer.toString(Math.abs(username.hashCode() + date.hashCode()));}//Need a modification, alphanumeric encrypt
     public void addComment(String comment){comments.add(comment);}
     public void removeComment(Comment comment){comments.remove(comment);}
     public String getText(){return text;}
+    public Boolean getVote(String username) { return this.mapVotes.get(username); }
 
 
-    public void addUpvote(User user){
-
-        if (user.hasVoteFromThread(this) && !user.getVoteFromThread(this)){
-            upvotes++;
-            downvotes --;
-            user.setVoteFromThread(this, true);
-        }
+    public void addVote(Votes vote){
+        String username = vote.getUser();
+        Boolean positive = vote.getPositive();
+        this.mapVotes.put(username, positive);
     }
-    public void addDownvote(User user){
 
-        if (user.hasVoteFromThread(this) && user.getVoteFromThread(this)){
-            upvotes --;
-            downvotes ++;
-            user.setVoteFromThread(this, false);
-        }
+    public boolean removeVote(Votes vote) {
+        String username = vote.getUser();
+        return this.mapVotes.remove(username);
+    }
+
+    public void addManyVotes(Collection<Votes> votes){
+        for (Votes vote : votes)
+            addVote(vote);
+    }
+
+    public int[] countVotes() {
+       Collection<Boolean> votes = this.mapVotes.values();
+       int[] res = {0, 0};
+       for (Boolean vote : votes) {
+           if (vote)
+                   ++res[0];
+           else
+               ++res[1];
+       }
+       this.upvotes = res[0];
+       this.downvotes = res[1];
+       return res;
     }
 
     public String timeSinceCreation() {

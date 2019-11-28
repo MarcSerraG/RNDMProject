@@ -14,9 +14,12 @@ public class VotesDAO {
 
     private JdbcTemplate jdbctemplate;
 
-    private final String FIND_TOPTHREADS = "SELECT `thread`.`id_thread`, `thread`.`title`, `vote`.`positive`, `vote`.`negative`, `thread`.`users_username`\n" +
-            "FROM `thread`\n" +
-            "    LEFT JOIN `vote` ON `vote`.`threads_id_thread` = `thread`.`id_thread`\n order by vote.positive DESC LIMIT 10";
+    private final String FIND_VOTES_THREAD = "SELECT positive, threads_id_thread, users_username FROM vote WHERE threads_id_thread = ?";
+    private final String INSERT_UPVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('1', ?, ?)";
+    private final String INSERT_DOWNVOTE = "INSERT INTO vote (positive, users_username, threads_id_thread) VALUES ('0', ?, ?)";
+    public final String DELETE_VOTE = "DELETE FROM vote WHERE users_username = ? AND threads_id_thread = ?";
+    public final String UPDATE_VOTE = "UPDATE vote SET positive = ? WHERE users_username = ? AND threads_id_thread = ?";
+    public final String FIND_VOTE = "SELECT * FROM vote WHERE users_username = ? AND threads_id_thread = ?";
 
 
     public VotesDAO(JdbcTemplate jdbctemplate){
@@ -24,12 +27,13 @@ public class VotesDAO {
     }
 
     private Votes votesMapper(ResultSet resultSet) throws SQLException {
+        Boolean positive = resultSet.getBoolean("positive");
+        if (resultSet.wasNull())
+            positive = null;
 
         Votes votes = new Votes(
-                resultSet.getString("id_thread"),
-                resultSet.getString("title"),
-                resultSet.getInt("positive"),
-                resultSet.getInt("negative"),
+                resultSet.getString("threads_id_thread"),
+                positive,
                 resultSet.getString("users_username"));
         return votes;
     };
@@ -38,8 +42,40 @@ public class VotesDAO {
         return votesMapper(resultSet);
     };
 
-    public List<Votes> getTopThread(){
-        return this.jdbctemplate.query(FIND_TOPTHREADS,mapper);
+    public List<Votes> getThreadVotes(String threadID) {
+        return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper,threadID);
+    }
+
+    public int insertUpvote(String username, String threadID) {
+        return jdbctemplate.update(INSERT_UPVOTE,username, threadID);
+    }
+
+    public int insertDownvote(String username, String threadID) {
+        return jdbctemplate.update(INSERT_DOWNVOTE, username, threadID);
+    }
+
+    public int insertVote(Votes vote) {
+        if (vote.getPositive())
+            return insertUpvote(vote.getUser(), vote.getThreadID());
+        else
+            return insertDownvote(vote.getUser(), vote.getThreadID());
+    }
+
+    public int deleteVote(Votes vote) {
+        return this.jdbctemplate.update(DELETE_VOTE, vote.getUser(), vote.getThreadID());
+    }
+
+    public int updateVote(Votes vote) {
+        int positive = 0;
+
+        if (vote.getPositive())
+            positive = 1;
+
+        return this.jdbctemplate.update(UPDATE_VOTE, positive, vote.getUser(), vote.getThreadID());
+    }
+
+    public Votes findVote(String username, String threadID) {
+        return this.jdbctemplate.queryForObject(FIND_VOTE, mapper, username, threadID);
     }
 
 
