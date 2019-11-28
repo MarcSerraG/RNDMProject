@@ -59,7 +59,7 @@ public class NewThreadController {
 
 
     @PostMapping
-    public String NewThread(Thread NewThread, Errors errors, Model model){
+    public String NewThread(Thread NewThread, Errors errors, Model model, Principal principal){
         if(errors.hasErrors()){
             return "new_thread";
         }
@@ -71,6 +71,7 @@ public class NewThreadController {
             }
 
             model.addAttribute("title", NewThread.getTitle());
+            NewThread.setUsername(principal.getName());
             this.threadUseCases.insert(NewThread);
             return "redirect:/";
 

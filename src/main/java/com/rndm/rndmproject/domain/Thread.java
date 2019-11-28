@@ -36,6 +36,8 @@ public class Thread {
         this.category = new Category(category);
     }
 
+    public void setUsername(String username) { this.username = username; }
+
     //Constructor
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
 
