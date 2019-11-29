@@ -25,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class GetWebController {
@@ -162,16 +164,24 @@ public class GetWebController {
     }
 
 
-    private int[] getNumberPages() {
+    private List<Integer>  getNumberPages() {
         int numberPages;
-        int arrayPages[];
+        List<Integer> arrayPages = new ArrayList<Integer>();
         int totalThreads = this.threadUseCases.getTotalThreads();
         System.out.println("Total threads: " + totalThreads);
         numberPages = totalThreads / 10;
         if(totalThreads % 10 > 0) numberPages += 1;
         if(numberPages == 0) numberPages = 1;
         System.out.println("Total pagines: " + numberPages);
-        arrayPages = new int[numberPages];
+
+
+        int i = 0;
+        while (numberPages > i){
+            arrayPages.add(i+1);
+            i += 1;
+        }
+
+        System.out.println(arrayPages.get(0));
 
         return arrayPages;
     }
