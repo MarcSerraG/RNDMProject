@@ -58,6 +58,18 @@ public class User {
         moderator = false;
     };
 
+    public User (String username, String email, String password, boolean premium){
+
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.premium = premium;
+        threads = new ArrayList();
+        comments = new ArrayList();
+        date = new Date(System.currentTimeMillis());
+        moderator = false;
+    }
+
     //Methods
 
     // Getters

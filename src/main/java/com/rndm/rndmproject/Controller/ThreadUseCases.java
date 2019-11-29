@@ -20,13 +20,21 @@ public class ThreadUseCases {
             return this.threadDAO.findFirstTen();
         }
 
+        public List<Thread> findFirstTen (boolean privateSearch){
+                return this.threadDAO.findFirstTen(privateSearch);
+        }
+
         public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
+
+        public List<Thread> findXThreads(int page, boolean premiumSearch){return this.threadDAO.findXThreads(page, premiumSearch);}
 
         public int insert( Thread newthread ){
             return this.threadDAO.insert(newthread);
         }
 
         public List<Thread> findThreadByCategory ( String Category ){ return this.threadDAO.findThreadByCategory(Category); }
+        public List<Thread> findThreadByCategory ( String Category, boolean premiumSearch ){ return this.threadDAO.findThreadByCategory(Category, premiumSearch); }
+
 
         public List<Thread> findThreadByName (String title) {return this.threadDAO.findThreadByName(title);}
 
