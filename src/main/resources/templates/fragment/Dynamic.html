@@ -148,19 +148,38 @@
 </div>
 <!--Top Threads-->
 
-<!--User image -->
-<div th:fragment="userImage">
+<!--User info -->
+<div th:fragment="userInfo">
     <div class="sidebarblock">
-        <h3><i class="fas fa-camera"></i> Profile Image</h3>
+        <h3><i class="fas fa-info"></i> User Information </h3>
+
         <div class="divline"></div>
         <div class="blocktxt">
-            <div class="roundedimage">
-                <img th:src="@{/images/avatar.jpg}"/>
-            </div>
+            <ul>
+                <li>
+                    <label>Username: </label>
+                    <label th:text="${User.getUsername()}"></label>
+                </li>
+                <li>
+                    <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" />
+                </li>
+                <li>
+                    <label>Is member: </label>
+                    <label th:text="${User.getDate()}"></label>
+                </li>
+                <li>
+                    <label>Role: </label>
+                    <label th:text="${User.getPremium()}"></label>
+                </li>
+                <li>
+                    <label>Nº Threads: </label>
+                    <label th:text="${CountThread}"></label>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-<!--User image -->
+<!--User info -->
 
 <!--Weather-->
 <div th:fragment="weather">

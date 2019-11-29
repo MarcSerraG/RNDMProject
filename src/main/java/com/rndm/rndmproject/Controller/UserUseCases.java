@@ -34,5 +34,4 @@ public class UserUseCases {
 
     public String getImage (String name){return userDAO.getImage(name);}
 
-
 }

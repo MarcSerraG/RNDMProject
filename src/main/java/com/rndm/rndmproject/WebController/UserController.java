@@ -26,9 +26,10 @@ public class UserController {
     private CategoryUseCases categoryUseCases;
     private RESTController restController;
 
-    public UserController(ThreadUseCases threadUseCases, CommentDAO commentDAO, CategoryUseCases categoryUseCases, VotesDAO votesDAO, RESTController rest){
+    public UserController(ThreadUseCases threadUseCases, CommentDAO commentDAO,UserUseCases userUseCases ,CategoryUseCases categoryUseCases, VotesDAO votesDAO, RESTController rest){
         this.threadUseCases = threadUseCases;
         this.categoryUseCases = categoryUseCases;
+        this.userUseCases = userUseCases;
         this.restController = rest;
         this.votesDAO = votesDAO;
         this.commentDAO = commentDAO;
@@ -42,9 +43,11 @@ public class UserController {
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Users", userUseCases);
+        User u = userUseCases.getProfile(principal.getName());
+        model.addAttribute("User", u);
+        model.addAttribute("Principal", principal);
+        model.addAttribute("CountThread",threadUseCases.getCount(principal.getName()));
         return "/profile";
     }
-
-
-
 }
