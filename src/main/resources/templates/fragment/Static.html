@@ -44,18 +44,24 @@
         </div>
     </div>
 </div>
-
+<!--Inside Thread-->
 <div th:fragment="thread">
     <div class="post beforepagination">
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" />
-                    <div class="status green">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" th:title="${threadByID.getUsername()}" />
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
+                    <div th:if="${Users.isPrivate(threadByID.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(threadByID.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -67,8 +73,8 @@
         <div class="postinfobot">
 
             <div class="likeblock pull-left">
-                <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
-                <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
+                <a th:href="'/Thread/' + ${threadByID.getID()} + '/upvote'" class="up" ><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
+                <a th:href="'/Thread/' + ${threadByID.getID()} + '/downvote'" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
             </div>
 
             <div class="prev pull-left">
@@ -111,7 +117,7 @@
 
                     <div class="avatar pull-left dropdown">
                         <a data-toggle="dropdown" href="#"><img th:src="@{/images/noreg.jpg}" alt="" /></a> <b class="caret"></b>
-                        <div class="status green">&nbsp;</div>
+                        <div class="status red">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/register">Create an account</a></li>
@@ -164,7 +170,9 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
+                            <div th:if="${!Users.isPrivate(Principal.getName())}">
+                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
+                            </div>
                         </ul>
                     </div>
 

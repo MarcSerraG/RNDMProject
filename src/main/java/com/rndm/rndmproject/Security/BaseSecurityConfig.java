@@ -37,7 +37,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login_error")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/success", true)
                 .and()
                 .rememberMe()
                 .tokenValiditySeconds(2419200)

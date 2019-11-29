@@ -8,9 +8,11 @@ import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Comment;
 import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.domain.Votes;
 import com.rndm.rndmproject.persistence.CommentDAO;
 import com.rndm.rndmproject.persistence.ThreadDAO;
 import com.rndm.rndmproject.persistence.VotesDAO;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -46,7 +48,7 @@ public class GetWebController {
     public String firstThreads (Model model, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
@@ -54,6 +56,7 @@ public class GetWebController {
         model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+
         return "index";
     }
 
@@ -70,12 +73,14 @@ public class GetWebController {
     public String FindByCategory (Model model, @PathVariable String category, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
     }
 
@@ -84,12 +89,14 @@ public class GetWebController {
         model.addAttribute("threadByID", threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
         model.addAttribute("commentThread", null);
+        model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
 
         try{
             request.getParameter("commentThread");
@@ -131,12 +138,14 @@ public class GetWebController {
     public String FindThreadByName (Model model, @PathVariable String title, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Category", threadUseCases);
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
+        model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
     }
 

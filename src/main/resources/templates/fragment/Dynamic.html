@@ -30,18 +30,25 @@
 </head>
 <body>
 
-<!--Thread-->
+<!--Index Thread-->
 <div th:fragment="thread">
     <div class="post">
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" />
-                    <div class="status green">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
+
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
 
@@ -65,7 +72,7 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<!--Thread-->
+<!--Index Thread-->
 
 <!--Comment without father-->
 <div th:fragment="singleComment">
@@ -73,12 +80,18 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}"/>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -106,11 +119,17 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}" />
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -121,7 +140,7 @@
                 <p th:text="${comment.getContent()}"></p>
             </div>
             <div class="clearfix"></div>
-            </div>
+        </div>
         <div class="postinfobot">
             <div class="prev pull-left">
                 <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
@@ -140,8 +159,8 @@
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                 <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+                <li th:each="Thread : ${TopThreads}"><a th:href="'/Thread/'+ ${Thread.getID()}" th:title="${Thread.getUsername()}"><span th:text="${Thread.getTitle()}"></span>
+                    <span class="badge pull-right" th:text="${Thread.getUpvotes()}"></span></a></li>
             </ul>
         </div>
     </div>
@@ -216,12 +235,18 @@
             <div class="topwrap">
                 <div class="userinfo pull-left">
                     <div class="avatar">
-                        <img th:src="@{${'../' + Users.getImage(principal.getName())}}"  alt="" />
-                        <div class="status red">&nbsp;</div>
+                        <img th:src="@{${'../' + Users.getImage(Principal.getName())}}"  alt="" />
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 1}"><div class="status green">&nbsp;</div> </div>
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
                     </div>
 
                     <div class="icons">
-                        <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                        <div th:if="${Users.isPrivate(Principal.getName())}">
+                            <img th:src="@{images/premium.png}" alt="" />
+                        </div>
+                        <div th:if="${Users.isModerator(Principal.getName())}">
+                            <img th:src="@{../images/mod.png}" alt="" />
+                        </div>
                     </div>
                 </div>
 

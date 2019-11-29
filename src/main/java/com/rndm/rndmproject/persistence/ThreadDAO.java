@@ -3,18 +3,21 @@ package com.rndm.rndmproject.persistence;
 
 import com.rndm.rndmproject.domain.Category;
 import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.domain.Votes;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class ThreadDAO {
 
     private JdbcTemplate jdbctemplate;
+    private VotesDAO votesDAO;
 
     private final String INSERT_THREAD = "insert into thread " +
             "(id_thread, title, content, image_url, is_private, users_username, category_name, date_creation) " +
@@ -30,6 +33,7 @@ public class ThreadDAO {
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
+    private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive) DESC";
 
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
@@ -43,7 +47,8 @@ public class ThreadDAO {
                 new Category(resultSet.getString("category_name")),
                 resultSet.getString("date_creation"),
                 0,
-                0);
+                0,
+                votesDAO.getThreadVotes(resultSet.getString("id_thread")));
         return thread;
     };
 
@@ -51,8 +56,9 @@ public class ThreadDAO {
         return threadMapper(resultSet);
     };
 
-    public ThreadDAO(JdbcTemplate jdbctemplate){
+    public ThreadDAO(JdbcTemplate jdbctemplate, VotesDAO votesDAO){
         this.jdbctemplate = jdbctemplate;
+        this.votesDAO = votesDAO;
     }
 
     public int insert(Thread thread){
@@ -106,5 +112,37 @@ public class ThreadDAO {
     public int countUserThreads(String username) {
         return this.jdbctemplate.queryForObject(NUM_THREADS, Integer.class, username);
     }
+
+    public List<Thread> getTopThreads() {
+        List<String> threadsIDs = this.jdbctemplate.queryForList(FIND_TOPTHREADS, String.class);
+
+        List<Thread> listThreads = new ArrayList<Thread>();
+
+        for (String id : threadsIDs) {
+            listThreads.add(this.getThread(id));
+        }
+
+        return listThreads;
+    }
+
+    public void addVote(Thread thread, Votes vote) {
+
+        Boolean bool = thread.getVote(vote.getUser());
+        if (bool == null) {
+            this.votesDAO.insertVote(vote);
+            thread.addVote(vote);
+        }
+        else if ((bool && vote.getPositive()) || (!bool && !vote.getPositive())) {
+            this.votesDAO.deleteVote(vote);
+            thread.removeVote(vote);
+        }
+        else {
+            this.votesDAO.updateVote(vote);
+            thread.addVote(vote);
+        }
+
+    }
+
+
 
 }
