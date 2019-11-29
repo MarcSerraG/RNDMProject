@@ -38,8 +38,7 @@ public class UserController {
     @GetMapping
     private String getProfile(Model model, Principal principal){
         model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("IndexThread", threadUseCases.findThreadByUser(principal.getName()));
-        //model.addAttribute("TopThreads", votesDAO.getTopThread());
+        model.addAttribute("IndexThread", threadUseCases.findThreadByUserVote(principal.getName()));
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Category", threadUseCases);
@@ -47,7 +46,8 @@ public class UserController {
         User u = userUseCases.getProfile(principal.getName());
         model.addAttribute("User", u);
         model.addAttribute("Principal", principal);
-        model.addAttribute("CountThread",threadUseCases.getCount(principal.getName()));
+        model.addAttribute("CountThread",threadUseCases.getCountUser(principal.getName()));
+        model.addAttribute("CountComment",commentDAO.getCountCommentsByUser(principal.getName()));
         return "/profile";
     }
 }

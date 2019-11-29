@@ -31,10 +31,13 @@ public class ThreadUseCases {
         public List<Thread> findThreadByName (String title) {return this.threadDAO.findThreadByName(title);}
 
         public List<Thread> findThreadByUser (String user){ return this.threadDAO.findThreadByUser(user); }
+        public List<Thread> findThreadByUserVote (String user){return this.threadDAO.findThreadByUserVote(user);}
 
         public Thread getThread ( String id ){ return this.threadDAO.getThread(id);}
 
         public int getCount(String name) {return this.threadDAO.getCount(name);}
+        public int getCountUser(String username) {return this.threadDAO.getCountByuser(username);}
+
         public List<Thread> getTopThreads() { return this.threadDAO.getTopThreads(); }
 
         public List<String> getTop(){return  this.threadDAO.getTop();}

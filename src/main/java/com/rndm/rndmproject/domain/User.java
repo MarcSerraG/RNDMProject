@@ -32,6 +32,7 @@ public class User {
     private boolean isConnected;
   
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    SimpleDateFormat formattersimple = new SimpleDateFormat("dd/MM/yyyy");
 
     //Constructor 1
     public User (String username, String email, String password){
@@ -64,6 +65,7 @@ public class User {
     public String getUsername(){return username;}
     public String getEmail(){return email;}
     public String getDate(){return formatter.format(date);}
+    public String getSimpleDate() {return formattersimple.format(date);}
     public boolean getPremium(){return premium;}
     public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
