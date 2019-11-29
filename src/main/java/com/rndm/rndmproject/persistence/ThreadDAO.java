@@ -29,11 +29,14 @@ public class ThreadDAO {
     private final String FIND_THREAD = "select * from thread where id_thread = ?";
     private final String GET_PRIVATE = "select is_private from thread where id_thread = ?";
     private final String FIND_USER_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where users_username = ?";
+    private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
+    private final String FIRST_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread order by date_creation DESC limit ?" ; //linia per h2
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread order by date_creation DESC limit ?" ; //linia per h2
     private final String FIRST_THREADS_PRIVATE = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
-
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
-    private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' and category_name = ? limit 10" ;
+    private final String FINDX_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread limit 10 offset ?" ; //linia per h2
+    private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' AND category_name = ? limit 10";
+    private final String FIND_THREAD_CATEGORY_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where category_name = ? limit 10";
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
     private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive) DESC";
 
@@ -71,19 +74,29 @@ public class ThreadDAO {
     public int getCount(String name) {return jdbctemplate.queryForObject(GET_COUNT, Integer.class, name);}
 
     public List<Thread> findFirstTen(){
-        return jdbctemplate.query(FIRST_THREADS, mapper, 10);
-    }
-
-    public List<Thread> findFirstTenPrivate(){
-        return jdbctemplate.query(FIRST_THREADS_PRIVATE, mapper, 10);
+        return jdbctemplate.query(FIRST_THREADS, mapper, "", 10);
     }
 
     public List<Thread> findXThreads(int page){
         return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
     }
+    public List<Thread> findXThreads(int page, boolean premiumSearch) {
+        if (premiumSearch)
+            return jdbctemplate.query(FINDX_THREADS_ALL, mapper, page * 10);
+        else
+            return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
+    }
 
     public List<Thread> findThreadByCategory(String Category){
         return jdbctemplate.query(FIND_THREAD_CATEGORY, mapper, Category);
+    }
+
+    public List<Thread> findThreadByCategory(String Category, boolean premiumSearch){
+        if (premiumSearch)
+            return jdbctemplate.query(FIND_THREAD_CATEGORY_ALL, mapper, Category);
+        else
+            return jdbctemplate.query(FIND_THREAD_CATEGORY, mapper, Category);
+
     }
 
     public List<Thread> findThreadByUser(String User){

@@ -49,7 +49,8 @@ public class UserDAO {
 
         User user = new User(resultSet.getString("username"),
                 resultSet.getString("email"),
-                resultSet.getString("password"));
+                resultSet.getString("password"),
+                resultSet.getBoolean("is_private"));
 
         return user;
     };
