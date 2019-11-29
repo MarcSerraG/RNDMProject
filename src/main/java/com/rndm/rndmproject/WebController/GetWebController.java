@@ -47,6 +47,7 @@ public class GetWebController {
     @GetMapping("/")
     public String firstThreads (Model model, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
+        model.addAttribute("IndexThreadPrivate", threadUseCases.findFirstTenPrivate());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());

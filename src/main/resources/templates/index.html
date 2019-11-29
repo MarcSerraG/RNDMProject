@@ -52,9 +52,18 @@
                                 <div th:replace="fragment/Dynamic :: categoryHeader"></div>
                             </div>
 
-                            <div th:each="post : ${IndexThread}">
-                                <div th:replace="fragment/Dynamic :: thread"></div>
+                            <div sec:authorize="isAnonymous()">
+                                <div th:each="post : ${IndexThreadPrivate}">
+                                    <div th:replace="fragment/Dynamic :: thread"></div>
+                                </div>
                             </div>
+
+                            <div sec:authorize="isAuthenticated()">
+                                <div th:each="post : ${IndexThread}">
+                                    <div th:replace="fragment/Dynamic :: thread"></div>
+                                </div>
+                            </div>
+
 
                         </div>
                         <div class="col-lg-4 col-md-4">
