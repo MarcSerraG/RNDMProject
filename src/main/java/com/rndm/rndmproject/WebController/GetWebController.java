@@ -7,6 +7,7 @@ import com.rndm.rndmproject.Controller.UserUseCases;
 import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Comment;
+import com.rndm.rndmproject.domain.Pages;
 import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.domain.Votes;
 import com.rndm.rndmproject.persistence.CommentDAO;
@@ -35,6 +36,7 @@ public class GetWebController {
     private RESTController restController;
     private UserUseCases userUseCases;
 
+
     public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO, RESTController rest, UserUseCases userUseCases){
         this.threadUseCases = threadUseCases;
         this.categoryUseCases = categoryUseCases;
@@ -47,6 +49,7 @@ public class GetWebController {
     @GetMapping("/")
     public String firstThreads (Model model, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findFirstTen());
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
@@ -62,16 +65,25 @@ public class GetWebController {
 
 
     @GetMapping("/{page}")
-    public String firstThreads (Model model, @PathVariable int page){
+    public String firstThreads (Model model, @PathVariable int page, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
+        model.addAttribute("Pages", getNumberPages());
+        model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
+        model.addAttribute("Comment", commentDAO);
+        model.addAttribute("Category", threadUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
+        model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return "index";
     }
 
     @GetMapping("/Category/{category}")
     public String FindByCategory (Model model, @PathVariable String category, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
@@ -133,11 +145,11 @@ public class GetWebController {
     }
 
 
-
     @GetMapping("Search/{title}")
     public String FindThreadByName (Model model, @PathVariable String title, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
@@ -147,6 +159,21 @@ public class GetWebController {
         model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
+    }
+
+
+    private int[] getNumberPages() {
+        int numberPages;
+        int arrayPages[];
+        int totalThreads = this.threadUseCases.getTotalThreads();
+        System.out.println("Total threads: " + totalThreads);
+        numberPages = totalThreads / 10;
+        if(totalThreads % 10 > 0) numberPages += 1;
+        if(numberPages == 0) numberPages = 1;
+        System.out.println("Total pagines: " + numberPages);
+        arrayPages = new int[numberPages];
+
+        return arrayPages;
     }
 
 }
