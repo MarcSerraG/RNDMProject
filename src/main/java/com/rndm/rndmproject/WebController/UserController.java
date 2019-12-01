@@ -40,7 +40,7 @@ public class UserController {
         this.threadDAO = threadDAO;
     }
 
-    @GetMapping("/profile")
+    @GetMapping("profile")
     private String getProfile(Model model, Principal principal){
 
         model.addAttribute("Categories", categoryUseCases.findCategories());
@@ -57,7 +57,7 @@ public class UserController {
         return "/profile";
     }
 
-    @GetMapping("/Thread/{id}/delete")
+    @GetMapping("Thread/{id}/delete")
     public String deleteThread(@PathVariable String id, Authentication auth) {
         if (auth.getName() == null)
             return("/login");
