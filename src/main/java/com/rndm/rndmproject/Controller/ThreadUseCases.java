@@ -51,5 +51,7 @@ public class ThreadUseCases {
 
         public List<String> getTop(){return  this.threadDAO.getTop();}
 
+        public int getTotalThreads(){return this.threadDAO.getTotalThreads();}
+
 
 }

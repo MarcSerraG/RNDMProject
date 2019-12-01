@@ -7,6 +7,7 @@ import com.rndm.rndmproject.Controller.UserUseCases;
 import com.rndm.rndmproject.REST.Sys;
 import com.rndm.rndmproject.REST.WeatherREST;
 import com.rndm.rndmproject.domain.Comment;
+import com.rndm.rndmproject.domain.Pages;
 import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.domain.Votes;
 import com.rndm.rndmproject.persistence.CommentDAO;
@@ -24,6 +25,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class GetWebController {
@@ -34,6 +37,7 @@ public class GetWebController {
     private CommentDAO commentDAO;
     private RESTController restController;
     private UserUseCases userUseCases;
+
 
     public GetWebController(ThreadUseCases threadUseCases, CategoryUseCases categoryUseCases, CommentDAO commentDAO, VotesDAO votesDAO, RESTController rest, UserUseCases userUseCases){
         this.threadUseCases = threadUseCases;
@@ -47,11 +51,10 @@ public class GetWebController {
     @GetMapping("/")
     public String firstThreads (Model model, Principal principal, Authentication auth){
         boolean premiumSearch = false;
-
         if (auth != null)
             premiumSearch = true;
-
         model.addAttribute("IndexThread", threadUseCases.findFirstTen(premiumSearch));
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
@@ -66,11 +69,19 @@ public class GetWebController {
     }
 
 
-    @GetMapping("/{page}")
-    public String firstThreads (Model model, @PathVariable int page){
+    @GetMapping("Page/{page}")
+    public String firstThreads (Model model, @PathVariable int page, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
+        model.addAttribute("Pages", getNumberPages());
+        model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
+        model.addAttribute("Comment", commentDAO);
+        model.addAttribute("Category", threadUseCases);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
+        model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
         return "index";
     }
 
@@ -79,9 +90,8 @@ public class GetWebController {
         boolean premiumSearch = false;
         if (principal != null)
             premiumSearch = true;
-
-
         model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category, premiumSearch));
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
@@ -147,11 +157,11 @@ public class GetWebController {
     }
 
 
-
     @GetMapping("Search/{title}")
     public String FindThreadByName (Model model, @PathVariable String title, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findThreadByName(title));
         model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("Pages", getNumberPages());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
@@ -161,6 +171,22 @@ public class GetWebController {
         model.addAttribute("Logo", categoryUseCases);
         model.addAttribute("TopCategory", threadUseCases.getTop());
         return"index";
+    }
+
+
+    private List<Integer>  getNumberPages() {
+        int numberPages;
+        List<Integer> arrayPages = new ArrayList<Integer>();
+        int totalThreads = this.threadUseCases.getTotalThreads();
+        numberPages = totalThreads / 10;
+        if(totalThreads % 10 > 0) numberPages += 1;
+        if(numberPages == 0) numberPages = 1;
+        int i = 0;
+        while (numberPages > i){
+            arrayPages.add(i+1);
+            i += 1;
+        }
+        return arrayPages;
     }
 
 }
