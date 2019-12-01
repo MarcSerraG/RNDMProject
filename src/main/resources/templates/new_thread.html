@@ -62,8 +62,9 @@
                                     <div class="topwrap">
                                         <div class="userinfo pull-left">
                                             <div class="avatar">
-                                                <img th:src="@{/images/avatar4.jpg}"  alt="" />
-                                                <div class="status red">&nbsp;</div>
+                                                <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" />
+                                                <div th:if="${Users.getIsConnected(Principal.getName())== 1}"><div class="status green">&nbsp;</div> </div>
+                                                <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
                                             </div>
 
                                             <div class="icons">
@@ -83,13 +84,6 @@
                                                         <option  th:each="categoryName : ${Categories}"th:value="${categoryName.getName()}"><span th:text="${categoryName.getName()}"></span></option>
                                                     </select>
                                                 </div>
-                                                <div class="col-lg-6 col-md-6">
-                                                    <select name="subcategory" id="subcategory"  class="form-control" >
-                                                        <option value="" disabled selected>Select Tags</option>
-                                                        <option value="op1">Option1</option>
-                                                        <option value="op2">Option2</option>
-                                                    </select>
-                                                </div>
                                             </div>
 
                                             <div>
@@ -104,17 +98,17 @@
                                                         <div class="col-lg-6 col-md-6">
                                                             <div class="checkbox">
                                                                 <label>
-                                                                    <input type="checkbox" id="everyone"/> Everyone
+                                                                    <input type="checkbox" id="everyone" th:field="*{premium}" /> Only Registered
                                                                 </label>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-6 col-md-6">
+                                                        <!-- class="col-lg-6 col-md-6">
                                                             <div class="checkbox">
                                                                 <label>
                                                                     <input type="checkbox" id="friends"  /> Only Friends
                                                                 </label>
                                                             </div>
-                                                        </div>
+                                                        </div-->
                                                     </div>
                                                 </div>
 
@@ -139,33 +133,9 @@
                         </div>
                         <div class="col-lg-4 col-md-4">
 
+                            <div th:replace="fragment/Dynamic :: weather"></div>
                             <div th:replace="fragment/Dynamic :: topThreads"></div>
-
-                            <!-- -->
-                            <div class="sidebarblock">
-                                <h3>My Active Threads</h3>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">This Dock Turns Your iPhone Into a Bedside Lamp</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Who Wins in the Battle for Power on the Internet?</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Sony QX10: A Funky, Overpriced Lens Camera for Your Smartphone</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">FedEx Simplifies Shipping for Small Businesses</a>
-                                </div>
-                                <div class="divline"></div>
-                                <div class="blocktxt">
-                                    <a href="#">Loud and Brave: Saudi Women Set to Protest Driving Ban</a>
-                                </div>
-                            </div>
-
+                            <div th:replace="fragment/Dynamic :: categories"></div>
 
                         </div>
                     </div>

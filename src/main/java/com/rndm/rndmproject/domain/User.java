@@ -32,6 +32,7 @@ public class User {
     private boolean isConnected;
   
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+    SimpleDateFormat formattersimple = new SimpleDateFormat("dd/MM/yyyy");
 
     //Constructor 1
     public User (String username, String email, String password){
@@ -58,15 +59,29 @@ public class User {
         moderator = false;
     };
 
+    public User (String username, String email, String password, boolean premium){
+
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.premium = premium;
+        threads = new ArrayList();
+        comments = new ArrayList();
+        date = new Date(System.currentTimeMillis());
+        moderator = false;
+    }
+
     //Methods
 
     // Getters
     public String getUsername(){return username;}
     public String getEmail(){return email;}
     public String getDate(){return formatter.format(date);}
+    public String getSimpleDate() {return formattersimple.format(date);}
     public boolean getPremium(){return premium;}
     public String getPassword(){return password;}
     public boolean getModerator(){return moderator;}
+    public boolean getIsConnected(){return isConnected;}
     // Setters
     public void setUsername(String name){
         this.username = name;
@@ -76,7 +91,13 @@ public class User {
     public void setPassword(String password){this.password = password;}
     public void setPremium(boolean premium){this.premium = premium;}
     public void setModerator(boolean moderator){this.moderator = moderator;}
-    public boolean getIsConnected(){return isConnected;}
+    public void setConnected(int connected){
+        switch (connected){
+            case 1: this.isConnected = true; break;
+            case 0: this.isConnected = false; break;
+        }
+    }
+
   
     public void addThread(Thread thd){threads.add(thd);}
     public void removeThread(Thread thd){threads.remove(thd);}

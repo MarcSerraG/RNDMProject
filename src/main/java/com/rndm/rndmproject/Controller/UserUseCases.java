@@ -28,8 +28,20 @@ public class UserUseCases {
         return this.userDAO.isPrivate(username);
     }
 
+    public boolean isModerator (String username) {return this.userDAO.isModerator(username);}
+
     public int insertUser (User user) {
         return this.userDAO.insertUser(user);
+    }
+
+    public String getImage (String name){return userDAO.getImage(name);}
+
+    public int getIsConnected (String username){
+        return this.userDAO.IsUserconnected(username);
+    }
+
+    public int ChangeConnected (String username, int status){
+        return this.userDAO.ChangeConnected(username, status);
     }
 
 

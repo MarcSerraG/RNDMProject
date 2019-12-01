@@ -30,28 +30,35 @@
 </head>
 <body>
 
-<!--Thread-->
+<!--Index Thread-->
 <div th:fragment="thread">
     <div class="post">
         <div class="wrap-ut pull-left">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{images/avatar.jpg}" alt="" />
-                    <div class="status green">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
+
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img  th:src="@{images/icon1.jpg}" alt="" /><img th:src="@{/images/icon4.jpg}" alt="" />
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
 
             <div class="posttext pull-left">
-                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}"></a></h2>
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
                 <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
             </div>
 
             <div class="clearfix"></div>
-            </div>
+        </div>
         <div class="postinfo pull-left">
             <div class="comments">
                 <div class="commentbg">
@@ -65,7 +72,61 @@
         <div class="clearfix"></div>
     </div>
 </div>
-<!--Thread-->
+<!--Index Thread-->
+
+<!-- Profile Thread -->
+<div th:fragment="threadProfile">
+    <div class="post">
+        <div class="wrap-ut pull-left">
+            <div class="userinfo pull-left">
+                <div class="avatar">
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
+
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
+                </div>
+
+                <div class="icons">
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="posttext pull-left">
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
+                <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="postinfo pull-left">
+            <div class="comments">
+                <div class="commentbg">
+                    <span th:text="${Comment.getCount(post.getID())}"></span>
+                    <div class="mark"></div>
+                </div>
+            </div>
+            <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
+            <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+            <div class="modify">
+                <a th:href="'/ModifyThread/'+${post.getID()}"><i class="fa fa-pencil"></i>
+                    <span>Modify</span></a>
+            </div>
+            <div th:id="${post.getID()}" class="remove" onclick="remove(this.getAttribute('id'));" >
+                <a><i class="fa fa-trash-o"></i>
+                    <span>Delete</span></a>
+            </div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Profile Thread -->
 
 <!--Comment without father-->
 <div th:fragment="singleComment">
@@ -73,12 +134,18 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar2.jpg" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}"/>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -89,7 +156,7 @@
         <div class="postinfobot">
 
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
@@ -106,57 +173,100 @@
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img src="images/avatar3.jpg" alt="" />
-                    <div class="status red">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}" />
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
-
                 <div class="icons">
-                    <img src="images/icon3.jpg" alt="" /><img src="images/icon4.jpg" alt="" /><img src="images/icon5.jpg" alt="" /><img src="images/icon6.jpg" alt="" />
+                    <div th:if="${Users.isPrivate(comment.getCommentuser())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(comment.getCommentuser())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
-
                 <blockquote>
                     <span class="original">Original Posted by <span th:text="${comment.getFatherUser()}"></span></span>
                     <span th:text="${comment.getFatherContent()}"></span>
-                    </blockquote>
-                    <p th:text="${comment.getContent()}"></p>
-                </div>
-                <div class="clearfix"></div>
+                </blockquote>
+                <p th:text="${comment.getContent()}"></p>
             </div>
+            <div class="clearfix"></div>
+        </div>
         <div class="postinfobot">
-
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment/'+${comment.getID()}"><i class="fa fa-reply"></i></a>
             </div>
-
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${comment.getDate()}"></span></div>
-
-
             <div class="clearfix"></div>
         </div>
     </div>
 </div>
 <!--Comment with father-->
 
-<!--Top threads-->
-<div th:fragment="topThreads">
+<!--Top Threads-->
+<div  th:fragment="topThreads">
     <div class="sidebarblock">
         <h3><i class="fas fa-fire"></i> TOP THREADS</h3>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li th:each="Votes : ${TopThreads}"><a th:href="'/Thread/'+ ${Votes.getThreadID()}" th:title="${Votes.getThreadUser()}"><span th:text="${Votes.getTitleThread()}"></span>
-                    <span class="badge pull-right" th:text="${Votes.getUpVotes()}"></span></a></li>
+                <li th:each="Thread : ${TopThreads}"><a th:href="'/Thread/'+ ${Thread.getID()}" th:title="${Thread.getUsername()}"><span th:text="${Thread.getTitle()}"></span>
+                    <span class="badge pull-right" th:text="${Thread.getUpvotes()}"></span></a></li>
             </ul>
         </div>
     </div>
 </div>
-<!--Top threads-->
+<!--Top Threads-->
+
+<!--User info -->
+<div th:fragment="userInfo">
+    <div class="sidebarblock">
+        <h3 style="padding-bottom: 40px;padding-top: 40px;">
+            <i class="fas fa-info"></i> USER INFORMATION
+            <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" class="pull-right"
+                 style="padding-top: 0px;padding-bottom: 20px; margin-top: -10;"/>
+        </h3>
+
+        <div class="divline"></div>
+        <div class="blocktxt">
+            <ul class="cats">
+                <li>
+                    <span>Username: </span>
+                    <span th:text="${User.getUsername()}" class="badge pull-right"></span>
+                </li>
+                <li>
+                    <span>Is member: </span>
+                    <span th:text="${User.getSimpleDate()}" class="badge pull-right"></span>
+                </li>
+                <li>
+                    <span>Status</span>
+                    <div th:if="${Users.isPrivate(Principal.getName())}">
+                        <img th:src="@{../images/premium.png}" alt="" class=" pull-right" style="margin-top: -15;"/>
+                    </div>
+                    <div th:if="${Users.isModerator(Principal.getName())}">
+                        <img th:src="@{../images/mod.png}" alt="" class=" pull-right" style="margin-top: -15;"/>
+                    </div>
+                </li>
+                <li>
+                    <span>Created Threads: </span>
+                    <span th:text="${CountThread}" class="badge pull-right"></span>
+                </li>
+                <li>
+                    <span>Created Comments: </span>
+                    <span th:text="${CountComment}" class="badge pull-right"></span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!--User info -->
 
 <!--Weather-->
 <div th:fragment="weather">
-    <div class="sidebarblock">
+    <div class="sidebarblock m-t-200">
 
         <img id="icon" height="50px" width="50px"> <b><span th:text=" ${Weather.getName()} + ', ' "></span></b><span th:text="${Weather.getCountry()}"></span>
         <span th:text="${Weather.getWeather().get(0).getIcon()}" style="display: none" id="clima"></span>
@@ -177,11 +287,61 @@
                 </li>
             </ul>
         </div>
+        <div class="clearfix"></div>
     </div>
-
-
 </div>
 <!--Weather-->
+
+<!-- Write comment-->
+<div th:fragment="writeCommentThread">
+    <div class="post" >
+        <form  class="form" method="post" action="/postComment" th:object="${newComment}">
+            <div class="topwrap">
+                <div class="userinfo pull-left">
+                    <div class="avatar">
+                        <img th:src="@{${'../' + Users.getImage(Principal.getName())}}"  alt="" />
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 1}"><div class="status green">&nbsp;</div> </div>
+                        <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
+                    </div>
+
+                    <div class="icons">
+                        <div th:if="${Users.isPrivate(Principal.getName())}">
+                            <img th:src="@{images/premium.png}" alt="" />
+                        </div>
+                        <div th:if="${Users.isModerator(Principal.getName())}">
+                            <img th:src="@{../images/mod.png}" alt="" />
+                        </div>
+                    </div>
+                </div>
+
+                <div   style="display: none"><input type="text"  th:value="${user}" id= "commentuser" name="commentuser" ></div>
+
+                <div style="display: none" th:if="${CommentID != null}"><input type="text" th:value="${CommentID}" id="fatherComment" name="fatherComment" ></div>
+
+                <div style="display: none" ><input type="text" th:value="${threadByID.getID()}" id="thread" name="thread" ></div>
+
+
+
+                <div class="posttext pull-left">
+                    <div class="textwraper">
+                        <div class="postreply">Comment: </div>
+                        <textarea name="reply" id="reply" placeholder="Type your comment here" th:field="*{content}"></textarea>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="postinfobot">
+
+                <div class="pull-right postreply">
+                    <div class="pull-left"><button type="submit" method="post" class="btn btn-primary" >Comment</button></div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Write comment-->
 
 <!--Category Header-->
 <div th:fragment="categoryHeader">
@@ -205,12 +365,12 @@
 <!--Top Categories-->
 <div th:fragment="categories">
     <div class="sidebarblock">
-        <h3><i class="fas fa-fire"></i>CATEGORIES</h3>
+        <h3><i class="fas fa-fire"></i> TOP CATEGORIES</h3>
         <div class="divline"></div>
         <div class="blocktxt">
             <ul class="cats">
-                <li th:each="category : ${Categories}"><a th:href="'/Category/'+ ${category.getName()}"><span th:text="${category.getName()}"></span>
-                    <span class="badge pull-right" th:text="${Category.getCount(category.getName())}"></span></a></li>
+                <li th:each="category : ${TopCategory}"><i th:class="${Logo.getLogo(category)}"></i><a th:href="'/Category/'+ ${category}"><span id="catName" th:text="' ' + ${category}"></span>
+                    <span class="badge pull-right" th:text="${Category.getCount(category)}"></span></a></li>
             </ul>
         </div>
     </div>

@@ -45,17 +45,24 @@
     </div>
 </div>
 
+<!--Inside Thread-->
 <div th:fragment="thread">
     <div class="post beforepagination">
         <div class="topwrap">
             <div class="userinfo pull-left">
                 <div class="avatar">
-                    <img th:src="@{/images/avatar.jpg}"  alt="" />
-                    <div class="status green">&nbsp;</div>
+                    <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" th:title="${threadByID.getUsername()}" />
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
-                    <img th:src="@{/images/icon1.jpg}"  alt="" /><img th:src="@{/images/icon4.jpg}"  alt="" /><img th:src="@{/images/icon5.jpg}"  alt="" /><img th:src="@{/images/icon6.jpg}"  alt="" />
+                    <div th:if="${Users.isPrivate(threadByID.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(threadByID.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </div>
             </div>
             <div class="posttext pull-left">
@@ -67,12 +74,12 @@
         <div class="postinfobot">
 
             <div class="likeblock pull-left">
-                <a href="#" class="up"><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
-                <a href="#" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
+                <a th:href="'/Thread/' + ${threadByID.getID()} + '/upvote'" class="up" ><i class="fa fa-thumbs-o-up"></i><span th:text="${threadByID.getUpvotes()}"></span></a>
+                <a th:href="'/Thread/' + ${threadByID.getID()} + '/downvote'" class="down"><i class="fa fa-thumbs-o-down"></i><span th:text="${threadByID.getDownvotes()}"></span></a>
             </div>
 
             <div class="prev pull-left">
-                <a href="#"><i class="fa fa-reply"></i></a>
+                <a th:href="'/Thread/'+${threadByID.getID()}+'/Comment'" ><i class="fa fa-reply" id="CommentThread"></i></a>
             </div>
 
             <div class="posted pull-left"><i class="fa fa-clock-o"></i> Posted on : <span th:text="${threadByID.getDate()}"></span></div>
@@ -81,7 +88,10 @@
         </div>
     </div>
 </div>
+<!--Inside Thread-->
 
+
+<!--Navigation Bar not logged-->
 <div th:fragment="navigation-anon">
     <div class="headernav">
         <div class="container">
@@ -110,8 +120,8 @@
                     <div class="env pull-left "></div>
 
                     <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
-                        <div class="status green">&nbsp;</div>
+                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/noreg.jpg}" alt="" /></a> <b class="caret"></b>
+                        <div class="status red">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/login">Sign In</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/register">Create an account</a></li>
@@ -125,7 +135,10 @@
     </div>
 
 </div>
+<!--Navigation Bar not logged-->
 
+
+<!--Navigation Bar logged-->
 <div th:fragment="navigation-logged">
     <div class="headernav">
         <div class="container">
@@ -158,13 +171,15 @@
                     <div class="stnt pull-left"></div>
                     <div class="env pull-left "></div>
 
-                    <div class="avatar pull-left dropdown">
-                        <a data-toggle="dropdown" href="#"><img th:src="@{/images/avatar.jpg}" alt="" /></a> <b class="caret"></b>
+                    <div class="avatar pull-left dropdown" style="margin-left: 20px">
+                        <a data-toggle="dropdown" href="#"><img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Create account</a></li>
+                            <div th:if="${!Users.isPrivate(Principal.getName())}">
+                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
+                            </div>
                         </ul>
                     </div>
 
@@ -174,7 +189,10 @@
         </div>
     </div>
 </div>
+<!--Navigation Bar logged-->
 
+
+<!--Footer-->
 <div th:fragment="footer">
     <footer>
         <div class="container">
@@ -185,36 +203,27 @@
         </div>
     </footer>
 </div>
+<!--Footer-->
 
+<!--Pages bar-->
 <div th:fragment="pages">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-xs-12">
-                <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-                <div class="pull-left">
-                    <ul class="paginationforum">
-                        <li class="hidden-xs"><a href="#">1</a></li>
-                        <li class="hidden-xs"><a href="#">2</a></li>
-                        <li class="hidden-xs"><a href="#">3</a></li>
-                        <li class="hidden-xs"><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                        <li><a href="#" class="active">7</a></li>
-                        <li><a href="#">8</a></li>
-                        <li class="hidden-xs"><a href="#">9</a></li>
-                        <li class="hidden-xs"><a href="#">10</a></li>
-                        <li class="hidden-xs hidden-md"><a href="#">11</a></li>
-                        <li class="hidden-xs hidden-md"><a href="#">12</a></li>
-                        <li class="hidden-xs hidden-sm hidden-md"><a href="#">13</a></li>
-                        <li><a href="#">1586</a></li>
+                <div class="pull-left"><a href="javascript:previousPage();" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+                <div class="pull-left" >
+                    <ul class="paginationforum" id="listPages">
+                        <li class="hidden-xs" th:each="pagina : ${Pages}" ><a th:href="'../Page/' + ${pagina}" th:class="li + ${pagina}"><span id = "textPages" th:text="${pagina}"></span></a></li>
                     </ul>
                 </div>
-                <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+                <div class="pull-left"><a href="javascript:followingPage();"  class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
                 <div class="clearfix"></div>
             </div>
         </div>
+
     </div>
 </div>
+<!--Pages bar-->
 
 </body>
 </html>

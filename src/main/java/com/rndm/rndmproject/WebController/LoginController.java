@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSessionEvent;
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class LoginController {
@@ -36,7 +38,7 @@ public class LoginController {
                 this.userUseCases.insertUser(usernew);
             }catch (Exception e){
                 if(String.valueOf(e).contains("email")){
-                    errors.rejectValue("username", null, "This user already exist");
+                    errors.rejectValue("email", null, "This user already exist");
                 }else{
                     errors.rejectValue("username", null, "This user already exist");
                 }
@@ -65,10 +67,17 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @PostMapping("login")
-    public String loginUser(@Valid User userlogin, Errors errors, Model model, RedirectAttributes redirectAttributes) {
+    @GetMapping("success")
+    public String succesLogin(Principal principal, HttpServletRequest session){
+
+        this.userUseCases.ChangeConnected(principal.getName(), 1);
+
+        session.getSession().setAttribute("username", principal.getName());
+
         return "redirect:/";
     }
+
+
 
 
 }

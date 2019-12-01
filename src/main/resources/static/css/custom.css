@@ -521,6 +521,7 @@ td.chbox {
 }
 
 .post .time {
+    border-bottom: solid 1px #f1f1f1;
     color:#9da6aa;
     font-size: 12px;
     font-family: 'Open Sans Regular', sans-serif; 
@@ -532,8 +533,37 @@ td.chbox {
 .post .time i {
     font-size: 14px;
 }
+.post .remove{
 
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif;
+    text-align: center;
+    line-height: 29px;
+}
 
+.post .remove a {
+    color: #db7a7a;
+}
+
+.post .remove i {
+    font-size: 14px;
+}
+.post .modify{
+    border-bottom: solid 1px #f1f1f1;
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif;
+    text-align: center;
+    line-height: 29px;
+}
+.post .modify i {
+    font-size: 14px;
+}
+
+.post .modify a {
+    color: #1abc9c;
+}
 
 
 

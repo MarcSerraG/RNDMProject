@@ -1,0 +1,116 @@
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RNDM :: Profile</title>
+
+    <!-- Bootstrap -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom -->
+    <link th:href="@{/css/custom.css}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" th:href="@{/font-awesome-4.0.3/css/font-awesome.min.css}">
+    <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
+
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" media="screen" />
+
+    <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/rs-plugin/css/settings.css}" media="screen" />
+
+</head>
+<body>
+
+<div class="container-fluid">
+
+    <div th:replace="fragment/Static :: slide"></div>
+
+    <div sec:authorize="isAnonymous()"><div th:replace="fragment/Static :: navigation-anon"></div></div>
+    <div sec:authorize="isAuthenticated()"><div th:replace="fragment/Static :: navigation-logged"></div></div>
+
+    <section class="content">
+
+        <div th:replace="fragment/Static :: pages" ></div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <div th:each="post : ${IndexThread}">
+                        <div th:replace="fragment/Dynamic :: threadProfile"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <div th:replace="fragment/Dynamic :: userInfo"></div>
+                    <div th:replace="fragment/Dynamic :: weather"></div>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="fragment/Static :: pages" ></div>
+    </section>
+
+    <div th:replace="fragment/Static :: footer"></div>
+</div>
+
+<!-- get jQuery from the google apis -->
+<script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+<script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
+<script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/weather.js}"></script>
+
+
+<script type="text/javascript">
+
+    var revapi;
+
+    jQuery(document).ready(function() {
+        "use strict";
+        revapi = jQuery('.tp-banner').revolution(
+            {
+                delay: 15000,
+                startwidth: 1200,
+                startheight: 278,
+                hideThumbs: 10,
+                fullWidth: "on"
+            });
+
+    });	//ready
+
+</script>
+
+<script type="text/javascript">
+    function Search(){
+        window.location.replace("/Search/"+ document.getElementById('navigation').value);
+    }
+    var input = document.getElementById("navigation");
+    input.addEventListener("keyup", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            document.getElementById("searchButton").click();
+        }
+    });
+</script>
+<script>
+    function remove(value) {
+        if (confirm('Do you want to delete?')) {
+            window.location.replace("/Thread/"+value+"/delete");
+        }
+    }
+</script>
+<!-- END REVOLUTION SLIDER -->
+</body>
+</html>
