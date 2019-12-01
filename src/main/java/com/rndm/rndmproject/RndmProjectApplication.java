@@ -11,16 +11,12 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 @SpringBootApplication
 public class RndmProjectApplication implements CommandLineRunner {
 
-    @Autowired
-    UserUseCases user;
+
 
     public static void main(String[] args) {
         SpringApplication.run(RndmProjectApplication.class, args);
     }
 
     @Override
-    public void run(String... args) throws Exception {
-
-        System.out.println(user.isPrivate("Ricard"));
-    }
+    public void run(String... args) throws Exception {}
 }

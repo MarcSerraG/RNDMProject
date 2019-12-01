@@ -11,7 +11,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/index.html").permitAll()
                 .antMatchers("/").permitAll()
-                .antMatchers("/{page}").permitAll()
+                .antMatchers("/Page/**").permitAll()
                 .antMatchers("/register").anonymous()
                 .antMatchers("/profile").permitAll()
                 .antMatchers("/login").anonymous()

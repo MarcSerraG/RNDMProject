@@ -44,6 +44,7 @@
 
                 <div th:replace="fragment/Static :: pages"></div>
 
+
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-8 col-md-8">
@@ -79,6 +80,7 @@
         <script type="text/javascript" th:src="@{/rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
         <script th:src="@{/js/weather.js}"></script>
+        <script th:src="@{/js/Pages.js}"></script>
 
 
         <script type="text/javascript">
@@ -111,6 +113,35 @@
                     document.getElementById("searchButton").click();
                 }
             });
+
+            function followingPage() {
+                var nowURL = window.location.href;
+
+                if(nowURL.includes("Page")){
+                    var lastChar = nowURL[nowURL.length-1];
+
+                    if($('ul#listPages').length > lastChar){
+                        lastChar++;
+                        window.location.replace('/Page/'+ lastChar);
+                    }
+                }else{
+                    window.location.replace('/Page/2');
+                }
+            }
+
+            function previousPage() {
+                var nowURL = window.location.href;
+
+                if(nowURL.includes("Page")){
+                    var lastChar = nowURL[nowURL.length-1];
+
+                    if(lastChar != 1){
+                        lastChar--;
+                        window.location.replace('/Page/'+ lastChar);
+                    }
+                }
+            }
+
         </script>
         <!-- END REVOLUTION SLIDER -->
     </body>
