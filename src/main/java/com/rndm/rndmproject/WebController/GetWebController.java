@@ -49,8 +49,11 @@ public class GetWebController {
     }
 
     @GetMapping("/")
-    public String firstThreads (Model model, Principal principal){
-        model.addAttribute("IndexThread", threadUseCases.findFirstTen());
+    public String firstThreads (Model model, Principal principal, Authentication auth){
+        boolean premiumSearch = false;
+        if (auth != null)
+            premiumSearch = true;
+        model.addAttribute("IndexThread", threadUseCases.findFirstTen(premiumSearch));
         model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
@@ -84,7 +87,10 @@ public class GetWebController {
 
     @GetMapping("/Category/{category}")
     public String FindByCategory (Model model, @PathVariable String category, Principal principal){
-        model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category));
+        boolean premiumSearch = false;
+        if (principal != null)
+            premiumSearch = true;
+        model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category, premiumSearch));
         model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
@@ -100,7 +106,11 @@ public class GetWebController {
 
     @GetMapping("/Thread/{id}")
     public String LoadThread (Model model, @PathVariable String id, HttpServletRequest request, Principal principal){
-        model.addAttribute("threadByID", threadUseCases.getThread(id));
+        Thread thread = threadUseCases.getThread(id);
+        if (principal == null)
+            thread.setText("<p>You need to be registered to view the content of this thread!</p>");
+
+        model.addAttribute("threadByID", thread);
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Comments", commentDAO.getCommentsByThread(id));
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
