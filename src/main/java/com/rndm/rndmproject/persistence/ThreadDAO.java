@@ -31,7 +31,7 @@ public class ThreadDAO {
     private final String GET_PRIVATE = "select is_private from thread where id_thread = ?";
     private final String FIND_USER_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where users_username = ?";
     private final String FIND_USER_THREAD_VOTES = "select id_thread, title, content, image_url, t.users_username, category_name , date_creation, count(v.positive) as vot from thread t"+
-            " join vote v on v.threads_id_thread = t.id_thread where t.users_username = ? group by t.id_thread order by vot desc;";
+            " left join vote v on v.threads_id_thread = t.id_thread where t.users_username = ? group by t.id_thread order by vot desc;";
     private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
     private final String FIRST_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread order by date_creation DESC limit ?" ; //linia per h2
     private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where is_private = '0' limit 10 offset ?" ; //linia per h2
@@ -40,6 +40,7 @@ public class ThreadDAO {
     private final String FIND_THREAD_CATEGORY_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where category_name = ? limit 10";
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
     private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive) DESC";
+    private final String DELETE_THREAD = "DELETE FROM thread WHERE id_thread = ?";
 
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
@@ -69,6 +70,10 @@ public class ThreadDAO {
 
     public int insert(Thread thread){
         return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), 0, thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
+    }
+
+    public int deleteThread(String id){
+        return jdbctemplate.update(DELETE_THREAD,id);
     }
     public List<String> getTop () {return jdbctemplate.queryForList(GET_TOP, String.class);}
 

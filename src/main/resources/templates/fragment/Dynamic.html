@@ -112,6 +112,10 @@
             </div>
             <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
             <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+            <div th:id="${post.getID()}" class="remove" onclick="remove(this.getAttribute('id'));" >
+                <a class="down" ><i class="fa fa-trash-o"></i>
+                    <span>Delete</span></a>
+            </div>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -231,8 +235,12 @@
                     <label th:text="${User.getSimpleDate()}"></label>
                 </li>
                 <li>
-                    <label>Role: </label>
-                    <label th:text="${User.getPremium()}"></label>
+                    <div th:if="${Users.isPrivate(Principal.getName())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(Principal.getName())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
                 </li>
                 <li>
                     <label>Created Threads: </label>
