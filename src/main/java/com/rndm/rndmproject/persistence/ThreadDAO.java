@@ -41,6 +41,7 @@ public class ThreadDAO {
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation from thread where title like \"%?%\" ";
     private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive) DESC";
     private final String DELETE_THREAD = "DELETE FROM thread WHERE id_thread = ?";
+    private final String UPDATE_THREAD = "update thread set title=?,content=?,category_name=? where id_thread = ?";
     private final String COUNT_THREADS = "select count(*) from thread ";
 
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
@@ -71,6 +72,10 @@ public class ThreadDAO {
 
     public int insert(Thread thread){
         return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), thread.isPremium(), thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
+    }
+
+    public int update(Thread thread){
+        return jdbctemplate.update(UPDATE_THREAD, thread.getTitle(), thread.getText(), thread.getCategory().getName(), thread.getID());
     }
 
     public int deleteThread(String id){

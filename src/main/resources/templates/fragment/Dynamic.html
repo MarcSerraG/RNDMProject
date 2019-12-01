@@ -112,10 +112,16 @@
             </div>
             <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
             <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+            <div class="modify">
+                <a th:href="'/ModifyThread/'+${post.getID()}"><i class="fa fa-pencil"></i>
+                    <span>Modify</span></a>
+            </div>
             <div th:id="${post.getID()}" class="remove" onclick="remove(this.getAttribute('id'));" >
-                <a class="down" ><i class="fa fa-trash-o"></i>
+                <a><i class="fa fa-trash-o"></i>
                     <span>Delete</span></a>
             </div>
+
+
         </div>
         <div class="clearfix"></div>
     </div>
