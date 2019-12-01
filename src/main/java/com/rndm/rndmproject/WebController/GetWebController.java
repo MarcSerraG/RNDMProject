@@ -66,7 +66,7 @@ public class GetWebController {
     }
 
 
-    @GetMapping("/{page}")
+    @GetMapping("Page/{page}")
     public String firstThreads (Model model, @PathVariable int page, Principal principal){
         model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
         model.addAttribute("Pages", getNumberPages());
@@ -168,21 +168,14 @@ public class GetWebController {
         int numberPages;
         List<Integer> arrayPages = new ArrayList<Integer>();
         int totalThreads = this.threadUseCases.getTotalThreads();
-        System.out.println("Total threads: " + totalThreads);
         numberPages = totalThreads / 10;
         if(totalThreads % 10 > 0) numberPages += 1;
         if(numberPages == 0) numberPages = 1;
-        System.out.println("Total pagines: " + numberPages);
-
-
         int i = 0;
         while (numberPages > i){
             arrayPages.add(i+1);
             i += 1;
         }
-
-        System.out.println(arrayPages.get(0));
-
         return arrayPages;
     }
 

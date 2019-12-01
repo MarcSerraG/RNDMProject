@@ -210,16 +210,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-xs-12">
-                <div class="pull-left"><a href="#" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
-                <div class="pull-left">
-                    <ul class="paginationforum">
-                        <li class="hidden-xs" th:each="pagina : ${Pages}"><a href="#" class="active"><span th:text="${pagina}"></span></a></li>
+                <div class="pull-left"><a href="javascript:previousPage();" class="prevnext"><i class="fa fa-angle-left"></i></a></div>
+                <div class="pull-left" >
+                    <ul class="paginationforum" id="listPages">
+                        <li class="hidden-xs" th:each="pagina : ${Pages}" ><a th:href="'../Page/' + ${pagina}" th:class="li + ${pagina}"><span id = "textPages" th:text="${pagina}"></span></a></li>
                     </ul>
                 </div>
-                <div class="pull-left"><a href="#" class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
+                <div class="pull-left"><a href="javascript:followingPage();"  class="prevnext last"><i class="fa fa-angle-right"></i></a></div>
                 <div class="clearfix"></div>
             </div>
         </div>
+
     </div>
 </div>
 <!--Pages bar-->
