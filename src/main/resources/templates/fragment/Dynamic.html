@@ -218,37 +218,39 @@
 <!--User info -->
 <div th:fragment="userInfo">
     <div class="sidebarblock">
-        <h3><i class="fas fa-info"></i> User Information </h3>
+        <h3 style="padding-bottom: 40px;padding-top: 40px;">
+            <i class="fas fa-info"></i> USER INFORMATION
+            <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" class="pull-right"
+                 style="padding-top: 0px;padding-bottom: 20px; margin-top: -10;"/>
+        </h3>
 
         <div class="divline"></div>
         <div class="blocktxt">
-            <ul>
+            <ul class="cats">
                 <li>
-                    <label>Username: </label>
-                    <label th:text="${User.getUsername()}"></label>
+                    <span>Username: </span>
+                    <span th:text="${User.getUsername()}" class="badge pull-right"></span>
                 </li>
                 <li>
-                    <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" />
+                    <span>Is member: </span>
+                    <span th:text="${User.getSimpleDate()}" class="badge pull-right"></span>
                 </li>
                 <li>
-                    <label>Is member: </label>
-                    <label th:text="${User.getSimpleDate()}"></label>
-                </li>
-                <li>
+                    <span>Status</span>
                     <div th:if="${Users.isPrivate(Principal.getName())}">
-                        <img th:src="@{../images/premium.png}" alt="" />
+                        <img th:src="@{../images/premium.png}" alt="" class=" pull-right" style="margin-top: -15;"/>
                     </div>
                     <div th:if="${Users.isModerator(Principal.getName())}">
-                        <img th:src="@{../images/mod.png}" alt="" />
+                        <img th:src="@{../images/mod.png}" alt="" class=" pull-right" style="margin-top: -15;"/>
                     </div>
                 </li>
                 <li>
-                    <label>Created Threads: </label>
-                    <label th:text="${CountThread}"></label>
+                    <span>Created Threads: </span>
+                    <span th:text="${CountThread}" class="badge pull-right"></span>
                 </li>
                 <li>
-                    <label>Created Comments: </label>
-                    <label th:text="${CountComment}"></label>
+                    <span>Created Comments: </span>
+                    <span th:text="${CountComment}" class="badge pull-right"></span>
                 </li>
             </ul>
         </div>

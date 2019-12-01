@@ -41,7 +41,7 @@
 
     <section class="content">
 
-        <div th:replace="fragment/Static :: pages"></div>
+        <div th:replace="fragment/Static :: pages" ></div>
 
         <div class="container">
             <div class="row">
@@ -51,15 +51,13 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
-                    <!--<div th:replace="fragment/Dynamic :: weather"></div>-->
                     <div th:replace="fragment/Dynamic :: userInfo"></div>
-                    <!--<div th:replace="fragment/Dynamic :: topThreads"></div>-->
-                    <!--<div th:replace="fragment/Dynamic :: categories"></div>-->
+                    <div th:replace="fragment/Dynamic :: weather"></div>
                 </div>
             </div>
         </div>
 
-        <div th:replace="fragment/Static :: pages"></div>
+        <div th:replace="fragment/Static :: pages" ></div>
     </section>
 
     <div th:replace="fragment/Static :: footer"></div>
