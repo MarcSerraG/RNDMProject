@@ -528,6 +528,17 @@ td.chbox {
     line-height: 29px;
 
 }
+.post .remove{
+    color:#9da6aa;
+    font-size: 12px;
+    font-family: 'Open Sans Regular', sans-serif;
+    text-align: center;
+    line-height: 29px;
+}
+
+.post .remove:hover{
+
+}
 
 .post .time i {
     font-size: 14px;

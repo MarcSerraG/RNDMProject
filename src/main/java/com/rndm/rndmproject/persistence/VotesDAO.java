@@ -20,6 +20,8 @@ public class VotesDAO {
     public final String DELETE_VOTE = "DELETE FROM vote WHERE users_username = ? AND threads_id_thread = ?";
     public final String UPDATE_VOTE = "UPDATE vote SET positive = ? WHERE users_username = ? AND threads_id_thread = ?";
     public final String FIND_VOTE = "SELECT * FROM vote WHERE users_username = ? AND threads_id_thread = ?";
+    public final String COUNT_VOTE = "select count(*) as votes from vote v join thread t on v.threads_id_thread " +
+            "= t.id_thread where t.users_username = ?";
 
 
     public VotesDAO(JdbcTemplate jdbctemplate){
@@ -41,6 +43,8 @@ public class VotesDAO {
     private final RowMapper<Votes> mapper = (resultSet, i) -> {
         return votesMapper(resultSet);
     };
+
+    public int getCountVotesUser(String user){return this.jdbctemplate.queryForObject( COUNT_VOTE, Integer.class, user);}
 
     public List<Votes> getThreadVotes(String threadID) {
         return this.jdbctemplate.query(FIND_VOTES_THREAD, mapper,threadID);

@@ -175,7 +175,7 @@
                         <a data-toggle="dropdown" href="#"><img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" /></a> <b class="caret"></b>
                         <div class="status green">&nbsp;</div>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">My Profile</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
                             <div th:if="${!Users.isPrivate(Principal.getName())}">
                                 <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>

@@ -23,6 +23,7 @@ public class CommentDAO {
     private final String GET_FATHER_CONTENT = "select content from comments where id_comment = ?";
     private final String GET_FATHER_USER = "select users_username from comments where id_comment = ?";
     private final String GET_CONTENT = "select content from comments where id_comment = ?";
+    private final String GET_COUNT_VOTES_USER = "select count(*) as num from comments c join thread t on c.threads_id_thread = t.id_thread where t.users_username = ?";
 
     public CommentDAO(JdbcTemplate jdbcTemplate){this.jdbcTemplate = jdbcTemplate;}
 
@@ -54,6 +55,8 @@ public class CommentDAO {
     public int getCount(String id) {return jdbcTemplate.queryForObject(COUNT_COMMENTS,Integer.class, id);}
     public Comment getComment(String id){return jdbcTemplate.queryForObject(FIND_COMMENT, mapper, id);}
     public List<Comment> getCommentsByThread (String id){return jdbcTemplate.query(GET_BY_THREAD, mapper, id);}
+    public int getCountCommentsByUser (String user){return this.jdbcTemplate.queryForObject(GET_COUNT_VOTES_USER,Integer.class,user);}
+
     public int insert(Comment comment){return jdbcTemplate.update(
             INSERT_COMMENT,
             comment.getID(),

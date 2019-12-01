@@ -47,12 +47,12 @@
             <div class="row">
                 <div class="col-lg-8 col-md-8">
                     <div th:each="post : ${IndexThread}">
-                        <div th:replace="fragment/Dynamic :: thread"></div>
+                        <div th:replace="fragment/Dynamic :: threadProfile"></div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4">
                     <!--<div th:replace="fragment/Dynamic :: weather"></div>-->
-                    <div th:replace="fragment/Dynamic :: userImage"></div>
+                    <div th:replace="fragment/Dynamic :: userInfo"></div>
                     <!--<div th:replace="fragment/Dynamic :: topThreads"></div>-->
                     <!--<div th:replace="fragment/Dynamic :: categories"></div>-->
                 </div>
@@ -105,6 +105,13 @@
             document.getElementById("searchButton").click();
         }
     });
+</script>
+<script>
+    function remove(value) {
+        if (confirm('Do you want to delete?')) {
+            window.location.replace("/Thread/"+value+"/delete");
+        }
+    }
 </script>
 <!-- END REVOLUTION SLIDER -->
 </body>

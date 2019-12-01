@@ -74,6 +74,54 @@
 </div>
 <!--Index Thread-->
 
+<!-- Profile Thread -->
+<div th:fragment="threadProfile">
+    <div class="post">
+        <div class="wrap-ut pull-left">
+            <div class="userinfo pull-left">
+                <div class="avatar">
+                    <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
+
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
+                </div>
+
+                <div class="icons">
+                    <div th:if="${Users.isPrivate(post.getUsername())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(post.getUsername())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="posttext pull-left">
+                <h2><a th:href="'/Thread/'+ ${post.getID()}" th:text="${post.getTitle()}" ></a></h2>
+                <p th:text="${#strings.abbreviate(post.html2text(post.getText()),143)}"></p>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+        <div class="postinfo pull-left">
+            <div class="comments">
+                <div class="commentbg">
+                    <span th:text="${Comment.getCount(post.getID())}"></span>
+                    <div class="mark"></div>
+                </div>
+            </div>
+            <div class="views"><i class="fa fa-thumbs-o-up"></i> <span th:text="${post.getUpvotes()}"></span></div>
+            <div class="time"><i class="fa fa-clock-o"></i> <span th:text="${post.timeSinceCreation()}"></span></div>
+            <div th:id="${post.getID()}" class="remove" onclick="remove(this.getAttribute('id'));" >
+                <a class="down" ><i class="fa fa-trash-o"></i>
+                    <span>Delete</span></a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!-- Profile Thread -->
+
 <!--Comment without father-->
 <div th:fragment="singleComment">
     <div class="post">
@@ -167,19 +215,46 @@
 </div>
 <!--Top Threads-->
 
-<!--User image -->
-<div th:fragment="userImage">
+<!--User info -->
+<div th:fragment="userInfo">
     <div class="sidebarblock">
-        <h3><i class="fas fa-camera"></i> Profile Image</h3>
+        <h3><i class="fas fa-info"></i> User Information </h3>
+
         <div class="divline"></div>
         <div class="blocktxt">
-            <div class="roundedimage">
-                <img th:src="@{/images/avatar.jpg}"/>
-            </div>
+            <ul>
+                <li>
+                    <label>Username: </label>
+                    <label th:text="${User.getUsername()}"></label>
+                </li>
+                <li>
+                    <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" />
+                </li>
+                <li>
+                    <label>Is member: </label>
+                    <label th:text="${User.getSimpleDate()}"></label>
+                </li>
+                <li>
+                    <div th:if="${Users.isPrivate(Principal.getName())}">
+                        <img th:src="@{../images/premium.png}" alt="" />
+                    </div>
+                    <div th:if="${Users.isModerator(Principal.getName())}">
+                        <img th:src="@{../images/mod.png}" alt="" />
+                    </div>
+                </li>
+                <li>
+                    <label>Created Threads: </label>
+                    <label th:text="${CountThread}"></label>
+                </li>
+                <li>
+                    <label>Created Comments: </label>
+                    <label th:text="${CountComment}"></label>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
-<!--User image -->
+<!--User info -->
 
 <!--Weather-->
 <div th:fragment="weather">
