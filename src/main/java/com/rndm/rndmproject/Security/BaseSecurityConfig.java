@@ -31,6 +31,8 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/fragment/**").permitAll()
                 .antMatchers("/Static.html").permitAll()
                 .antMatchers("/Thread/{id}").permitAll()
+                .antMatchers("/Modidythread").permitAll()
+                .antMatchers("/ModifyThread/{id}").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin() //to use forms (web)

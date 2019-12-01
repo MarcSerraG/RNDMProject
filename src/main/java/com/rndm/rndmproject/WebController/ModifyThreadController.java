@@ -1,0 +1,78 @@
+package com.rndm.rndmproject.WebController;
+
+import com.rndm.rndmproject.Controller.CategoryUseCases;
+import com.rndm.rndmproject.Controller.RESTController;
+import com.rndm.rndmproject.Controller.ThreadUseCases;
+import com.rndm.rndmproject.Controller.UserUseCases;
+import com.rndm.rndmproject.domain.Comment;
+import com.rndm.rndmproject.domain.Thread;
+import com.rndm.rndmproject.persistence.CommentDAO;
+import com.rndm.rndmproject.persistence.VotesDAO;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.security.Principal;
+
+@Controller
+public class ModifyThreadController {
+
+    private ThreadUseCases threadUseCases;
+    private CategoryUseCases categoryUseCases;
+    private VotesDAO votesDAO;
+    private UserUseCases userUseCases;
+    private CommentDAO  commentDAO;
+    private RESTController restController;
+
+
+    public ModifyThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases, VotesDAO votesDAO, UserUseCases userUseCases, CommentDAO commentDAO, RESTController rest){
+        this.threadUseCases = useCases;
+        this.categoryUseCases = categoryUseCases;
+        this.votesDAO = votesDAO;
+        this.userUseCases = userUseCases;
+        this.commentDAO = commentDAO;
+        this.restController = rest;
+
+    }
+
+    @GetMapping("/ModifyThread/{id}")
+    public String ModifyThread(Model model, @PathVariable String id, Principal principal){
+        Thread tres = new Thread();
+        try {
+            tres = this.threadUseCases.getThread(id);
+            System.out.println(tres);
+        } catch (Exception e){
+            return "redirect:/error";
+        }
+        model.addAttribute("ModifyThread",tres);
+        model.addAttribute("Categories", categoryUseCases.findCategories());
+        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Principal", principal);
+        model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Weather", restController.getWeather());
+        model.addAttribute("Comment", commentDAO);
+        model.addAttribute("TopCategory", threadUseCases.getTop());
+        model.addAttribute("Logo", categoryUseCases);
+
+        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
+        return "modify_thread";
+    }
+
+
+    @PostMapping("/ModifyThread/{id}")
+    public String ModifyThread(Thread ModifyThread, @PathVariable String id, Errors errors, Model model, Principal principal){
+        if(errors.hasErrors()){
+            return "";
+        }
+        try {
+            this.threadUseCases.update(ModifyThread);
+            return "redirect:/";
+
+        }catch (Exception e){
+            System.err.println("Error al crear un thread: " + e);
+            return "/";
+        }
+    }
+}

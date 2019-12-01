@@ -31,6 +31,7 @@ public class ThreadUseCases {
         public int insert( Thread newthread ){
             return this.threadDAO.insert(newthread);
         }
+        public int update(Thread modifythread) { return this.threadDAO.update(modifythread);}
         public int delete( String id) { return this.threadDAO.deleteThread(id);}
 
         public List<Thread> findThreadByCategory ( String Category ){ return this.threadDAO.findThreadByCategory(Category); }
