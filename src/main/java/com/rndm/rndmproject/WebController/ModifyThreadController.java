@@ -39,14 +39,9 @@ public class ModifyThreadController {
 
     @GetMapping("/ModifyThread/{id}")
     public String ModifyThread(Model model, @PathVariable String id, Principal principal){
-        Thread tres = new Thread();
-        try {
-            tres = this.threadUseCases.getThread(id);
-            System.out.println(tres);
-        } catch (Exception e){
-            return "redirect:/error";
-        }
-        model.addAttribute("ModifyThread",tres);
+
+        model.addAttribute("NewThread", new Thread());
+        model.addAttribute("OldThread", this.threadUseCases.getThread(id));
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
@@ -55,7 +50,6 @@ public class ModifyThreadController {
         model.addAttribute("Comment", commentDAO);
         model.addAttribute("TopCategory", threadUseCases.getTop());
         model.addAttribute("Logo", categoryUseCases);
-
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
         return "modify_thread";
     }
@@ -67,7 +61,10 @@ public class ModifyThreadController {
             return "";
         }
         try {
-            this.threadUseCases.update(ModifyThread);
+            this.threadUseCases.delete(id);
+            Thread modThread = ModifyThread;
+            modThread.setId(id);
+            this.threadUseCases.insert(modThread);
             return "redirect:/";
 
         }catch (Exception e){

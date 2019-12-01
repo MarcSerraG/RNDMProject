@@ -145,6 +145,8 @@ public class Thread {
     public String getText(){return text;}
     public Boolean getVote(String username) { return this.mapVotes.get(username); }
 
+    public void setId(String newID){this.id = newID;}
+
 
     public void addVote(Votes vote){
         String username = vote.getUser();
