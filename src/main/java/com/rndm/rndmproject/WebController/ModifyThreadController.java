@@ -61,10 +61,9 @@ public class ModifyThreadController {
             return "";
         }
         try {
-            this.threadUseCases.delete(id);
             Thread modThread = ModifyThread;
             modThread.setId(id);
-            this.threadUseCases.insert(modThread);
+            this.threadUseCases.update(modThread);
             return "redirect:/";
 
         }catch (Exception e){
