@@ -18,6 +18,7 @@ public class Thread {
     private String text;
     private Object media;
     private String username;
+    private boolean premium;
     private List<Tag> tags;
     private Category category;
     // Username - Positive (true) negative (false) - No vote (null)
@@ -37,6 +38,8 @@ public class Thread {
     }
 
     public void setUsername(String username) { this.username = username; }
+
+    public void setPremium(boolean premium) { this.premium = premium; }
 
     //Constructor
     public Thread (String title, String text, Object media, String username, List<Tag> tags, Category category){
@@ -85,6 +88,7 @@ public class Thread {
         date = new Date(System.currentTimeMillis());
         comments = new ArrayList<String>();
         this.id = generateID();
+        this.premium = false;
         System.out.println("Identificador: " +id);
     }
 
@@ -137,6 +141,7 @@ public class Thread {
     public String getMedia(){return (String) this.media;}
     public String getUsername() {return username;}
     public Category getCategory(){return category;}
+    public boolean isPremium() { return this.premium; }
     public int getUpvotes(){return countVotes()[0];}
     public int getDownvotes(){return countVotes()[1];}
     private String generateID(){return Integer.toString(Math.abs(username.hashCode() + date.hashCode()));}//Need a modification, alphanumeric encrypt

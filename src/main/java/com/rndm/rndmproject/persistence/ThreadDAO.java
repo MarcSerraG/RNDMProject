@@ -70,7 +70,7 @@ public class ThreadDAO {
     }
 
     public int insert(Thread thread){
-        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), 0, thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
+        return jdbctemplate.update(INSERT_THREAD, thread.getID(), thread.getTitle(), thread.getText(), thread.getMedia(), thread.isPremium(), thread.getUsername(), thread.getCategory().getName(), (String)thread.getDate());
     }
 
     public int deleteThread(String id){
