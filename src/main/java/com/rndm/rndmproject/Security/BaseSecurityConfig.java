@@ -57,7 +57,7 @@ public class BaseSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .csrf().disable()
-                .headers()
+                .headers().httpStrictTransportSecurity().disable()
                 .frameOptions().disable();
     }
 }
