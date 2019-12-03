@@ -1,7 +1,7 @@
 package com.rndm.rndmproject.WebController;
 
-import com.rndm.rndmproject.Controller.UserUseCases;
 import com.rndm.rndmproject.domain.User;
+import com.rndm.rndmproject.persistence.UserDAO;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSessionEvent;
 import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 public class LoginController {
 
-    private UserUseCases userUseCases;
+    private UserDAO userDAO;
 
-    public LoginController(UserUseCases userUseCases) {
-        this.userUseCases = userUseCases;
+    public LoginController(UserDAO userDAO) {
+        this.userDAO = userDAO;
     }
 
     @GetMapping("register")
@@ -35,7 +34,7 @@ public class LoginController {
     public String registerUser(@ModelAttribute("usernew") @Valid User usernew, Errors errors, Model model) {
         if (!errors.hasErrors()) {
             try {
-                this.userUseCases.insertUser(usernew);
+                this.userDAO.insertUser(usernew);
             }catch (Exception e){
                 if(String.valueOf(e).contains("email")){
                     errors.rejectValue("email", null, "This user already exist");
@@ -70,7 +69,7 @@ public class LoginController {
     @GetMapping("success")
     public String succesLogin(Principal principal, HttpServletRequest session){
 
-        this.userUseCases.ChangeConnected(principal.getName(), 1);
+        this.userDAO.ChangeConnected(principal.getName(), 1);
 
         session.getSession().setAttribute("username", principal.getName());
 

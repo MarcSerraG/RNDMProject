@@ -1,37 +1,31 @@
 package com.rndm.rndmproject.WebController;
 
-import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.RESTController;
-import com.rndm.rndmproject.Controller.ThreadUseCases;
-import com.rndm.rndmproject.Controller.UserUseCases;
-import com.rndm.rndmproject.domain.Comment;
 import com.rndm.rndmproject.domain.Thread;
-import com.rndm.rndmproject.persistence.CommentDAO;
-import com.rndm.rndmproject.persistence.VotesDAO;
+import com.rndm.rndmproject.persistence.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 public class ModifyThreadController {
 
-    private ThreadUseCases threadUseCases;
-    private CategoryUseCases categoryUseCases;
+    private ThreadDAO threadDAO;
+    private CategoryDAO categoryDAO;
     private VotesDAO votesDAO;
-    private UserUseCases userUseCases;
+    private UserDAO userDAO;
     private CommentDAO  commentDAO;
     private RESTController restController;
 
 
-    public ModifyThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases, VotesDAO votesDAO, UserUseCases userUseCases, CommentDAO commentDAO, RESTController rest){
-        this.threadUseCases = useCases;
-        this.categoryUseCases = categoryUseCases;
+    public ModifyThreadController(ThreadDAO DAO, CategoryDAO categoryDAO, VotesDAO votesDAO, UserDAO userDAO, CommentDAO commentDAO, RESTController rest){
+        this.threadDAO = DAO;
+        this.categoryDAO = categoryDAO;
         this.votesDAO = votesDAO;
-        this.userUseCases = userUseCases;
+        this.userDAO = userDAO;
         this.commentDAO = commentDAO;
         this.restController = rest;
 
@@ -41,16 +35,16 @@ public class ModifyThreadController {
     public String ModifyThread(Model model, @PathVariable String id, Principal principal){
 
         model.addAttribute("NewThread", new Thread());
-        model.addAttribute("OldThread", this.threadUseCases.getThread(id));
-        model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("Users", userUseCases);
+        model.addAttribute("OldThread", this.threadDAO.getThread(id));
+        model.addAttribute("Categories", categoryDAO.findCategories());
+        model.addAttribute("Users", userDAO);
         model.addAttribute("Principal", principal);
-        model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Category", threadDAO);
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
-        model.addAttribute("TopCategory", threadUseCases.getTop());
-        model.addAttribute("Logo", categoryUseCases);
-        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
+        model.addAttribute("TopCategory", threadDAO.getTop());
+        model.addAttribute("Logo", categoryDAO);
+        model.addAttribute("TopThreads", threadDAO.getTopThreads());
         return "modify_thread";
     }
 
@@ -63,7 +57,7 @@ public class ModifyThreadController {
         try {
             Thread modThread = ModifyThread;
             modThread.setId(id);
-            this.threadUseCases.update(modThread);
+            this.threadDAO.update(modThread);
             return "redirect:/";
 
         }catch (Exception e){

@@ -1,41 +1,34 @@
 package com.rndm.rndmproject.WebController;
 
-import com.rndm.rndmproject.Controller.CategoryUseCases;
 import com.rndm.rndmproject.Controller.RESTController;
-import com.rndm.rndmproject.Controller.ThreadUseCases;
-import com.rndm.rndmproject.Controller.UserUseCases;
-import com.rndm.rndmproject.domain.Comment;
 import com.rndm.rndmproject.domain.Thread;
-import com.rndm.rndmproject.persistence.CommentDAO;
-import com.rndm.rndmproject.persistence.VotesDAO;
+import com.rndm.rndmproject.persistence.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
 @RequestMapping("NewThread")
 public class NewThreadController {
 
-    private ThreadUseCases threadUseCases;
-    private CategoryUseCases categoryUseCases;
+    private ThreadDAO threadDAO;
+    private CategoryDAO categoryDAO;
     private VotesDAO votesDAO;
-    private UserUseCases userUseCases;
+    private UserDAO userDAO;
     private CommentDAO  commentDAO;
     private RESTController restController;
 
 
-    public NewThreadController(ThreadUseCases useCases, CategoryUseCases categoryUseCases, VotesDAO votesDAO, UserUseCases userUseCases, CommentDAO commentDAO, RESTController rest){
-        this.threadUseCases = useCases;
-        this.categoryUseCases = categoryUseCases;
+    public NewThreadController(ThreadDAO DAO, CategoryDAO categoryDAO, VotesDAO votesDAO, UserDAO userDAO, CommentDAO commentDAO, RESTController rest){
+        this.threadDAO = DAO;
+        this.categoryDAO = categoryDAO;
         this.votesDAO = votesDAO;
-        this.userUseCases = userUseCases;
+        this.userDAO = userDAO;
         this.commentDAO = commentDAO;
         this.restController = rest;
 
@@ -44,16 +37,16 @@ public class NewThreadController {
     @GetMapping
     public String NewThread(Model model, Principal principal){
         model.addAttribute("NewThread",new Thread());
-        model.addAttribute("Categories", categoryUseCases.findCategories());
-        model.addAttribute("Users", userUseCases);
+        model.addAttribute("Categories", categoryDAO.findCategories());
+        model.addAttribute("Users", userDAO);
         model.addAttribute("Principal", principal);
-        model.addAttribute("Category", threadUseCases);
+        model.addAttribute("Category", threadDAO);
         model.addAttribute("Weather", restController.getWeather());
         model.addAttribute("Comment", commentDAO);
-        model.addAttribute("TopCategory", threadUseCases.getTop());
-        model.addAttribute("Logo", categoryUseCases);
+        model.addAttribute("TopCategory", threadDAO.getTop());
+        model.addAttribute("Logo", categoryDAO);
 
-        model.addAttribute("TopThreads", threadUseCases.getTopThreads());
+        model.addAttribute("TopThreads", threadDAO.getTopThreads());
         return "new_thread";
     }
 
@@ -72,7 +65,7 @@ public class NewThreadController {
 
             model.addAttribute("title", NewThread.getTitle());
             NewThread.setUsername(principal.getName());
-            this.threadUseCases.insert(NewThread);
+            this.threadDAO.insert(NewThread);
             return "redirect:/";
 
         }catch (Exception e){

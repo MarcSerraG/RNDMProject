@@ -52,8 +52,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(threadByID.getUsername())}}"  alt="" th:title="${threadByID.getUsername()}" />
-                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
-                    <div th:if="${Users.getIsConnected(threadByID.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(threadByID.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(threadByID.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">

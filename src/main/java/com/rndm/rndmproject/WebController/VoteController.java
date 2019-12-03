@@ -1,14 +1,11 @@
 package com.rndm.rndmproject.WebController;
 
 import com.rndm.rndmproject.domain.Votes;
-import com.rndm.rndmproject.domain.Thread;
 import com.rndm.rndmproject.persistence.ThreadDAO;
 import com.rndm.rndmproject.persistence.VotesDAO;
-import com.rndm.rndmproject.Controller.ThreadUseCases;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 @Controller

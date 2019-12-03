@@ -63,8 +63,8 @@
                                         <div class="userinfo pull-left">
                                             <div class="avatar">
                                                 <img th:src="@{${'../' + Users.getImage(Principal.getName())}}" alt="" />
-                                                <div th:if="${Users.getIsConnected(Principal.getName())== 1}"><div class="status green">&nbsp;</div> </div>
-                                                <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
+                                                <div th:if="${Users.IsUserconnected(Principal.getName())== 1}"><div class="status green">&nbsp;</div> </div>
+                                                <div th:if="${Users.IsUserconnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
                                             </div>
 
                                             <div class="icons">

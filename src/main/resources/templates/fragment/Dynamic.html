@@ -38,8 +38,8 @@
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
 
-                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
-                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -82,8 +82,8 @@
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(post.getUsername())}}" alt="" th:title="${post.getUsername()}" />
 
-                    <div th:if="${Users.getIsConnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
-                    <div th:if="${Users.getIsConnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(post.getUsername()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(post.getUsername()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -135,8 +135,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}"/>
-                    <div th:if="${Users.getIsConnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
-                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(comment.getCommentuser())== 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(comment.getCommentuser()) == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
 
                 <div class="icons">
@@ -174,8 +174,8 @@
             <div class="userinfo pull-left">
                 <div class="avatar">
                     <img th:src="@{${'../' + Users.getImage(comment.getCommentuser())}}" alt="" th:title="${comment.getCommentuser()}" />
-                    <div th:if="${Users.getIsConnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
-                    <div th:if="${Users.getIsConnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(comment.getCommentuser()) == 1}"><div class="status green">&nbsp;</div> </div>
+                    <div th:if="${Users.IsUserconnected(comment.getCommentuser())  == 0}"><div class="status red">&nbsp;</div> </div>
                 </div>
                 <div class="icons">
                     <div th:if="${Users.isPrivate(comment.getCommentuser())}">
@@ -300,8 +300,8 @@
                 <div class="userinfo pull-left">
                     <div class="avatar">
                         <img th:src="@{${'../' + Users.getImage(Principal.getName())}}"  alt="" />
-                        <div th:if="${Users.getIsConnected(Principal.getName()) == 1}"><div class="status green">&nbsp;</div> </div>
-                        <div th:if="${Users.getIsConnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
+                        <div th:if="${Users.IsUserconnected(Principal.getName()) == 1}"><div class="status green">&nbsp;</div> </div>
+                        <div th:if="${Users.IsUserconnected(Principal.getName()) == 0}"><div class="status red">&nbsp;</div> </div>
                     </div>
 
                     <div class="icons">
