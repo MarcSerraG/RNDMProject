@@ -14,8 +14,7 @@ public class User {
     @Size(min = 4, max = 20, message = "username must be between 4 and 20 characters long")
     private String username;
 
-    @NotEmpty(message = "email cannot be empty")
-    @Email(message = "email should be valid")
+    @Pattern(regexp = "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$", message= "Enter a valid email")
     private String email;
 
 
