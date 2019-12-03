@@ -53,7 +53,7 @@ public class GetWebController {
         boolean premiumSearch = false;
         if (auth != null)
             premiumSearch = true;
-        model.addAttribute("IndexThread", threadUseCases.findFirstTen(premiumSearch));
+        model.addAttribute("IndexThread", threadUseCases.findFirstTen(premiumSearch)); // For hiding private threads
         model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
@@ -71,7 +71,11 @@ public class GetWebController {
 
     @GetMapping("Page/{page}")
     public String firstThreads (Model model, @PathVariable int page, Principal principal){
-        model.addAttribute("IndexThread", threadUseCases.findXThreads(page));
+        boolean premium = false;
+        if (principal != null)
+            premium = true;
+
+        model.addAttribute("IndexThread", threadUseCases.findXThreads(page, premium));
         model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
@@ -90,7 +94,7 @@ public class GetWebController {
         boolean premiumSearch = false;
         if (principal != null)
             premiumSearch = true;
-        model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category, premiumSearch));
+        model.addAttribute("IndexThread", threadUseCases.findThreadByCategory(category, premiumSearch)); // Hide private threads
         model.addAttribute("Pages", getNumberPages());
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("TopThreads", threadUseCases.getTopThreads());
@@ -107,7 +111,7 @@ public class GetWebController {
     @GetMapping("/Thread/{id}")
     public String LoadThread (Model model, @PathVariable String id, HttpServletRequest request, Principal principal){
         Thread thread = threadUseCases.getThread(id);
-        if (principal == null)
+        if (principal == null && thread.isPremium())
             thread.setText("<p>You need to be registered to view the content of this thread!</p>");
 
         model.addAttribute("threadByID", thread);
