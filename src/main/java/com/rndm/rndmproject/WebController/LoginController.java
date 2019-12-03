@@ -37,8 +37,9 @@ public class LoginController {
             try {
                 this.userUseCases.insertUser(usernew);
             }catch (Exception e){
+                System.out.println(e);
                 if(String.valueOf(e).contains("email")){
-                    errors.rejectValue("email", null, "This user already exist");
+                    errors.rejectValue("email", null, "This email already exist");
                 }else{
                     errors.rejectValue("username", null, "This user already exist");
                 }

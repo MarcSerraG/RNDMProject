@@ -26,7 +26,7 @@ public class UserDAO {
 
     private final String FIND_ALL = "select * from usuari";
     private final String FIND_USERNAME = FIND_ALL + " where username = ?";
-    private final String INSERT_USER = "insert into usuari (username, password, email, date_start, is_private, date_sus_start) values (?,?,?,?,?,?)";
+    private final String INSERT_USER = "insert into usuari (username, password, email, date_start, is_private, is_moderator, date_sus_start) values (?,?,?,?,?,?,?)";
     private final String CHANGE_PASSWORD = "update usuari set password = ? where username = ?";
     private final String GET_PASSWORD = "select password from usuari where username = ?";
     private final String GET_EMAIL = "select email from usuari where username = ?";
@@ -83,12 +83,10 @@ public class UserDAO {
     public int insertUser(User user){
 
         Date date = new Date();
-
-        //TODO date string format de ricard
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
-        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(), null);
+        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(),user.getModerator(), null);
     }
 
     public int IsUserconnected(String username){
