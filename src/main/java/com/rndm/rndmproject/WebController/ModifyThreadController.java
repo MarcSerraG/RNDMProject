@@ -40,8 +40,12 @@ public class ModifyThreadController {
     @GetMapping("/ModifyThread/{id}")
     public String ModifyThread(Model model, @PathVariable String id, Principal principal){
 
+        Thread OldThread = this.threadUseCases.getThread(id);
+
+        if(!OldThread.getUsername().equals(principal.getName())) return "redirect: ../../../login";
+
         model.addAttribute("NewThread", new Thread());
-        model.addAttribute("OldThread", this.threadUseCases.getThread(id));
+        model.addAttribute("OldThread", OldThread);
         model.addAttribute("Categories", categoryUseCases.findCategories());
         model.addAttribute("Users", userUseCases);
         model.addAttribute("Principal", principal);
