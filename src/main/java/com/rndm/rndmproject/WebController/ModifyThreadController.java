@@ -42,7 +42,7 @@ public class ModifyThreadController {
 
         Thread OldThread = this.threadUseCases.getThread(id);
 
-        if(!OldThread.getUsername().equals(principal.getName())) return "redirect: ../../../login";
+        if(!OldThread.getUsername().equals(principal.getName())) return "redirect: ../../../profile";
 
         model.addAttribute("NewThread", new Thread());
         model.addAttribute("OldThread", OldThread);
