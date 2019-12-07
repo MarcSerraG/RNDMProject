@@ -23,7 +23,7 @@
           <![endif]-->
 
         <!-- fonts -->
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" th:href="@{font-awesome-4.0.3/css/font-awesome.min.css}">
         <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
@@ -68,7 +68,12 @@
                                             </div>
 
                                             <div class="icons">
-                                                <img src="../static/images/icon3.jpg" alt="" /><img src="../static/images/icon4.jpg" alt="" /><img src="../static/images/icon5.jpg" alt="" /><img src="../static/images/icon6.jpg" alt="" />
+                                                <div th:if="${Users.isPrivate(Principal.getName())}">
+                                                    <img th:src="@{../images/premium.png}" alt="" />
+                                                </div>
+                                                <div th:if="${Users.isModerator(Principal.getName())}">
+                                                    <img th:src="@{../images/mod.png}" alt="" />
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="posttext pull-left">
@@ -147,16 +152,13 @@
         </div>
 
         <!-- get jQuery from the google apis -->
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
+        <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.js"></script>
 
         <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
-        <script type="text/javascript" th:src="@{rs-plugin/js/jquery.themepunch.plugins.min.js}"></script>
-        <script type="text/javascript" th:src="@{rs-plugin/js/jquery.themepunch.revolution.min.js}"> </script>
-
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script th:src="@{js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/weather.js}"></script>
+        <script src="/js/jquery.themepunch.plugins.min.js"></script>
+        <script src="/js/jquery.themepunch.revolution.min.js"> </script>
+        <script src="/js/bootstrap.min.js"></script>
+        <script src="/js/weather.js"></script>
 
 
         <!-- LOOK THE DOCUMENTATION FOR MORE INFORMATIONS -->
