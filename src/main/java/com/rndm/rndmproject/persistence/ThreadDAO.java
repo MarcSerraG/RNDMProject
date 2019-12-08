@@ -32,17 +32,17 @@ public class ThreadDAO {
     private final String FIND_USER_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where users_username = ?";
     private final String FIND_USER_THREAD_VOTES = "select id_thread, title, content, image_url, t.users_username, category_name , date_creation, is_private, count(v.positive) as vot from thread t"+
             " left join vote v on v.threads_id_thread = t.id_thread where t.users_username = ? group by t.id_thread order by vot desc;";
-    private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where is_private = '0' order by date_creation DESC limit ?" ; //linia per h2
-    private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where is_private = '0' order by date_creation DESC limit ?,10" ; //linia per h2
-    private final String FIRST_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread order by date_creation DESC limit ?" ; //linia per h2
-    private final String FINDX_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread limit 10 offset ?" ; //linia per h2
+    private final String FIRST_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where is_private = '0' order by date_creation DESC limit ?" ;
+    private final String FINDX_THREADS = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where is_private = '0' order by date_creation DESC limit ?,10" ;
+    private final String FIRST_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread order by date_creation DESC limit ?" ;
+    private final String FINDX_THREADS_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread order by date_creation DESC limit ?,10" ;
     private final String FIND_THREAD_CATEGORY = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where is_private = '0' AND category_name = ? limit 10";
     private final String FIND_THREAD_CATEGORY_ALL = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where category_name = ? limit 10";
     private final String FIND_THREADS_BYNAME = "select id_thread, title, content, image_url, users_username, category_name , date_creation, is_private from thread where title like \"%?%\" ";
     private final String FIND_TOPTHREADS = "SELECT threads_id_thread FROM vote WHERE positive = 1 GROUP BY threads_id_thread ORDER BY count(positive) DESC";
     private final String DELETE_THREAD = "DELETE FROM thread WHERE id_thread = ?";
     private final String UPDATE_THREAD = "update thread set title=?,content=?,category_name=? where id_thread = ?";
-    private final String COUNT_THREADS = "select count(*) from thread ";
+    private final String COUNT_THREADS = "select count(*) from thread where is_private = ?";
 
     private Thread threadMapper(ResultSet resultSet) throws SQLException {
 
@@ -100,14 +100,12 @@ public class ThreadDAO {
            return jdbctemplate.query(FIRST_THREADS, mapper, 10);
     }
 
-    public List<Thread> findXThreads(int page){
-        return jdbctemplate.query(FINDX_THREADS, mapper, (page * 10)-10);
-    }
+
     public List<Thread> findXThreads(int page, boolean premiumSearch) {
         if (premiumSearch)
-            return jdbctemplate.query(FINDX_THREADS_ALL, mapper, page * 10);
+            return jdbctemplate.query(FINDX_THREADS_ALL, mapper, (page * 10)-10);
         else
-            return jdbctemplate.query(FINDX_THREADS, mapper, page * 10);
+            return jdbctemplate.query(FINDX_THREADS, mapper, (page * 10)-10);
     }
 
     public List<Thread> findThreadByCategory(String Category){
@@ -187,8 +185,8 @@ public class ThreadDAO {
 
     }
 
-    public int getTotalThreads(){
-        return this.jdbctemplate.queryForObject(COUNT_THREADS, Integer.class);
+    public int getTotalThreads(int state){
+        return this.jdbctemplate.queryForObject(COUNT_THREADS, Integer.class, state);
     }
 
 
