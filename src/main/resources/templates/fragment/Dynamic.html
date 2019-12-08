@@ -306,7 +306,7 @@
 
                     <div class="icons">
                         <div th:if="${Users.isPrivate(Principal.getName())}">
-                            <img th:src="@{images/premium.png}" alt="" />
+                            <img th:src="@{../images/premium.png}" alt="" />
                         </div>
                         <div th:if="${Users.isModerator(Principal.getName())}">
                             <img th:src="@{../images/mod.png}" alt="" />
