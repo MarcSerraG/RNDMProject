@@ -24,8 +24,6 @@ public class ThreadUseCases {
                 return this.threadDAO.findFirstTen(privateSearch);
         }
 
-        public List<Thread> findXThreads(int page){return this.threadDAO.findXThreads(page);}
-
         public List<Thread> findXThreads(int page, boolean premiumSearch){return this.threadDAO.findXThreads(page, premiumSearch);}
 
         public int insert( Thread newthread ){
@@ -52,7 +50,7 @@ public class ThreadUseCases {
 
         public List<String> getTop(){return  this.threadDAO.getTop();}
 
-        public int getTotalThreads(){return this.threadDAO.getTotalThreads();}
+        public int getTotalThreads(int state){return this.threadDAO.getTotalThreads(state);}
 
 
 }
