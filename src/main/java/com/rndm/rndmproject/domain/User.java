@@ -29,6 +29,7 @@ public class User {
     private boolean moderator;
     private Date date;
     private boolean isConnected;
+    private String image;
   
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     SimpleDateFormat formattersimple = new SimpleDateFormat("dd/MM/yyyy");
