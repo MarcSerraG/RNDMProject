@@ -14,8 +14,7 @@ public class User {
     @Size(min = 4, max = 20, message = "username must be between 4 and 20 characters long")
     private String username;
 
-    @NotEmpty(message = "email cannot be empty")
-    @Email(message = "email should be valid")
+    @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message= "Enter a valid email")
     private String email;
 
 
@@ -30,6 +29,7 @@ public class User {
     private boolean moderator;
     private Date date;
     private boolean isConnected;
+    private String image;
   
     SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
     SimpleDateFormat formattersimple = new SimpleDateFormat("dd/MM/yyyy");

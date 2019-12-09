@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
-/*
+
 @ControllerAdvice
 public class ErrorHandlingController implements ErrorController {
 
@@ -50,4 +50,3 @@ public class ErrorHandlingController implements ErrorController {
 
 
 }
-*/

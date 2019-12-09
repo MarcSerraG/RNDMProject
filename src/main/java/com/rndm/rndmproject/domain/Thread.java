@@ -111,7 +111,7 @@ public class Thread {
     }
 
     //ConstructorDAO2
-    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes, Collection<Votes> votes) {
+    public Thread (String id, String title, String text, Object media, String username, List<Tag> tags, Category category, String data, int upvotes, int downvotes, Collection<Votes> votes, boolean premium) {
 
         this.id = id;
         this.title = title;
@@ -131,6 +131,7 @@ public class Thread {
         this.mapVotes = new HashMap<String, Boolean>();
         this.addManyVotes(votes);
         this.countVotes();
+        this.premium = premium;
     }
 
     //Methods

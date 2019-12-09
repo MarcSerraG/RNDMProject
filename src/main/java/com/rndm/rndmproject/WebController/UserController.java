@@ -58,11 +58,16 @@ public class UserController {
     }
 
     @GetMapping("Thread/{id}/delete")
-    public String deleteThread(@PathVariable String id, Authentication auth) {
+    public String deleteThread(@PathVariable String id, Authentication auth, Principal principal) {
         if (auth.getName() == null)
             return("/login");
         try {
-            this.threadUseCases.delete(id);
+            Thread OldThread = this.threadUseCases.getThread(id);
+
+            if(!OldThread.getUsername().equals(principal.getName()))
+                return "redirect: ../../../../profile";
+            else
+                this.threadUseCases.delete(id);
         }catch (Exception e){
             System.out.println("Error: "+e);
             return "redirect:/error";

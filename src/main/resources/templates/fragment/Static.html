@@ -17,7 +17,7 @@
     <![endif]-->
 
     <!-- fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" th:href="@{/font-awesome-4.0.3/css/font-awesome.min.css}">
     <script src="https://kit.fontawesome.com/895bf94ad8.js" crossorigin="anonymous"></script>
 
@@ -96,7 +96,7 @@
     <div class="headernav">
         <div class="container">
             <div class="row">
-                <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="/"><img th:src="@{/images/logo.jpg}"  alt=""  /></a></div>
+                <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo b-t-10"><a href="/"><img th:src="@{/images/logo.png}"  height="50px" width="50px" alt="" style="margin-top: 10px;"/></a></div>
                 <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
                     <div class="dropdown">
                         <a data-toggle="dropdown" href="#" >Select Category</a> <b class="caret"></b>
@@ -143,7 +143,7 @@
     <div class="headernav">
         <div class="container">
             <div class="row">
-                <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="/"><img th:src="@{/images/logo.jpg}"  alt=""  /></a></div>
+                <div class="col-lg-1 col-xs-3 col-sm-2 col-md-2 logo "><a href="/"><img th:src="@{/images/logo.png}"  height="50px" width="50px" alt="" style="margin-top: 10px;" /></a></div>
                 <div class="col-lg-3 col-xs-9 col-sm-5 col-md-3 selecttopic">
                     <div class="dropdown">
                         <a data-toggle="dropdown" href="#" >Select Category</a> <b class="caret"></b>
@@ -177,9 +177,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <div th:if="${!Users.isPrivate(Principal.getName())}">
-                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
-                            </div>
+                                <li th:if="${!Users.isPrivate(Principal.getName())}" role="presentation"><a role="menuitem" tabindex="-4" href="/" padding-left="5px" >Go Premium!</a></li>
                         </ul>
                     </div>
 
