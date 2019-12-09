@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Random;
 
 @Repository
 public class UserDAO {
@@ -26,7 +27,7 @@ public class UserDAO {
 
     private final String FIND_ALL = "select * from usuari";
     private final String FIND_USERNAME = FIND_ALL + " where username = ?";
-    private final String INSERT_USER = "insert into usuari (username, password, email, date_start, is_private, is_moderator, date_sus_start) values (?,?,?,?,?,?,?)";
+    private final String INSERT_USER = "insert into usuari (username, password, email, date_start, is_private, is_moderator, date_sus_start, image) values (?,?,?,?,?,?,?,?)";
     private final String CHANGE_PASSWORD = "update usuari set password = ? where username = ?";
     private final String GET_PASSWORD = "select password from usuari where username = ?";
     private final String GET_EMAIL = "select email from usuari where username = ?";
@@ -82,11 +83,12 @@ public class UserDAO {
     // TO DO
     public int insertUser(User user){
 
+        Random random = new Random();
         Date date = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
         String strDate = dateFormat.format(date);
 
-        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(),user.getModerator(), null);
+        return jdbctemplate.update(INSERT_USER, user.getUsername(), passwordEncoder().encode(user.getPassword()), user.getEmail(), strDate, user.getPremium(),user.getModerator(), null, "images/avatar" + (random.nextInt(8) + 1) +".png");
     }
 
     public int IsUserconnected(String username){

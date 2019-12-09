@@ -177,9 +177,7 @@
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="/profile">My Profile</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-3" href="/logout">Log Out</a></li>
-                            <div th:if="${!Users.isPrivate(Principal.getName())}">
-                                <li role="presentation"><a role="menuitem" tabindex="-4" href="/register">Go Premium!</a></li>
-                            </div>
+                                <li th:if="${!Users.isPrivate(Principal.getName())}" role="presentation"><a role="menuitem" tabindex="-4" href="/" padding-left="5px" >Go Premium!</a></li>
                         </ul>
                     </div>
 
