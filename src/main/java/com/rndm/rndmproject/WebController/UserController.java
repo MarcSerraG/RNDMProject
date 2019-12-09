@@ -54,7 +54,7 @@ public class UserController {
         model.addAttribute("Principal", principal);
         model.addAttribute("CountThread",threadUseCases.getCountUser(principal.getName()));
         model.addAttribute("CountComment",commentDAO.getCountCommentsByUser(principal.getName()));
-        return "/profile";
+        return "profile";
     }
 
     @GetMapping("Thread/{id}/delete")
@@ -72,7 +72,7 @@ public class UserController {
             System.out.println("Error: "+e);
             return "redirect:/error";
         }
-        return("redirect:/profile");
+        return("redirect:profile");
     }
 
 
